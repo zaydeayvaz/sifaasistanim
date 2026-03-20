@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Şifa Asistanım — Davet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0F1B4C 0%, #1E3A8A 40%, #2563EB 70%, #3B82F6 100%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: white; border-radius: 28px;
+    padding: 40px 28px; max-width: 380px; width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .icon {
+    width: 80px; height: 80px; border-radius: 22px;
+    background: linear-gradient(135deg, #2563EB, #3B82F6);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-size: 40px;
+  }
+  h1 { font-size: 24px; font-weight: 800; color: #0F172A; margin-bottom: 8px; }
+  .subtitle { font-size: 15px; color: #64748B; line-height: 1.6; margin-bottom: 8px; }
+  .owner-name {
+    display: inline-block; background: #EFF6FF; color: #1E3A8A;
+    font-weight: 700; font-size: 15px; padding: 6px 16px;
+    border-radius: 20px; margin: 12px 0 24px; border: 1px solid #BFDBFE;
+  }
+  .status { font-size: 14px; color: #94A3B8; margin-bottom: 24px; min-height: 20px; }
+  .status.trying { color: #2563EB; }
+  .status.failed { color: #64748B; }
+  .btn-open {
+    display: block; width: 100%;
+    background: linear-gradient(135deg, #2563EB, #3B82F6);
+    color: white; border: none; border-radius: 16px;
+    padding: 16px; font-size: 16px; font-weight: 800;
+    cursor: pointer; text-decoration: none;
+    font-family: inherit; margin-bottom: 10px;
+    transition: transform 0.15s;
+  }
+  .btn-open:hover { transform: translateY(-2px); }
+  .btn-store {
+    display: block; width: 100%;
+    background: #0F172A; color: white;
+    border: none; border-radius: 16px;
+    padding: 16px; font-size: 15px; font-weight: 700;
+    cursor: pointer; text-decoration: none;
+    font-family: inherit; margin-bottom: 10px;
+    transition: transform 0.15s;
+  }
+  .btn-store:hover { transform: translateY(-2px); }
+  .btn-copy {
+    display: block; width: 100%;
+    background: #F1F5F9; color: #334155;
+    border: none; border-radius: 16px;
+    padding: 14px; font-size: 14px; font-weight: 700;
+    cursor: pointer; font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn-copy:hover { background: #E2E8F0; }
+  .footer { margin-top: 24px; font-size: 12px; color: #CBD5E1; }
+  .footer a { color: #93C5FD; text-decoration: none; }
+  .hidden { display: none; }
+
+  .spinner {
+    width: 20px; height: 20px; border: 2.5px solid #BFDBFE;
+    border-top-color: #2563EB; border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block; vertical-align: middle; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon">💊</div>
+  <h1>Şifa Asistanım</h1>
+  <p class="subtitle">İlaç takip davetiyesi</p>
+  <div class="owner-name" id="ownerName"></div>
+
+  <p class="status trying" id="status">
+    <span class="spinner"></span> Uygulama açılıyor...
+  </p>
+
+  <!-- Uygulama varsa -->
+  <button class="btn-open" id="btnOpen" onclick="openApp()">Uygulamada Aç</button>
+
+  <!-- Uygulama yoksa -->
+  <div id="fallback" class="hidden">
+    <a href="#" class="btn-store" id="btnStore">App Store'dan İndir</a>
+    <button class="btn-copy" onclick="copyLink()">📋 Davet Linkini Kopyala</button>
+  </div>
+
+  <div class="footer">
+    <a href="https://sifaasistanim.com">sifaasistanim.com</a>
+  </div>
+</div>
+
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var intent = params.get('intent') || 'watch_owner';
+  var pid = params.get('pid') || '';
+  var name = params.get('name') || '';
+  var access = params.get('access') || 'read';
+  var v = params.get('v') || '';
+
+  // Build deep link
+  var deepLink = 'sifamobile://pair?intent=' + encodeURIComponent(intent)
+    + '&pid=' + encodeURIComponent(pid)
+    + (name ? '&name=' + encodeURIComponent(name) : '')
+    + '&access=' + encodeURIComponent(access)
+    + (v ? '&v=' + encodeURIComponent(v) : '');
+
+  // Show owner name
+  var nameEl = document.getElementById('ownerName');
+  if (name) {
+    nameEl.textContent = name + ' seni davet ediyor';
+  } else {
+    nameEl.textContent = 'İlaç takip daveti';
+  }
+
+  // Try to open app automatically
+  var appOpened = false;
+  var statusEl = document.getElementById('status');
+  var fallbackEl = document.getElementById('fallback');
+
+  function openApp() {
+    window.location.href = deepLink;
+
+    // If still here after 2.5s, app is not installed
+    setTimeout(function() {
+      if (!document.hidden) {
+        showFallback();
+      }
+    }, 2500);
+  }
+
+  function showFallback() {
+    statusEl.className = 'status failed';
+    statusEl.textContent = 'Uygulama bulunamadı. Önce yükleyin, sonra bu linke tekrar tıklayın.';
+    fallbackEl.className = '';
+  }
+
+  function copyLink() {
+    var linkToCopy = window.location.href;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(linkToCopy).then(function() {
+        var btn = document.querySelector('.btn-copy');
+        btn.textContent = '✓ Kopyalandı!';
+        setTimeout(function() { btn.textContent = '📋 Davet Linkini Kopyala'; }, 2000);
+      });
+    } else {
+      // Fallback
+      var ta = document.createElement('textarea');
+      ta.value = linkToCopy;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      var btn = document.querySelector('.btn-copy');
+      btn.textContent = '✓ Kopyalandı!';
+      setTimeout(function() { btn.textContent = '📋 Davet Linkini Kopyala'; }, 2000);
+    }
+  }
+
+  // Listen for visibility change (app opened successfully)
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      appOpened = true;
+      statusEl.className = 'status';
+      statusEl.textContent = '✓ Uygulama açıldı';
+    }
+  });
+
+  // Auto-try on load
+  openApp();
+</script>
+
+</body>
+</html>
