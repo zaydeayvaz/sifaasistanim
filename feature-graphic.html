@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Şifa Asistanım - Feature Graphic Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0f172a;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+    .subtitle {
+      color: #94a3b8;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+    .canvas-wrapper {
+      border: 2px solid #334155;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .btn-save {
+      margin-top: 30px;
+      padding: 16px 40px;
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+    }
+    .btn-save:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37, 99, 235, 0.6);
+    }
+    .btn-save:active {
+      transform: translateY(0);
+    }
+    .info {
+      margin-top: 16px;
+      color: #64748b;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Google Play Feature Graphic</h1>
+  <p class="subtitle">1024 x 500 px</p>
+
+  <div class="canvas-wrapper">
+    <canvas id="canvas" width="1024" height="500"></canvas>
+  </div>
+
+  <button class="btn-save" onclick="saveAsPNG()">Save as PNG</button>
+  <p class="info">Click the button to download feature-graphic.png</p>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function drawGraphic() {
+      const W = 1024;
+      const H = 500;
+
+      // --- Background gradient ---
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0, '#2563EB');
+      grad.addColorStop(1, '#1D4ED8');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // --- Decorative circles ---
+      const circles = [
+        { x: 80, y: 80, r: 120, a: 0.06 },
+        { x: 950, y: 420, r: 140, a: 0.06 },
+        { x: 200, y: 400, r: 80, a: 0.05 },
+        { x: 850, y: 100, r: 100, a: 0.05 },
+        { x: 500, y: 50, r: 60, a: 0.04 },
+        { x: 700, y: 450, r: 70, a: 0.04 },
+        { x: 150, y: 250, r: 50, a: 0.04 },
+        { x: 920, y: 250, r: 55, a: 0.04 },
+      ];
+      circles.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${c.a})`;
+        ctx.fill();
+      });
+
+      // --- Decorative dots ---
+      const dots = [
+        { x: 320, y: 60, r: 4 },
+        { x: 380, y: 440, r: 3 },
+        { x: 720, y: 80, r: 5 },
+        { x: 680, y: 420, r: 3 },
+        { x: 100, y: 350, r: 4 },
+        { x: 900, y: 180, r: 4 },
+        { x: 460, y: 470, r: 3 },
+        { x: 560, y: 30, r: 3 },
+        { x: 50, y: 180, r: 3 },
+        { x: 980, y: 350, r: 3 },
+      ];
+      dots.forEach(d => {
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.15)';
+        ctx.fill();
+      });
+
+      // --- Decorative rings ---
+      const rings = [
+        { x: 60, y: 440, r: 30 },
+        { x: 970, y: 60, r: 25 },
+        { x: 500, y: 480, r: 20 },
+      ];
+      rings.forEach(r => {
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      });
+
+      // --- Draw Şifi character (left side) ---
+      drawSifi(ctx, 260, 250);
+
+      // --- App name text ---
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+
+      // Main title
+      ctx.font = '900 62px Nunito';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.shadowColor = 'rgba(0,0,0,0.25)';
+      ctx.shadowBlur = 15;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 4;
+      ctx.fillText('Şifa Asistanım', 420, 220);
+
+      // Subtitle
+      ctx.font = '700 28px Nunito';
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetY = 2;
+      ctx.fillText('İlaç Takip & Sağlık Asistanı', 425, 290);
+
+      // Reset shadow
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+
+      // --- Small pill icons as decorative elements near text ---
+      drawPill(ctx, 790, 340, 20, 8, -15);
+      drawPill(ctx, 850, 360, 16, 6, 25);
+      drawPill(ctx, 440, 340, 18, 7, -30);
+    }
+
+    function drawSifi(ctx, cx, cy) {
+      const scale = 2.2;
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(scale, scale);
+      // Offset so character is centered at 0,0
+      const ox = -45;
+      const oy = -50;
+
+      // Glow behind character
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(0, 5, 55, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.08)';
+      ctx.fill();
+      ctx.restore();
+
+      // Antenna stems
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+
+      ctx.beginPath();
+      ctx.moveTo(36 + ox, 22 + oy);
+      ctx.lineTo(32 + ox, 6 + oy);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(54 + ox, 22 + oy);
+      ctx.lineTo(58 + ox, 6 + oy);
+      ctx.stroke();
+
+      // Antenna balls (red)
+      ctx.beginPath();
+      ctx.arc(32 + ox, 5 + oy, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#EF4444';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(58 + ox, 5 + oy, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#EF4444';
+      ctx.fill();
+
+      // Body (blue capsule top)
+      ctx.beginPath();
+      ctx.ellipse(45 + ox, 55 + oy, 28, 35, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#3B82F6';
+      ctx.fill();
+
+      // Body (white/light bottom)
+      ctx.beginPath();
+      ctx.ellipse(45 + ox, 72 + oy, 28, 18, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#E8EDF5';
+      ctx.globalAlpha = 0.95;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // Arms (gray)
+      ctx.strokeStyle = '#94A3B8';
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
+
+      ctx.beginPath();
+      ctx.moveTo(17 + ox, 55 + oy);
+      ctx.lineTo(4 + ox, 52 + oy);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(73 + ox, 55 + oy);
+      ctx.lineTo(86 + ox, 52 + oy);
+      ctx.stroke();
+
+      // Eyes - white circles
+      ctx.beginPath();
+      ctx.arc(36 + ox, 46 + oy, 5.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'white';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(54 + ox, 46 + oy, 5.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'white';
+      ctx.fill();
+
+      // Eyes - pupils
+      ctx.beginPath();
+      ctx.arc(37.5 + ox, 45.5 + oy, 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#0F172A';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(55.5 + ox, 45.5 + oy, 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#0F172A';
+      ctx.fill();
+
+      // Eyes - highlights
+      ctx.beginPath();
+      ctx.arc(38.5 + ox, 44 + oy, 1.2, 0, Math.PI * 2);
+      ctx.fillStyle = 'white';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(56.5 + ox, 44 + oy, 1.2, 0, Math.PI * 2);
+      ctx.fillStyle = 'white';
+      ctx.fill();
+
+      // Smile
+      ctx.beginPath();
+      ctx.moveTo(38 + ox, 54 + oy);
+      ctx.quadraticCurveTo(45 + ox, 60 + oy, 52 + ox, 54 + oy);
+      ctx.strokeStyle = '#0F172A';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Feet
+      ctx.beginPath();
+      ctx.ellipse(36 + ox, 90 + oy, 8, 4, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#94A3B8';
+      ctx.globalAlpha = 0.5;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.ellipse(54 + ox, 90 + oy, 8, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      ctx.restore();
+    }
+
+    function drawPill(ctx, x, y, len, rad, angle) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle * Math.PI / 180);
+      ctx.globalAlpha = 0.2;
+
+      // Left half (white)
+      ctx.beginPath();
+      ctx.arc(-len / 2, 0, rad, Math.PI * 0.5, Math.PI * 1.5);
+      ctx.lineTo(0, -rad);
+      ctx.lineTo(0, rad);
+      ctx.closePath();
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+
+      // Right half (light blue)
+      ctx.beginPath();
+      ctx.arc(len / 2, 0, rad, -Math.PI * 0.5, Math.PI * 0.5);
+      ctx.lineTo(0, rad);
+      ctx.lineTo(0, -rad);
+      ctx.closePath();
+      ctx.fillStyle = '#93c5fd';
+      ctx.fill();
+
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    }
+
+    // Wait for font to load then draw
+    document.fonts.ready.then(() => {
+      drawGraphic();
+    });
+
+    function saveAsPNG() {
+      const link = document.createElement('a');
+      link.download = 'feature-graphic.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+</body>
+</html>
