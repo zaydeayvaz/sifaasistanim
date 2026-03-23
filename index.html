@@ -77,6 +77,12 @@
       box-shadow: 0 4px 12px rgba(37,99,235,0.3);
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -93,6 +99,36 @@
     }
 
     .nav-links a:hover { color: var(--blue); }
+
+    /* LANG SWITCHER */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: var(--blue-light);
+      border-radius: 100px;
+      padding: 3px;
+      gap: 2px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: none;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font);
+    }
+
+    .lang-btn.active {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+    }
 
     .btn {
       display: inline-flex;
@@ -196,7 +232,7 @@
       margin-bottom: 20px;
     }
 
-    h1 .accent { 
+    h1 .accent {
       background: linear-gradient(135deg, #2563EB, #8B5CF6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -697,18 +733,16 @@
     .pricing-card-premium .pricing-price .amount { color: white; }
 
     .pricing-price .currency {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text-muted);
-      vertical-align: top;
-      margin-top: 10px;
-      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--text);
     }
 
-    .pricing-card-premium .pricing-price .currency { color: rgba(255,255,255,0.6); }
+    .pricing-card-premium .pricing-price .currency { color: white; }
 
     .pricing-price .period {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-muted);
       font-weight: 600;
     }
@@ -718,82 +752,50 @@
     .pricing-launch-note {
       font-size: 13px;
       color: var(--text-muted);
-      margin-bottom: 28px;
-      line-height: 1.5;
+      margin-bottom: 20px;
     }
 
-    .pricing-card-premium .pricing-launch-note { color: rgba(255,255,255,0.6); }
-
     .pricing-free-now {
-      background: linear-gradient(135deg, #10B981, #059669);
-      color: white;
-      padding: 6px 14px;
-      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
+      color: #FDE68A;
+      padding: 8px 14px;
+      border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
-      display: inline-block;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
 
     .pricing-divider {
       height: 1px;
       background: var(--border);
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
 
-    .pricing-card-premium .pricing-divider { background: rgba(255,255,255,0.12); }
+    .pricing-card-premium .pricing-divider { background: rgba(255,255,255,0.15); }
 
     .pricing-features {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
     .pricing-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
       font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.5;
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
     }
 
-    .pricing-card-premium .pricing-features li { color: rgba(255,255,255,0.8); }
+    .pricing-card-premium .pricing-features li { color: rgba(255,255,255,0.85); }
 
-    .pricing-features li .check {
-      width: 20px; height: 20px;
-      background: #DCFCE7;
-      color: #16A34A;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .pricing-card-premium .pricing-features li .check {
-      background: rgba(255,255,255,0.15);
-      color: #86EFAC;
-    }
-
-    .pricing-features li .soon {
-      font-size: 10px;
-      background: #FEF3C7;
-      color: #92400E;
-      padding: 2px 7px;
-      border-radius: 100px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
+    .check { color: var(--green); font-weight: 700; }
 
     .btn-pricing-free {
       width: 100%;
       justify-content: center;
-      background: white;
+      background: var(--blue-light);
       color: var(--blue);
-      border: 2px solid var(--blue);
       font-family: var(--font-display);
       font-weight: 800;
     }
@@ -1062,17 +1064,23 @@
   <nav>
     <a href="#" class="nav-logo">
       <div class="nav-logo-icon">💊</div>
-      Şifa Asistanım
+      <span data-tr="Şifa Asistanım" data-en="Şifa Assistant">Şifa Asistanım</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#screenshots">Ekranlar</a></li>
-      <li><a href="#features">Özellikler</a></li>
-      <li><a href="#pricing">Fiyatlar</a></li>
-      <li><a href="#faq">SSS</a></li>
+      <li><a href="#screenshots" data-tr="Ekranlar" data-en="Screenshots">Ekranlar</a></li>
+      <li><a href="#features" data-tr="Özellikler" data-en="Features">Özellikler</a></li>
+      <li><a href="#pricing" data-tr="Fiyatlar" data-en="Pricing">Fiyatlar</a></li>
+      <li><a href="#faq" data-tr="SSS" data-en="FAQ">SSS</a></li>
     </ul>
-    <a href="#download" class="btn btn-primary" style="padding: 10px 20px; font-size: 14px;">
-      🍎 İndir
-    </a>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#download" class="btn btn-primary" style="padding: 10px 20px; font-size: 14px;" data-tr="🍎 İndir" data-en="🍎 Download">
+        🍎 İndir
+      </a>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -1083,26 +1091,26 @@
       <div class="hero-content">
         <div class="hero-badge">
           <div class="hero-badge-dot">🤖</div>
-          Şifi ile ilaç takibi artık eğlenceli!
+          <span data-tr="Şifi ile ilaç takibi artık eğlenceli!" data-en="Med tracking is now fun with Şifi!">Şifi ile ilaç takibi artık eğlenceli!</span>
         </div>
-        <h1>İlaçlarını takip et,<br><span class="accent">Şifi yanında!</span></h1>
-        <p class="hero-desc">
-          Sevimli sağlık asistanın Şifi ile hiçbir dozu kaçırma. 
+        <h1 data-tr="İlaçlarını takip et,<br><span class='accent'>Şifi yanında!</span>" data-en="Track your meds,<br><span class='accent'>Şifi is with you!</span>">İlaçlarını takip et,<br><span class="accent">Şifi yanında!</span></h1>
+        <p class="hero-desc" data-tr="Sevimli sağlık asistanın Şifi ile hiçbir dozu kaçırma. Ailen ile güvenle paylaş, sağlık ölçümlerini kaydet." data-en="Never miss a dose with your cute health assistant Şifi. Share safely with your family and track health metrics.">
+          Sevimli sağlık asistanın Şifi ile hiçbir dozu kaçırma.
           Ailen ile güvenle paylaş, sağlık ölçümlerini kaydet.
         </p>
         <div class="hero-actions">
-          <a href="#download" class="btn btn-primary">
+          <a href="#download" class="btn btn-primary" data-tr="🍎 App Store'dan İndir" data-en="🍎 Download on App Store">
             🍎 App Store'dan İndir
           </a>
-          <a href="#screenshots" class="btn btn-secondary">
+          <a href="#screenshots" class="btn btn-secondary" data-tr="Ekranları Gör →" data-en="See Screenshots →">
             Ekranları Gör →
           </a>
         </div>
         <div class="hero-trust">
-          <div class="hero-trust-item"><span>🇹🇷</span> Tam Türkçe</div>
-          <div class="hero-trust-item"><span>🚫</span> Reklam yok</div>
-          <div class="hero-trust-item"><span>🔒</span> Veriler cihazında</div>
-          <div class="hero-trust-item"><span>✨</span> Şimdi ücretsiz</div>
+          <div class="hero-trust-item"><span>🇹🇷</span> <span data-tr="Tam Türkçe" data-en="Full Turkish">Tam Türkçe</span></div>
+          <div class="hero-trust-item"><span>🚫</span> <span data-tr="Reklam yok" data-en="No ads">Reklam yok</span></div>
+          <div class="hero-trust-item"><span>🔒</span> <span data-tr="Veriler cihazında" data-en="Data on device">Veriler cihazında</span></div>
+          <div class="hero-trust-item"><span>✨</span> <span data-tr="Şimdi ücretsiz" data-en="Free now">Şimdi ücretsiz</span></div>
         </div>
       </div>
 
@@ -1122,15 +1130,15 @@
         <div class="float-badge float-badge-1">
           <div class="badge-icon" style="background:#DCFCE7;">🔥</div>
           <div>
-            <div style="font-size:10px; color:#64748B;">Günlük Seri</div>
-            <div style="color:#16A34A; font-size:13px;">2 günlük seri!</div>
+            <div style="font-size:10px; color:#64748B;" data-tr="Günlük Seri" data-en="Daily Streak">Günlük Seri</div>
+            <div style="color:#16A34A; font-size:13px;" data-tr="2 günlük seri!" data-en="2-day streak!">2 günlük seri!</div>
           </div>
         </div>
 
         <div class="float-badge float-badge-2">
           <div class="badge-icon" style="background:#EFF6FF;">⬆️</div>
           <div>
-            <div style="font-size:10px; color:#64748B;">XP Kazandın</div>
+            <div style="font-size:10px; color:#64748B;" data-tr="XP Kazandın" data-en="XP Earned">XP Kazandın</div>
             <div style="color:#2563EB; font-size:13px;">+10 XP</div>
           </div>
         </div>
@@ -1138,8 +1146,8 @@
         <div class="float-badge float-badge-3">
           <div class="badge-icon" style="background:#FFF7ED;">🔔</div>
           <div>
-            <div style="font-size:10px; color:#64748B;">Hatırlatıcı</div>
-            <div style="color:#EA580C; font-size:13px;">7s 59dk sonra</div>
+            <div style="font-size:10px; color:#64748B;" data-tr="Hatırlatıcı" data-en="Reminder">Hatırlatıcı</div>
+            <div style="color:#EA580C; font-size:13px;" data-tr="7s 59dk sonra" data-en="In 7h 59m">7s 59dk sonra</div>
           </div>
         </div>
       </div>
@@ -1150,9 +1158,9 @@
   <section class="screenshots-section" id="screenshots">
     <div class="section-inner">
       <div class="screenshots-header fade-in">
-        <div class="section-tag">📱 Uygulama Ekranları</div>
-        <h2>Her detay düşünülmüş</h2>
-        <p class="section-desc" style="margin: 0 auto;">Sade, Türkçe ve her yaşa uygun tasarım.</p>
+        <div class="section-tag" data-tr="📱 Uygulama Ekranları" data-en="📱 App Screenshots">📱 Uygulama Ekranları</div>
+        <h2 data-tr="Her detay düşünülmüş" data-en="Every detail thought through">Her detay düşünülmüş</h2>
+        <p class="section-desc" style="margin: 0 auto;" data-tr="Sade, Türkçe ve her yaşa uygun tasarım." data-en="Clean, intuitive design for all ages.">Sade, Türkçe ve her yaşa uygun tasarım.</p>
       </div>
 
       <div class="screenshots-grid">
@@ -1161,8 +1169,8 @@
             <img src="7.jpg" alt="Ana Ekran">
           </div>
           <div class="screenshot-label">
-            <h4>Ana Ekran</h4>
-            <p>Şifi kartı, günlük ilaçların ve XP seviyeni tek bakışta gör</p>
+            <h4 data-tr="Ana Ekran" data-en="Home Screen">Ana Ekran</h4>
+            <p data-tr="Şifi kartı, günlük ilaçların ve XP seviyeni tek bakışta gör" data-en="See Şifi card, daily meds and XP level at a glance">Şifi kartı, günlük ilaçların ve XP seviyeni tek bakışta gör</p>
           </div>
         </div>
 
@@ -1171,8 +1179,8 @@
             <img src="8.jpg" alt="Şifi İlaç Ekleme">
           </div>
           <div class="screenshot-label">
-            <h4>Şifi Yardımı</h4>
-            <p>Şifi adım adım rehberliğiyle ilaç eklemek çok kolay</p>
+            <h4 data-tr="Şifi Yardımı" data-en="Şifi Helper">Şifi Yardımı</h4>
+            <p data-tr="Şifi adım adım rehberliğiyle ilaç eklemek çok kolay" data-en="Adding meds is easy with Şifi's step-by-step guidance">Şifi adım adım rehberliğiyle ilaç eklemek çok kolay</p>
           </div>
         </div>
 
@@ -1181,8 +1189,8 @@
             <img src="6.jpg" alt="Takvim">
           </div>
           <div class="screenshot-label">
-            <h4>Takvim</h4>
-            <p>Dün, bugün, yarın — ilaç planını takvimde takip et</p>
+            <h4 data-tr="Takvim" data-en="Calendar">Takvim</h4>
+            <p data-tr="Dün, bugün, yarın — ilaç planını takvimde takip et" data-en="Yesterday, today, tomorrow — track your med plan on calendar">Dün, bugün, yarın — ilaç planını takvimde takip et</p>
           </div>
         </div>
 
@@ -1191,8 +1199,8 @@
             <img src="5.jpg" alt="Bağlantılar">
           </div>
           <div class="screenshot-label">
-            <h4>Aile Bağlantısı</h4>
-            <p>Yakınının ilaçlarını takip et veya onlarla planını paylaş</p>
+            <h4 data-tr="Aile Bağlantısı" data-en="Family Connection">Aile Bağlantısı</h4>
+            <p data-tr="Yakınının ilaçlarını takip et veya onlarla planını paylaş" data-en="Track a loved one's meds or share your plan with them">Yakınının ilaçlarını takip et veya onlarla planını paylaş</p>
           </div>
         </div>
       </div>
@@ -1204,38 +1212,38 @@
     <div class="shifi-inner">
       <div class="shifi-content">
         <div class="section-tag">🤖 Şifi</div>
-        <h2>Sağlık arkadaşın<br>Şifi seni bekliyor!</h2>
-        <p class="shifi-desc">
-          Sadece bir hatırlatıcı değil — Şifi senin sağlık yolculuğunda 
+        <h2 data-tr="Sağlık arkadaşın<br>Şifi seni bekliyor!" data-en="Your health buddy<br>Şifi awaits you!">Sağlık arkadaşın<br>Şifi seni bekliyor!</h2>
+        <p class="shifi-desc" data-tr="Sadece bir hatırlatıcı değil — Şifi senin sağlık yolculuğunda gerçek bir arkadaş. Sevilere atlıyor, aksesuar takıyor, mektup yazıyor!" data-en="Not just a reminder — Şifi is a real companion on your health journey. It levels up, wears accessories, and writes you letters!">
+          Sadece bir hatırlatıcı değil — Şifi senin sağlık yolculuğunda
           gerçek bir arkadaş. Sevilere atlıyor, aksesuar takıyor, mektup yazıyor!
         </p>
         <div class="shifi-features">
           <div class="shifi-feature">
             <div class="shifi-feature-icon">🎮</div>
             <div class="shifi-feature-text">
-              <h4>XP Kazan, Seviye Atla</h4>
-              <p>Her ilaç dozunda XP kazan. Şifi → Efsanevi Şifi'ye doğru ilerle</p>
+              <h4 data-tr="XP Kazan, Seviye Atla" data-en="Earn XP, Level Up">XP Kazan, Seviye Atla</h4>
+              <p data-tr="Her ilaç dozunda XP kazan. Şifi → Efsanevi Şifi'ye doğru ilerle" data-en="Earn XP with every dose. Progress from Şifi → Legendary Şifi">Her ilaç dozunda XP kazan. Şifi → Efsanevi Şifi'ye doğru ilerle</p>
             </div>
           </div>
           <div class="shifi-feature">
             <div class="shifi-feature-icon">🎨</div>
             <div class="shifi-feature-text">
-              <h4>Tamamen Kişiselleştir</h4>
-              <p>12 tema, 8 kapsül rengi, şapka/taç/gözlük gibi 8 aksesuar</p>
+              <h4 data-tr="Tamamen Kişiselleştir" data-en="Fully Customizable">Tamamen Kişiselleştir</h4>
+              <p data-tr="12 tema, 8 kapsül rengi, şapka/taç/gözlük gibi 8 aksesuar" data-en="12 themes, 8 capsule colors, 8 accessories like hat/crown/glasses">12 tema, 8 kapsül rengi, şapka/taç/gözlük gibi 8 aksesuar</p>
             </div>
           </div>
           <div class="shifi-feature">
             <div class="shifi-feature-icon">👨‍👩‍👧</div>
             <div class="shifi-feature-text">
-              <h4>Aile & Pet Profili</h4>
-              <p>Çocuk, kedi, köpek, tavşan için ayrı profil ve Şifi görünümü</p>
+              <h4 data-tr="Aile & Pet Profili" data-en="Family & Pet Profiles">Aile & Pet Profili</h4>
+              <p data-tr="Çocuk, kedi, köpek, tavşan için ayrı profil ve Şifi görünümü" data-en="Separate profiles and Şifi look for kids, cats, dogs, rabbits">Çocuk, kedi, köpek, tavşan için ayrı profil ve Şifi görünümü</p>
             </div>
           </div>
           <div class="shifi-feature">
             <div class="shifi-feature-icon">📊</div>
             <div class="shifi-feature-text">
-              <h4>Şifi'den Kişisel Mektup</h4>
-              <p>Haftalık sağlık skorun ve Şifi'nin sana özel raporu</p>
+              <h4 data-tr="Şifi'den Kişisel Mektup" data-en="Personal Letter from Şifi">Şifi'den Kişisel Mektup</h4>
+              <p data-tr="Haftalık sağlık skorun ve Şifi'nin sana özel raporu" data-en="Weekly health score and Şifi's personalized report for you">Haftalık sağlık skorun ve Şifi'nin sana özel raporu</p>
             </div>
           </div>
         </div>
@@ -1253,46 +1261,46 @@
   <section class="features-section" id="features">
     <div class="section-inner">
       <div class="fade-in">
-        <div class="section-tag">✨ Özellikler</div>
-        <h2>Her ihtiyaç için<br>düşünülmüş</h2>
-        <p class="section-desc">Kronik hastalıktan günlük vitamine, tek kullanımdan uzun tedavilere kadar.</p>
+        <div class="section-tag" data-tr="✨ Özellikler" data-en="✨ Features">✨ Özellikler</div>
+        <h2 data-tr="Her ihtiyaç için<br>düşünülmüş" data-en="Designed for<br>every need">Her ihtiyaç için<br>düşünülmüş</h2>
+        <p class="section-desc" data-tr="Kronik hastalıktan günlük vitamine, tek kullanımdan uzun tedavilere kadar." data-en="From chronic conditions to daily vitamins, single use to long-term treatments.">Kronik hastalıktan günlük vitamine, tek kullanımdan uzun tedavilere kadar.</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-card fade-in">
           <div class="feature-icon" style="background:#EFF6FF;">🔔</div>
-          <div class="feature-title">Akıllı Hatırlatıcılar</div>
-          <div class="feature-desc">İlaç saatinde bildirim al. Erteleyebilir, kaçırılan doz uyarısı alırsın. Hiçbir dozu kaçırma.</div>
+          <div class="feature-title" data-tr="Akıllı Hatırlatıcılar" data-en="Smart Reminders">Akıllı Hatırlatıcılar</div>
+          <div class="feature-desc" data-tr="İlaç saatinde bildirim al. Erteleyebilir, kaçırılan doz uyarısı alırsın. Hiçbir dozu kaçırma." data-en="Get notified at med time. Snooze or get missed dose alerts. Never miss a dose.">İlaç saatinde bildirim al. Erteleyebilir, kaçırılan doz uyarısı alırsın. Hiçbir dozu kaçırma.</div>
         </div>
 
         <div class="feature-card fade-in">
           <div class="feature-icon" style="background:#F0FDF4;">👨‍👩‍👧</div>
-          <div class="feature-title">Aile ile Paylaşım</div>
-          <div class="feature-desc">Davet linki ile annen, eşin veya çocuğunun ilaç planını güvenle takip et.</div>
+          <div class="feature-title" data-tr="Aile ile Paylaşım" data-en="Family Sharing">Aile ile Paylaşım</div>
+          <div class="feature-desc" data-tr="Davet linki ile annen, eşin veya çocuğunun ilaç planını güvenle takip et." data-en="Safely track your parent's, spouse's or child's med plan via invite link.">Davet linki ile annen, eşin veya çocuğunun ilaç planını güvenle takip et.</div>
         </div>
 
         <div class="feature-card fade-in">
           <div class="feature-icon" style="background:#FFF7ED;">📦</div>
-          <div class="feature-title">Stok Takibi</div>
-          <div class="feature-desc">İlaç miktarını kaydet. Son 5 tablet veya 20 puf kaldığında otomatik uyarı al.</div>
+          <div class="feature-title" data-tr="Stok Takibi" data-en="Stock Tracking">Stok Takibi</div>
+          <div class="feature-desc" data-tr="İlaç miktarını kaydet. Son 5 tablet veya 20 puf kaldığında otomatik uyarı al." data-en="Log your med quantity. Get automatic alerts when down to 5 tablets or 20 puffs.">İlaç miktarını kaydet. Son 5 tablet veya 20 puf kaldığında otomatik uyarı al.</div>
         </div>
 
         <div class="feature-card fade-in">
           <div class="feature-icon" style="background:#FDF4FF;">📅</div>
-          <div class="feature-title">Uyum Takvimi</div>
-          <div class="feature-desc">Geçmiş doz kayıtlarını takvimde gör. Haftalık ve aylık uyum yüzdenizi takip et.</div>
+          <div class="feature-title" data-tr="Uyum Takvimi" data-en="Adherence Calendar">Uyum Takvimi</div>
+          <div class="feature-desc" data-tr="Geçmiş doz kayıtlarını takvimde gör. Haftalık ve aylık uyum yüzdenizi takip et." data-en="View past dose records on calendar. Track your weekly and monthly adherence rate.">Geçmiş doz kayıtlarını takvimde gör. Haftalık ve aylık uyum yüzdenizi takip et.</div>
         </div>
 
         <div class="feature-card fade-in">
           <div class="feature-icon" style="background:#F0FDF4;">❤️</div>
-          <div class="feature-title">Sağlık Takibi</div>
-          <div class="feature-desc">Tansiyon, nabız, kan şekeri, SpO2, ateş ve kilo ölçümlerini kaydet. Doktor randevusu hatırlatıcı.</div>
+          <div class="feature-title" data-tr="Sağlık Takibi" data-en="Health Tracking">Sağlık Takibi</div>
+          <div class="feature-desc" data-tr="Tansiyon, nabız, kan şekeri, SpO2, ateş ve kilo ölçümlerini kaydet. Doktor randevusu hatırlatıcı." data-en="Log blood pressure, pulse, blood sugar, SpO2, temperature and weight. Doctor appointment reminders.">Tansiyon, nabız, kan şekeri, SpO2, ateş ve kilo ölçümlerini kaydet. Doktor randevusu hatırlatıcı.</div>
         </div>
 
         <div class="feature-card fade-in">
           <div class="feature-icon" style="background:#EFF6FF;">💊</div>
-          <div class="feature-title">Her İlaç Tipi</div>
-          <div class="feature-desc">Tablet, kapsül, şurup, damla, sprey, iğne — 18 farklı ilaç tipi ile her tedavi desteklenir.</div>
+          <div class="feature-title" data-tr="Her İlaç Tipi" data-en="Every Med Type">Her İlaç Tipi</div>
+          <div class="feature-desc" data-tr="Tablet, kapsül, şurup, damla, sprey, iğne — 18 farklı ilaç tipi ile her tedavi desteklenir." data-en="Tablet, capsule, syrup, drops, spray, injection — 18 different med types support every treatment.">Tablet, kapsül, şurup, damla, sprey, iğne — 18 farklı ilaç tipi ile her tedavi desteklenir.</div>
         </div>
       </div>
     </div>
@@ -1302,29 +1310,29 @@
   <section class="pricing-section" id="pricing">
     <div class="section-inner">
       <div class="pricing-header fade-in">
-        <div class="pricing-launch-banner">🎉 Lansman Dönemi — Şimdi Tüm Özellikler Ücretsiz!</div>
-        <h2>Basit ve şeffaf fiyatlandırma</h2>
-        <p class="section-desc" style="margin: 0 auto;">Lansman döneminde tüm premium özellikler ücretsiz. Fiyat değişmeden önce hemen indir!</p>
+        <div class="pricing-launch-banner" data-tr="🎉 Lansman Dönemi — Şimdi Tüm Özellikler Ücretsiz!" data-en="🎉 Launch Period — All Features Free Now!">🎉 Lansman Dönemi — Şimdi Tüm Özellikler Ücretsiz!</div>
+        <h2 data-tr="Basit ve şeffaf fiyatlandırma" data-en="Simple and transparent pricing">Basit ve şeffaf fiyatlandırma</h2>
+        <p class="section-desc" style="margin: 0 auto;" data-tr="Lansman döneminde tüm premium özellikler ücretsiz. Fiyat değişmeden önce hemen indir!" data-en="All premium features are free during launch. Download before prices change!">Lansman döneminde tüm premium özellikler ücretsiz. Fiyat değişmeden önce hemen indir!</p>
       </div>
 
       <div class="pricing-grid">
         <!-- Free -->
         <div class="pricing-card pricing-card-free fade-in">
-          <div class="pricing-name">Ücretsiz</div>
+          <div class="pricing-name" data-tr="Ücretsiz" data-en="Free">Ücretsiz</div>
           <div class="pricing-price">
             <span class="amount">₺0</span>
-            <span class="period"> / sonsuza kadar</span>
+            <span class="period" data-tr=" / sonsuza kadar" data-en=" / forever"> / sonsuza kadar</span>
           </div>
-          <p class="pricing-launch-note">Temel özellikler her zaman ücretsiz.</p>
+          <p class="pricing-launch-note" data-tr="Temel özellikler her zaman ücretsiz." data-en="Basic features are always free.">Temel özellikler her zaman ücretsiz.</p>
           <div class="pricing-divider"></div>
           <ul class="pricing-features">
-            <li><span class="check">✓</span> İlaç ekleme ve takibi</li>
-            <li><span class="check">✓</span> Akıllı hatırlatıcılar</li>
-            <li><span class="check">✓</span> Günlük takvim görünümü</li>
-            <li><span class="check">✓</span> Şifi maskot (temel)</li>
-            <li><span class="check">✓</span> 1 profil</li>
+            <li><span class="check">✓</span> <span data-tr="İlaç ekleme ve takibi" data-en="Add and track medications">İlaç ekleme ve takibi</span></li>
+            <li><span class="check">✓</span> <span data-tr="Akıllı hatırlatıcılar" data-en="Smart reminders">Akıllı hatırlatıcılar</span></li>
+            <li><span class="check">✓</span> <span data-tr="Günlük takvim görünümü" data-en="Daily calendar view">Günlük takvim görünümü</span></li>
+            <li><span class="check">✓</span> <span data-tr="Şifi maskot (temel)" data-en="Şifi mascot (basic)">Şifi maskot (temel)</span></li>
+            <li><span class="check">✓</span> <span data-tr="1 profil" data-en="1 profile">1 profil</span></li>
           </ul>
-          <a href="#download" class="btn btn-pricing-free">Ücretsiz Başla</a>
+          <a href="#download" class="btn btn-pricing-free" data-tr="Ücretsiz Başla" data-en="Start Free">Ücretsiz Başla</a>
         </div>
 
         <!-- Premium -->
@@ -1333,23 +1341,23 @@
           <div class="pricing-name">Premium</div>
           <div class="pricing-price">
             <span class="currency">₺</span><span class="amount">49</span><span style="font-size:32px; font-weight:900; color:white;">,90</span>
-            <span class="period"> / yıllık</span>
+            <span class="period" data-tr=" / yıllık" data-en=" / year"> / yıllık</span>
           </div>
-          <div class="pricing-free-now">🎉 Lansman döneminde tamamen ücretsiz!</div>
+          <div class="pricing-free-now" data-tr="🎉 Lansman döneminde tamamen ücretsiz!" data-en="🎉 Completely free during launch period!">🎉 Lansman döneminde tamamen ücretsiz!</div>
           <div class="pricing-divider"></div>
           <ul class="pricing-features">
-            <li><span class="check">✓</span> Ücretsiz'deki her şey</li>
-            <li><span class="check">✓</span> Aile & yakın takibi</li>
-            <li><span class="check">✓</span> Sınırsız aile/pet profili</li>
-            <li><span class="check">✓</span> Tüm Şifi aksesuarları</li>
-            <li><span class="check">✓</span> 12 tema + 8 kapsül rengi</li>
-            <li><span class="check">✓</span> Sağlık ölçümleri & istatistik</li>
-            <li><span class="check">✓</span> Haftalık uyum raporu</li>
-            <li><span class="check">✓</span> Doktor randevusu hatırlatıcı</li>
-            <li><span class="check">✓</span> XP & seviye sistemi</li>
-            <li><span class="check">✓</span> Stok takibi & uyarılar</li>
+            <li><span class="check">✓</span> <span data-tr="Ücretsiz'deki her şey" data-en="Everything in Free">Ücretsiz'deki her şey</span></li>
+            <li><span class="check">✓</span> <span data-tr="Aile & yakın takibi" data-en="Family & caregiver tracking">Aile & yakın takibi</span></li>
+            <li><span class="check">✓</span> <span data-tr="Sınırsız aile/pet profili" data-en="Unlimited family/pet profiles">Sınırsız aile/pet profili</span></li>
+            <li><span class="check">✓</span> <span data-tr="Tüm Şifi aksesuarları" data-en="All Şifi accessories">Tüm Şifi aksesuarları</span></li>
+            <li><span class="check">✓</span> <span data-tr="12 tema + 8 kapsül rengi" data-en="12 themes + 8 capsule colors">12 tema + 8 kapsül rengi</span></li>
+            <li><span class="check">✓</span> <span data-tr="Sağlık ölçümleri & istatistik" data-en="Health metrics & statistics">Sağlık ölçümleri & istatistik</span></li>
+            <li><span class="check">✓</span> <span data-tr="Haftalık uyum raporu" data-en="Weekly adherence report">Haftalık uyum raporu</span></li>
+            <li><span class="check">✓</span> <span data-tr="Doktor randevusu hatırlatıcı" data-en="Doctor appointment reminders">Doktor randevusu hatırlatıcı</span></li>
+            <li><span class="check">✓</span> <span data-tr="XP & seviye sistemi" data-en="XP & level system">XP & seviye sistemi</span></li>
+            <li><span class="check">✓</span> <span data-tr="Stok takibi & uyarılar" data-en="Stock tracking & alerts">Stok takibi & uyarılar</span></li>
           </ul>
-          <a href="#download" class="btn btn-pricing-premium">🍎 Şimdi Ücretsiz İndir</a>
+          <a href="#download" class="btn btn-pricing-premium" data-tr="🍎 Şimdi Ücretsiz İndir" data-en="🍎 Download Free Now">🍎 Şimdi Ücretsiz İndir</a>
         </div>
       </div>
     </div>
@@ -1359,36 +1367,36 @@
   <section class="trust-section" id="trust">
     <div class="section-inner">
       <div class="fade-in" style="text-align:center; margin-bottom:60px;">
-        <div class="section-tag" style="display:inline-flex;">🔒 Güvenlik</div>
-        <h2 style="margin-top:16px;">Verileriniz size ait</h2>
-        <p class="section-desc" style="margin:16px auto 0;">Sağlık verileriniz en hassas bilgilerinizdir. Bunu biliyoruz.</p>
+        <div class="section-tag" style="display:inline-flex;" data-tr="🔒 Güvenlik" data-en="🔒 Security">🔒 Güvenlik</div>
+        <h2 style="margin-top:16px;" data-tr="Verileriniz size ait" data-en="Your data belongs to you">Verileriniz size ait</h2>
+        <p class="section-desc" style="margin:16px auto 0;" data-tr="Sağlık verileriniz en hassas bilgilerinizdir. Bunu biliyoruz." data-en="Your health data is your most sensitive information. We know that.">Sağlık verileriniz en hassas bilgilerinizdir. Bunu biliyoruz.</p>
       </div>
 
       <div class="trust-grid">
         <div class="trust-card fade-in">
           <span class="trust-icon">🚫</span>
-          <div class="trust-title">Reklam Yok</div>
-          <div class="trust-desc">Hiçbir reklam içermez. Verileriniz asla satılmaz.</div>
+          <div class="trust-title" data-tr="Reklam Yok" data-en="No Ads">Reklam Yok</div>
+          <div class="trust-desc" data-tr="Hiçbir reklam içermez. Verileriniz asla satılmaz." data-en="Contains no ads. Your data is never sold.">Hiçbir reklam içermez. Verileriniz asla satılmaz.</div>
         </div>
         <div class="trust-card fade-in">
           <span class="trust-icon">📱</span>
-          <div class="trust-title">Yerel Depolama</div>
-          <div class="trust-desc">Sağlık ölçümleri sunucuya gönderilmez, cihazınızda kalır.</div>
+          <div class="trust-title" data-tr="Yerel Depolama" data-en="Local Storage">Yerel Depolama</div>
+          <div class="trust-desc" data-tr="Sağlık ölçümleri sunucuya gönderilmez, cihazınızda kalır." data-en="Health metrics are not sent to servers, they stay on your device.">Sağlık ölçümleri sunucuya gönderilmez, cihazınızda kalır.</div>
         </div>
         <div class="trust-card fade-in">
           <span class="trust-icon">✋</span>
-          <div class="trust-title">Açık Rıza</div>
-          <div class="trust-desc">Paylaşım özelliği yalnızca açık onayınızla çalışır.</div>
+          <div class="trust-title" data-tr="Açık Rıza" data-en="Explicit Consent">Açık Rıza</div>
+          <div class="trust-desc" data-tr="Paylaşım özelliği yalnızca açık onayınızla çalışır." data-en="Sharing feature only works with your explicit consent.">Paylaşım özelliği yalnızca açık onayınızla çalışır.</div>
         </div>
         <div class="trust-card fade-in">
           <span class="trust-icon">🗑️</span>
-          <div class="trust-title">Veri Silme</div>
-          <div class="trust-desc">Tüm verilerinizi uygulama içinden silebilirsiniz.</div>
+          <div class="trust-title" data-tr="Veri Silme" data-en="Data Deletion">Veri Silme</div>
+          <div class="trust-desc" data-tr="Tüm verilerinizi uygulama içinden silebilirsiniz." data-en="You can delete all your data from within the app.">Tüm verilerinizi uygulama içinden silebilirsiniz.</div>
         </div>
       </div>
 
       <div style="text-align:center; margin-top:40px;" class="fade-in">
-        <a href="privacy.html" class="btn btn-secondary">📄 Gizlilik Politikasını Oku</a>
+        <a href="privacy.html" class="btn btn-secondary" data-tr="📄 Gizlilik Politikasını Oku" data-en="📄 Read Privacy Policy">📄 Gizlilik Politikasını Oku</a>
       </div>
     </div>
   </section>
@@ -1397,39 +1405,39 @@
   <section class="faq-section" id="faq">
     <div class="section-inner">
       <div class="fade-in" style="text-align:center; margin-bottom:60px;">
-        <div class="section-tag" style="display:inline-flex;">❓ SSS</div>
-        <h2 style="margin-top:16px;">Merak ettikleriniz</h2>
+        <div class="section-tag" style="display:inline-flex;" data-tr="❓ SSS" data-en="❓ FAQ">❓ SSS</div>
+        <h2 style="margin-top:16px;" data-tr="Merak ettikleriniz" data-en="Frequently asked questions">Merak ettikleriniz</h2>
       </div>
 
       <div class="faq-list">
         <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)">Lansman döneminde premium ne kadar süre ücretsiz?</div>
-          <div class="faq-answer">Uygulama şu an App Store inceleme sürecindedir. Lansman döneminde tüm premium özellikler ücretsiz sunulmaktadır. İlerleyen dönemde yıllık ₺49,90 olarak fiyatlandırılacaktır. Şimdi indirenler avantajlı koşullardan yararlanabilir.</div>
+          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Lansman döneminde premium ne kadar süre ücretsiz?" data-en="How long are premium features free during launch?">Lansman döneminde premium ne kadar süre ücretsiz?</div>
+          <div class="faq-answer" data-tr="Uygulama şu an App Store inceleme sürecindedir. Lansman döneminde tüm premium özellikler ücretsiz sunulmaktadır. İlerleyen dönemde yıllık ₺49,90 olarak fiyatlandırılacaktır. Şimdi indirenler avantajlı koşullardan yararlanabilir." data-en="The app is currently under App Store review. All premium features are free during the launch period. It will be priced at ₺49.90/year later. Early downloaders will benefit from special conditions.">Uygulama şu an App Store inceleme sürecindedir. Lansman döneminde tüm premium özellikler ücretsiz sunulmaktadır. İlerleyen dönemde yıllık ₺49,90 olarak fiyatlandırılacaktır. Şimdi indirenler avantajlı koşullardan yararlanabilir.</div>
         </div>
 
         <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)">Uygulama ücretsiz mi?</div>
-          <div class="faq-answer">Temel özellikler (ilaç ekleme, hatırlatıcı, takvim) sonsuza kadar ücretsizdir. Aile paylaşımı, tüm Şifi aksesuarları ve sağlık istatistikleri gibi premium özellikler lansman döneminde ücretsiz, sonrasında yıllık ₺49,90 olacaktır.</div>
+          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Uygulama ücretsiz mi?" data-en="Is the app free?">Uygulama ücretsiz mi?</div>
+          <div class="faq-answer" data-tr="Temel özellikler (ilaç ekleme, hatırlatıcı, takvim) sonsuza kadar ücretsizdir. Aile paylaşımı, tüm Şifi aksesuarları ve sağlık istatistikleri gibi premium özellikler lansman döneminde ücretsiz, sonrasında yıllık ₺49,90 olacaktır." data-en="Basic features (adding meds, reminders, calendar) are free forever. Premium features like family sharing, all Şifi accessories and health statistics are free during launch, then ₺49.90/year.">Temel özellikler (ilaç ekleme, hatırlatıcı, takvim) sonsuza kadar ücretsizdir. Aile paylaşımı, tüm Şifi aksesuarları ve sağlık istatistikleri gibi premium özellikler lansman döneminde ücretsiz, sonrasında yıllık ₺49,90 olacaktır.</div>
         </div>
 
         <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)">Şifi nedir?</div>
-          <div class="faq-answer">Şifi, Şifa Asistanım'ın sevimli maskotudur! İlaç eklerken adım adım yardım eder, her aldığın dozda XP kazandırır, 9 seviyeye kadar seninle büyür. Renk, aksesuar ve tema seçerek onu tamamen kişiselleştirebilirsin.</div>
+          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Şifi nedir?" data-en="What is Şifi?">Şifi nedir?</div>
+          <div class="faq-answer" data-tr="Şifi, Şifa Asistanım'ın sevimli maskotudur! İlaç eklerken adım adım yardım eder, her aldığın dozda XP kazandırır, 9 seviyeye kadar seninle büyür. Renk, aksesuar ve tema seçerek onu tamamen kişiselleştirebilirsin." data-en="Şifi is Şifa Assistant's cute mascot! It helps you step by step when adding meds, earns you XP with every dose, and grows with you through 9 levels. Customize it with colors, accessories and themes.">Şifi, Şifa Asistanım'ın sevimli maskotudur! İlaç eklerken adım adım yardım eder, her aldığın dozda XP kazandırır, 9 seviyeye kadar seninle büyür. Renk, aksesuar ve tema seçerek onu tamamen kişiselleştirebilirsin.</div>
         </div>
 
         <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)">Verilerim güvende mi?</div>
-          <div class="faq-answer">Evet. Sağlık ölçüm verileriniz yalnızca cihazınızda tutulur. İlaç planı ve doz bilgisi yalnızca siz izin verdiğinizde bulutta güvenli şekilde senkronlanır. Şifreli bağlantı kullanılır ve verileriniz asla üçüncü taraflarla paylaşılmaz.</div>
+          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Verilerim güvende mi?" data-en="Is my data safe?">Verilerim güvende mi?</div>
+          <div class="faq-answer" data-tr="Evet. Sağlık ölçüm verileriniz yalnızca cihazınızda tutulur. İlaç planı ve doz bilgisi yalnızca siz izin verdiğinizde bulutta güvenli şekilde senkronlanır. Şifreli bağlantı kullanılır ve verileriniz asla üçüncü taraflarla paylaşılmaz." data-en="Yes. Health metric data is stored only on your device. Med plan and dose info is synced securely to the cloud only with your permission. Encrypted connections are used and your data is never shared with third parties.">Evet. Sağlık ölçüm verileriniz yalnızca cihazınızda tutulur. İlaç planı ve doz bilgisi yalnızca siz izin verdiğinizde bulutta güvenli şekilde senkronlanır. Şifreli bağlantı kullanılır ve verileriniz asla üçüncü taraflarla paylaşılmaz.</div>
         </div>
 
         <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)">Yakınımı nasıl takip ederim?</div>
-          <div class="faq-answer">İki cihazda da Şifa Asistanım yüklü olmalı. Bağlantılar sekmesinden "Yakınımı Takip Edeyim" veya "Yakınım Beni Takip Etsin" seçeneğini kullanarak davet linki gönderin. Onay verildiğinde bağlantı tamamlanır.</div>
+          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Yakınımı nasıl takip ederim?" data-en="How do I track a family member?">Yakınımı nasıl takip ederim?</div>
+          <div class="faq-answer" data-tr="İki cihazda da Şifa Asistanım yüklü olmalı. Bağlantılar sekmesinden &quot;Yakınımı Takip Edeyim&quot; veya &quot;Yakınım Beni Takip Etsin&quot; seçeneğini kullanarak davet linki gönderin. Onay verildiğinde bağlantı tamamlanır." data-en="Şifa Assistant must be installed on both devices. From the Connections tab, use &quot;Track My Family Member&quot; or &quot;Let Them Track Me&quot; to send an invite link. The connection is completed once approved.">İki cihazda da Şifa Asistanım yüklü olmalı. Bağlantılar sekmesinden "Yakınımı Takip Edeyim" veya "Yakınım Beni Takip Etsin" seçeneğini kullanarak davet linki gönderin. Onay verildiğinde bağlantı tamamlanır.</div>
         </div>
 
         <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)">Hangi cihazlarda çalışır?</div>
-          <div class="faq-answer">Şu an iPhone (iOS 15 ve üzeri) desteklenmektedir. Android desteği ilerleyen dönemlerde eklenecektir.</div>
+          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Hangi cihazlarda çalışır?" data-en="Which devices are supported?">Hangi cihazlarda çalışır?</div>
+          <div class="faq-answer" data-tr="iPhone (iOS 15 ve üzeri) ve Android cihazlarda çalışmaktadır." data-en="Works on iPhone (iOS 15+) and Android devices.">iPhone (iOS 15 ve üzeri) ve Android cihazlarda çalışmaktadır.</div>
         </div>
       </div>
     </div>
@@ -1437,14 +1445,14 @@
 
   <!-- CTA -->
   <section class="cta-section" id="download">
-    <h2>Bugün başlayın</h2>
-    <p class="cta-desc">
+    <h2 data-tr="Bugün başlayın" data-en="Get started today">Bugün başlayın</h2>
+    <p class="cta-desc" data-tr="Şifi sizi bekliyor! Lansman döneminde tüm özellikler ücretsiz — hemen indirin." data-en="Şifi is waiting for you! All features are free during launch — download now.">
       Şifi sizi bekliyor! Lansman döneminde tüm özellikler ücretsiz — hemen indirin.
     </p>
-    <a href="#" class="btn btn-white" style="font-size: 16px; padding: 16px 32px;">
+    <a href="#" class="btn btn-white" style="font-size: 16px; padding: 16px 32px;" data-tr="🍎 App Store'dan Ücretsiz İndir" data-en="🍎 Download Free on App Store">
       🍎 App Store'dan Ücretsiz İndir
     </a>
-    <p class="cta-note">iOS 15+ · Türkçe · Reklam Yok</p>
+    <p class="cta-note" data-tr="iOS 15+ · Android · Türkçe · Reklam Yok" data-en="iOS 15+ · Android · Turkish · No Ads">iOS 15+ · Android · Türkçe · Reklam Yok</p>
   </section>
 
   <!-- FOOTER -->
@@ -1452,18 +1460,55 @@
     <div class="footer-inner">
       <a href="#" class="footer-logo">
         <div class="nav-logo-icon">💊</div>
-        Şifa Asistanım
+        <span data-tr="Şifa Asistanım" data-en="Şifa Assistant">Şifa Asistanım</span>
       </a>
       <ul class="footer-links">
-        <li><a href="privacy.html">Gizlilik Politikası</a></li>
-        <li><a href="terms.html">Kullanım Koşulları</a></li>
-        <li><a href="mailto:zaydeayvaz@icloud.com">İletişim</a></li>
+        <li><a href="privacy.html" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Gizlilik Politikası</a></li>
+        <li><a href="terms.html" data-tr="Kullanım Koşulları" data-en="Terms of Use">Kullanım Koşulları</a></li>
+        <li><a href="mailto:zaydeayvaz@icloud.com" data-tr="İletişim" data-en="Contact">İletişim</a></li>
       </ul>
       <div class="footer-copy">© 2026 Şifa Asistanım · Made with ❤️ in Turkey</div>
     </div>
   </footer>
 
   <script>
+    // LANGUAGE SWITCHER
+    let currentLang = localStorage.getItem('sifa-lang') || 'tr';
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('sifa-lang', lang);
+      document.documentElement.lang = lang;
+
+      // Update all translatable elements
+      document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = text;
+        } else {
+          el.innerHTML = text;
+        }
+      });
+
+      // Update page title
+      document.title = lang === 'tr'
+        ? 'Şifa Asistanım — İlaç Takip Uygulaması'
+        : 'Şifa Assistant — Medication Tracking App';
+
+      // Update lang buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+      });
+
+      // Update Sifi messages
+      if (window.updateSifiLang) window.updateSifiLang(lang);
+    }
+
+    // Apply saved language on load
+    if (currentLang !== 'tr') {
+      setLang(currentLang);
+    }
+
     function toggleFaq(el) {
       const item = el.parentElement;
       const wasOpen = item.classList.contains('open');
@@ -1644,24 +1689,41 @@
     const bubble = document.getElementById('sifi-bubble');
     const mouth = document.getElementById('sifi-mouth');
 
-    const messages = [
-      'Merhaba! Ben Şifi 👋',
-      'İlaçlarını takip edeyim mi? 💊',
-      'Sağlık arkadaşın burada! 💙',
-      'Bana dokun, kıkırdarım 😄',
-      'Şifa Asistanım\'ı dene! ✨',
-      'Aileni de ekleyebilirsin 👨‍👩‍👧',
-      'Bugün ilaçlarını aldın mı? 🤔',
-      'Seni takip ediyorum! 🔔'
-    ];
+    const messagesByLang = {
+      tr: [
+        'Merhaba! Ben Şifi 👋',
+        'İlaçlarını takip edeyim mi? 💊',
+        'Sağlık arkadaşın burada! 💙',
+        'Bana dokun, kıkırdarım 😄',
+        'Şifa Asistanım\'ı dene! ✨',
+        'Aileni de ekleyebilirsin 👨‍👩‍👧',
+        'Bugün ilaçlarını aldın mı? 🤔',
+        'Seni takip ediyorum! 🔔'
+      ],
+      en: [
+        'Hi! I\'m Şifi 👋',
+        'Shall I track your meds? 💊',
+        'Your health buddy is here! 💙',
+        'Tap me, I\'ll giggle 😄',
+        'Try Şifa Assistant! ✨',
+        'Add your family too 👨‍👩‍👧',
+        'Did you take your meds today? 🤔',
+        'I\'m keeping an eye on you! 🔔'
+      ]
+    };
 
-    const giggleMsgs = [
-      'Hihihi! 🤭',
-      'Kıkır kıkır! 😆',
-      'Gıdıklanıyorum! 😂',
-      'Hahaha dur! 🤣',
-      'Çok gıdık! 😄'
-    ];
+    const giggleMsgsByLang = {
+      tr: ['Hihihi! 🤭', 'Kıkır kıkır! 😆', 'Gıdıklanıyorum! 😂', 'Hahaha dur! 🤣', 'Çok gıdık! 😄'],
+      en: ['Hehehe! 🤭', 'Tee-hee! 😆', 'That tickles! 😂', 'Hahaha stop! 🤣', 'So ticklish! 😄']
+    };
+
+    let messages = messagesByLang[currentLang] || messagesByLang.tr;
+    let giggleMsgs = giggleMsgsByLang[currentLang] || giggleMsgsByLang.tr;
+
+    window.updateSifiLang = function(lang) {
+      messages = messagesByLang[lang] || messagesByLang.tr;
+      giggleMsgs = giggleMsgsByLang[lang] || giggleMsgsByLang.tr;
+    };
 
     // Kikirdama sesi - Web Audio API
     function playGiggle() {
@@ -1685,7 +1747,8 @@
 
     // Baslangicta merhaba de
     setTimeout(() => {
-      bubble.textContent = 'Merhaba! Ben Şifi 👋';
+      const helloMsg = (currentLang === 'en') ? 'Hi! I\'m Şifi 👋' : 'Merhaba! Ben Şifi 👋';
+      bubble.textContent = helloMsg;
       bubble.classList.add('show');
       sifi.classList.add('sifi-jump');
       setTimeout(() => {
@@ -1698,7 +1761,6 @@
     let jumpInterval;
     function startRandomJumps() {
       jumpInterval = setInterval(() => {
-        // Rastgele pozisyona zipla
         const positions = getRandomPosition();
         sifi.style.bottom = positions.bottom + 'px';
         sifi.style.right = positions.right + 'px';
@@ -1709,7 +1771,6 @@
           sifi.classList.add('sifi-jump');
           setTimeout(() => sifi.classList.remove('sifi-jump'), 500);
 
-          // %30 ihtimalle mesaj goster
           if (Math.random() < 0.3) {
             const msg = messages[Math.floor(Math.random() * messages.length)];
             bubble.textContent = msg;
@@ -1738,29 +1799,24 @@
 
     // Tiklaninca kikirdama
     window.sifiTapped = function() {
-      // Giggle animasyonu
       sifi.classList.remove('sifi-giggle');
       void sifi.offsetWidth;
       sifi.classList.add('sifi-giggle');
       setTimeout(() => sifi.classList.remove('sifi-giggle'), 600);
 
-      // Ses
       playGiggle();
 
-      // Agiz buyutsun (gulme)
       mouth.setAttribute('d', 'M36 53 Q45 64 54 53');
       setTimeout(() => {
         mouth.setAttribute('d', 'M38 54 Q45 60 52 54');
       }, 600);
 
-      // Kikirdama mesaji
       const msg = giggleMsgs[Math.floor(Math.random() * giggleMsgs.length)];
       bubble.textContent = msg;
       bubble.classList.add('show');
       setTimeout(() => bubble.classList.remove('show'), 2500);
     };
 
-    // Sayfa gorunurlugu: gizliyken durdur
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         clearInterval(jumpInterval);
