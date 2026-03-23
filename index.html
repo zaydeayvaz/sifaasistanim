@@ -1494,5 +1494,281 @@
       }
     });
   </script>
+
+  <!-- ŞİFİ - İnteraktif Maskot -->
+  <style>
+    #sifi-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: bottom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  right 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  top 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      filter: drop-shadow(0 6px 20px rgba(37,99,235,0.25));
+    }
+
+    #sifi-container:hover {
+      filter: drop-shadow(0 8px 28px rgba(37,99,235,0.4));
+    }
+
+    #sifi-container.sifi-jump {
+      animation: sifiJump 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #sifi-container.sifi-giggle {
+      animation: sifiGiggle 0.6s ease-in-out;
+    }
+
+    @keyframes sifiJump {
+      0% { transform: translateY(0) scale(1); }
+      30% { transform: translateY(-40px) scale(1.05, 0.95); }
+      50% { transform: translateY(-50px) scale(0.95, 1.1); }
+      70% { transform: translateY(-20px) scale(1.02); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes sifiGiggle {
+      0% { transform: rotate(0deg) scale(1); }
+      15% { transform: rotate(-12deg) scale(1.1); }
+      30% { transform: rotate(10deg) scale(1.12); }
+      45% { transform: rotate(-8deg) scale(1.08); }
+      60% { transform: rotate(6deg) scale(1.05); }
+      75% { transform: rotate(-3deg) scale(1.02); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    #sifi-bubble {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      color: #0F172A;
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 14px;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      transform: translateX(-50%) translateY(8px);
+      pointer-events: none;
+      margin-bottom: 8px;
+    }
+
+    #sifi-bubble.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #sifi-bubble::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: white;
+    }
+
+    .sifi-body { transition: transform 0.2s; }
+    #sifi-container:hover .sifi-body { transform: scale(1.05); }
+
+    /* Goz kirpma */
+    .sifi-eye-open { animation: sifiBlink 4s infinite; }
+    @keyframes sifiBlink {
+      0%, 90%, 100% { opacity: 1; }
+      95% { opacity: 0; }
+    }
+    .sifi-eye-closed { animation: sifiBlinkClosed 4s infinite; }
+    @keyframes sifiBlinkClosed {
+      0%, 90%, 100% { opacity: 0; }
+      95% { opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      #sifi-container { transform: scale(0.8); transform-origin: bottom right; }
+    }
+  </style>
+
+  <div id="sifi-container" onclick="sifiTapped()">
+    <div id="sifi-bubble">Merhaba! Ben Şifi 👋</div>
+    <svg class="sifi-body" width="90" height="110" viewBox="0 0 90 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Antenler -->
+      <line x1="36" y1="22" x2="32" y2="6" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="54" y1="22" x2="58" y2="6" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="32" cy="5" r="4" fill="#EF4444"/>
+      <circle cx="58" cy="5" r="4" fill="#EF4444"/>
+
+      <!-- Kapsul govde -->
+      <ellipse cx="45" cy="55" rx="28" ry="35" fill="#2563EB"/>
+      <ellipse cx="45" cy="72" rx="28" ry="18" fill="#E8EDF5" opacity="0.95"/>
+
+      <!-- Kollar -->
+      <line x1="17" y1="55" x2="4" y2="52" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+      <line x1="73" y1="55" x2="86" y2="52" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+
+      <!-- Gozler -->
+      <g class="sifi-eye-open">
+        <circle cx="36" cy="46" r="5.5" fill="white"/>
+        <circle cx="37.5" cy="45.5" r="3" fill="#0F172A"/>
+        <circle cx="38.5" cy="44" r="1.2" fill="white"/>
+        <circle cx="54" cy="46" r="5.5" fill="white"/>
+        <circle cx="55.5" cy="45.5" r="3" fill="#0F172A"/>
+        <circle cx="56.5" cy="44" r="1.2" fill="white"/>
+      </g>
+      <g class="sifi-eye-closed">
+        <line x1="31" y1="46" x2="41" y2="46" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+        <line x1="49" y1="46" x2="59" y2="46" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+      </g>
+
+      <!-- Gulus -->
+      <path id="sifi-mouth" d="M38 54 Q45 60 52 54" stroke="#0F172A" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+      <!-- Ayaklar -->
+      <ellipse cx="36" cy="90" rx="8" ry="4" fill="#94A3B8" opacity="0.5"/>
+      <ellipse cx="54" cy="90" rx="8" ry="4" fill="#94A3B8" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <script>
+  (function() {
+    const sifi = document.getElementById('sifi-container');
+    const bubble = document.getElementById('sifi-bubble');
+    const mouth = document.getElementById('sifi-mouth');
+
+    const messages = [
+      'Merhaba! Ben Şifi 👋',
+      'İlaçlarını takip edeyim mi? 💊',
+      'Sağlık arkadaşın burada! 💙',
+      'Bana dokun, kıkırdarım 😄',
+      'Şifa Asistanım\'ı dene! ✨',
+      'Aileni de ekleyebilirsin 👨‍👩‍👧',
+      'Bugün ilaçlarını aldın mı? 🤔',
+      'Seni takip ediyorum! 🔔'
+    ];
+
+    const giggleMsgs = [
+      'Hihihi! 🤭',
+      'Kıkır kıkır! 😆',
+      'Gıdıklanıyorum! 😂',
+      'Hahaha dur! 🤣',
+      'Çok gıdık! 😄'
+    ];
+
+    // Kikirdama sesi - Web Audio API
+    function playGiggle() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const notes = [523, 659, 784, 880, 784, 659];
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.08);
+          gain.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.15);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + i * 0.08);
+          osc.stop(ctx.currentTime + i * 0.08 + 0.15);
+        });
+      } catch(e) {}
+    }
+
+    // Baslangicta merhaba de
+    setTimeout(() => {
+      bubble.textContent = 'Merhaba! Ben Şifi 👋';
+      bubble.classList.add('show');
+      sifi.classList.add('sifi-jump');
+      setTimeout(() => {
+        sifi.classList.remove('sifi-jump');
+      }, 500);
+      setTimeout(() => { bubble.classList.remove('show'); }, 3500);
+    }, 2000);
+
+    // Rastgele mesaj goster ve zipla
+    let jumpInterval;
+    function startRandomJumps() {
+      jumpInterval = setInterval(() => {
+        // Rastgele pozisyona zipla
+        const positions = getRandomPosition();
+        sifi.style.bottom = positions.bottom + 'px';
+        sifi.style.right = positions.right + 'px';
+        sifi.style.left = 'auto';
+        sifi.style.top = 'auto';
+
+        setTimeout(() => {
+          sifi.classList.add('sifi-jump');
+          setTimeout(() => sifi.classList.remove('sifi-jump'), 500);
+
+          // %30 ihtimalle mesaj goster
+          if (Math.random() < 0.3) {
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            bubble.textContent = msg;
+            bubble.classList.add('show');
+            setTimeout(() => bubble.classList.remove('show'), 3000);
+          }
+        }, 650);
+      }, 8000 + Math.random() * 7000);
+    }
+
+    function getRandomPosition() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const corners = [
+        { bottom: 24, right: 24 },
+        { bottom: 24, right: w - 120 },
+        { bottom: h * 0.3, right: 24 },
+        { bottom: h * 0.3, right: w - 120 },
+        { bottom: h * 0.5, right: w / 2 - 45 },
+        { bottom: 24, right: w / 2 - 45 },
+      ];
+      return corners[Math.floor(Math.random() * corners.length)];
+    }
+
+    startRandomJumps();
+
+    // Tiklaninca kikirdama
+    window.sifiTapped = function() {
+      // Giggle animasyonu
+      sifi.classList.remove('sifi-giggle');
+      void sifi.offsetWidth;
+      sifi.classList.add('sifi-giggle');
+      setTimeout(() => sifi.classList.remove('sifi-giggle'), 600);
+
+      // Ses
+      playGiggle();
+
+      // Agiz buyutsun (gulme)
+      mouth.setAttribute('d', 'M36 53 Q45 64 54 53');
+      setTimeout(() => {
+        mouth.setAttribute('d', 'M38 54 Q45 60 52 54');
+      }, 600);
+
+      // Kikirdama mesaji
+      const msg = giggleMsgs[Math.floor(Math.random() * giggleMsgs.length)];
+      bubble.textContent = msg;
+      bubble.classList.add('show');
+      setTimeout(() => bubble.classList.remove('show'), 2500);
+    };
+
+    // Sayfa gorunurlugu: gizliyken durdur
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearInterval(jumpInterval);
+      } else {
+        startRandomJumps();
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
