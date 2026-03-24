@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Şifa Asistanım — Bağlantılar</title>
+  <meta name="description" content="Şifa Asistanım uygulama bağlantıları, sosyal medya ve iletişim.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2563EB;
+      --blue-dark: #1D4ED8;
+      --blue-light: #EFF6FF;
+      --blue-mid: #DBEAFE;
+      --green: #10B981;
+      --orange: #F59E0B;
+      --red: #EF4444;
+      --purple: #8B5CF6;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --bg: #F8FAFF;
+      --white: #FFFFFF;
+      --font-display: 'Nunito', sans-serif;
+      --font: 'Figtree', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(170deg, #EFF6FF 0%, #DBEAFE 30%, #F8FAFF 60%, #EFF6FF 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Background decoration */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -120px;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -100px;
+      left: -100px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      padding: 24px 20px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Language Switcher */
+    .lang-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 16px;
+    }
+
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      border-radius: 100px;
+      padding: 3px;
+      gap: 2px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .lang-btn {
+      padding: 5px 14px;
+      border-radius: 100px;
+      border: none;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font);
+    }
+
+    .lang-btn.active {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+    }
+
+    .lang-btn:hover:not(.active) {
+      color: var(--blue);
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    /* Sifi Character */
+    .sifi-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .sifi-character {
+      animation: sifiFloat 3s ease-in-out infinite;
+      cursor: pointer;
+      filter: drop-shadow(0 8px 16px rgba(37,99,235,0.15));
+      transition: transform 0.2s;
+    }
+
+    .sifi-character:hover {
+      transform: scale(1.08);
+    }
+
+    @keyframes sifiFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* Eye blink */
+    .sifi-eye-open { animation: sifiBlink 4s infinite; }
+    @keyframes sifiBlink {
+      0%, 90%, 100% { opacity: 1; }
+      95% { opacity: 0; }
+    }
+    .sifi-eye-closed { animation: sifiBlinkClosed 4s infinite; }
+    @keyframes sifiBlinkClosed {
+      0%, 90%, 100% { opacity: 0; }
+      95% { opacity: 1; }
+    }
+
+    .app-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #2563EB, #3B82F6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .tagline {
+      font-size: 15px;
+      color: var(--text-muted);
+      font-weight: 500;
+      max-width: 300px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* Links */
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--white);
+      border-radius: 18px;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid rgba(226,232,240,0.8);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      /* Animation entrance */
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    .link-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .link-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(37,99,235,0.12), 0 2px 8px rgba(0,0,0,0.04);
+      border-color: rgba(37,99,235,0.2);
+    }
+
+    .link-card:active {
+      transform: translateY(-1px) scale(0.99);
+    }
+
+    .link-card::after {
+      content: '';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid var(--text-muted);
+      border-top: 2px solid var(--text-muted);
+      transform: translateY(-50%) rotate(45deg);
+      opacity: 0.4;
+      transition: all 0.3s;
+    }
+
+    .link-card:hover::after {
+      opacity: 0.8;
+      right: 16px;
+      border-color: var(--blue);
+    }
+
+    .link-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .link-icon.appstore { background: linear-gradient(135deg, #0071E3, #42A5F5); }
+    .link-icon.playstore { background: linear-gradient(135deg, #34A853, #66BB6A); }
+    .link-icon.website { background: linear-gradient(135deg, #2563EB, #60A5FA); }
+    .link-icon.instagram { background: linear-gradient(135deg, #E1306C, #F77737, #FCAF45); }
+    .link-icon.tiktok { background: linear-gradient(135deg, #010101, #25F4EE); }
+    .link-icon.youtube { background: linear-gradient(135deg, #FF0000, #FF4444); }
+    .link-icon.email { background: linear-gradient(135deg, #8B5CF6, #A78BFA); }
+
+    .link-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .link-title {
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.3;
+    }
+
+    .link-subtitle {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .footer-heart {
+      display: inline-block;
+      animation: heartBeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    /* Header entrance animation */
+    .header {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .lang-bar {
+      opacity: 0;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Small particles decoration */
+    .particle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle:nth-child(1) { top: 15%; left: 8%; background: var(--blue); animation: particleDrift 6s ease-in-out infinite; }
+    .particle:nth-child(2) { top: 35%; right: 5%; background: var(--purple); animation: particleDrift 8s ease-in-out infinite 1s; }
+    .particle:nth-child(3) { top: 65%; left: 12%; background: var(--green); animation: particleDrift 7s ease-in-out infinite 2s; }
+    .particle:nth-child(4) { top: 80%; right: 10%; background: var(--orange); animation: particleDrift 9s ease-in-out infinite 0.5s; }
+
+    @keyframes particleDrift {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 380px) {
+      .app-name { font-size: 24px; }
+      .link-card { padding: 14px 16px; }
+      .link-icon { width: 42px; height: 42px; font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Decorative particles -->
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+
+  <div class="container">
+
+    <!-- Language Switcher -->
+    <div class="lang-bar">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="sifi-wrapper">
+        <svg class="sifi-character" width="120" height="150" viewBox="0 0 90 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Antenler -->
+          <line x1="36" y1="22" x2="32" y2="6" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="54" y1="22" x2="58" y2="6" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="32" cy="5" r="4" fill="#EF4444"/>
+          <circle cx="58" cy="5" r="4" fill="#EF4444"/>
+          <!-- Kapsul govde -->
+          <ellipse cx="45" cy="55" rx="28" ry="35" fill="#2563EB"/>
+          <ellipse cx="45" cy="72" rx="28" ry="18" fill="#E8EDF5" opacity="0.95"/>
+          <!-- Kollar -->
+          <line x1="17" y1="55" x2="4" y2="52" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+          <line x1="73" y1="55" x2="86" y2="52" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+          <!-- Gozler -->
+          <g class="sifi-eye-open">
+            <circle cx="36" cy="46" r="5.5" fill="white"/>
+            <circle cx="37.5" cy="45.5" r="3" fill="#0F172A"/>
+            <circle cx="38.5" cy="44" r="1.2" fill="white"/>
+            <circle cx="54" cy="46" r="5.5" fill="white"/>
+            <circle cx="55.5" cy="45.5" r="3" fill="#0F172A"/>
+            <circle cx="56.5" cy="44" r="1.2" fill="white"/>
+          </g>
+          <g class="sifi-eye-closed">
+            <line x1="31" y1="46" x2="41" y2="46" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+            <line x1="49" y1="46" x2="59" y2="46" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <!-- Gulus -->
+          <path d="M38 54 Q45 60 52 54" stroke="#0F172A" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <!-- Ayaklar -->
+          <ellipse cx="36" cy="90" rx="8" ry="4" fill="#94A3B8" opacity="0.5"/>
+          <ellipse cx="54" cy="90" rx="8" ry="4" fill="#94A3B8" opacity="0.5"/>
+        </svg>
+      </div>
+      <h1 class="app-name">Şifa Asistanım</h1>
+      <p class="tagline" data-tr="Sevimli sağlık asistanın Şifi ile ilaç takibi" data-en="Track your meds with Sifi, your cute health assistant">Sevimli sağlık asistanın Şifi ile ilaç takibi</p>
+    </div>
+
+    <!-- Links -->
+    <div class="links">
+
+      <a href="#" class="link-card" data-delay="0">
+        <div class="link-icon appstore">🍎</div>
+        <div class="link-text">
+          <span class="link-title" data-tr="App Store'dan İndir" data-en="Download on App Store">App Store'dan İndir</span>
+          <span class="link-subtitle" data-tr="iPhone ve iPad" data-en="iPhone & iPad">iPhone ve iPad</span>
+        </div>
+      </a>
+
+      <a href="#" class="link-card" data-delay="1">
+        <div class="link-icon playstore">▶️</div>
+        <div class="link-text">
+          <span class="link-title" data-tr="Google Play'den İndir" data-en="Get it on Google Play">Google Play'den İndir</span>
+          <span class="link-subtitle" data-tr="Android cihazlar" data-en="Android devices">Android cihazlar</span>
+        </div>
+      </a>
+
+      <a href="https://www.sifaasistanim.com" class="link-card" data-delay="2">
+        <div class="link-icon website">🌐</div>
+        <div class="link-text">
+          <span class="link-title" data-tr="Web Sitemiz" data-en="Our Website">Web Sitemiz</span>
+          <span class="link-subtitle" data-tr="sifaasistanim.com" data-en="sifaasistanim.com">sifaasistanim.com</span>
+        </div>
+      </a>
+
+      <a href="#" class="link-card" data-delay="3">
+        <div class="link-icon instagram">📱</div>
+        <div class="link-text">
+          <span class="link-title" data-tr="Instagram" data-en="Instagram">Instagram</span>
+          <span class="link-subtitle" data-tr="Bizi takip edin" data-en="Follow us">Bizi takip edin</span>
+        </div>
+      </a>
+
+      <a href="#" class="link-card" data-delay="4">
+        <div class="link-icon tiktok">🎵</div>
+        <div class="link-text">
+          <span class="link-title" data-tr="TikTok" data-en="TikTok">TikTok</span>
+          <span class="link-subtitle" data-tr="Eğlenceli içerikler" data-en="Fun content">Eğlenceli içerikler</span>
+        </div>
+      </a>
+
+      <a href="#" class="link-card" data-delay="5">
+        <div class="link-icon youtube">▶️</div>
+        <div class="link-text">
+          <span class="link-title" data-tr="YouTube" data-en="YouTube">YouTube</span>
+          <span class="link-subtitle" data-tr="Video rehberler" data-en="Video guides">Video rehberler</span>
+        </div>
+      </a>
+
+      <a href="mailto:zaydeayvaz@icloud.com" class="link-card" data-delay="6">
+        <div class="link-icon email">📧</div>
+        <div class="link-text">
+          <span class="link-title" data-tr="İletişim" data-en="Contact Us">İletişim</span>
+          <span class="link-subtitle" data-tr="zaydeayvaz@icloud.com" data-en="zaydeayvaz@icloud.com">zaydeayvaz@icloud.com</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <span data-tr="Made with" data-en="Made with">Made with</span> <span class="footer-heart">❤️</span> <span data-tr="in Turkey" data-en="in Turkey">in Turkey</span>
+    </div>
+
+  </div>
+
+  <script>
+    // Card entrance animations
+    function animateCards() {
+      const cards = document.querySelectorAll('.link-card');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+          card.classList.add('visible');
+        }, 300 + (i * 80));
+      });
+    }
+
+    // Run on load
+    window.addEventListener('DOMContentLoaded', animateCards);
+
+    // Language switcher
+    let currentLang = 'tr';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+      });
+
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('[data-tr][data-en]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+    }
+  </script>
+
+</body>
+</html>
