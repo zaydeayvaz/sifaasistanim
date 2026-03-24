@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /feature-graphic.html
+
+Sitemap: https://www.sifaasistanim.com/sitemap.xml
