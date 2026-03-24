@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Şifi Sticker Paketi — Şifa Asistanım</title>
+  <meta name="description" content="Şifi sticker paketini indir, WhatsApp ve Telegram'da kullan! Sevimli ilaç takip maskotun Şifi artık stickerlarıyla yanında.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Şifi Sticker Paketi 🎉">
+  <meta property="og:description" content="Şifi sticker paketini indir, WhatsApp ve Telegram'da kullan!">
+  <meta property="og:url" content="https://www.sifaasistanim.com/stickers.html">
+  <meta property="og:image" content="https://www.sifaasistanim.com/1.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2563EB;
+      --blue-dark: #1D4ED8;
+      --blue-light: #EFF6FF;
+      --blue-mid: #DBEAFE;
+      --green: #10B981;
+      --orange: #F59E0B;
+      --orange-dark: #B45309;
+      --red: #EF4444;
+      --purple: #8B5CF6;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --bg: #F8FAFF;
+      --white: #FFFFFF;
+      --font-display: 'Nunito', sans-serif;
+      --font: 'Figtree', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(170deg, #EFF6FF 0%, #DBEAFE 30%, #F8FAFF 60%, #EFF6FF 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(248,250,255,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(226,232,240,0.7);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .nav-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+    }
+
+    .nav-link {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .nav-link:hover { text-decoration: underline; }
+
+    /* Hero */
+    .hero {
+      margin-top: 80px;
+      text-align: center;
+      padding: 60px 24px 40px;
+    }
+
+    .hero-mascot {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Sticker Grid */
+    .sticker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+      padding: 20px 0 60px;
+    }
+
+    .sticker-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(37,99,235,0.08);
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .sticker-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.15);
+    }
+
+    .sticker-card canvas {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    .sticker-label {
+      margin-top: 10px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .sticker-dl {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 16px;
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .sticker-dl:hover { background: var(--blue-dark); }
+
+    /* Download All */
+    .download-all-section {
+      text-align: center;
+      padding: 20px 0 60px;
+    }
+
+    .btn-download-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(37,99,235,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-download-all:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,99,235,0.4);
+    }
+
+    /* How to use */
+    .howto {
+      padding: 60px 0;
+    }
+
+    .howto h2 {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 32px;
+    }
+
+    .howto-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .howto-step {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(37,99,235,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .howto-step .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .howto-step h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .howto-step p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    /* Share */
+    .share-section {
+      text-align: center;
+      padding: 40px 0 80px;
+    }
+
+    .share-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .share-btns {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-family: var(--font);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      color: white;
+      transition: transform 0.2s;
+    }
+
+    .share-btn:hover { transform: scale(1.05); }
+    .share-btn.whatsapp { background: #25D366; }
+    .share-btn.telegram { background: #0088cc; }
+    .share-btn.twitter { background: #1DA1F2; }
+    .share-btn.copy-link { background: var(--purple); cursor: pointer; border: none; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--text);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.8rem; }
+      .sticker-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .sticker-card { padding: 10px; }
+      .sticker-label { font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="1.jpg" alt="Şifa Asistanım">
+      <span>Şifa Asistanım</span>
+    </a>
+    <a href="/" class="nav-link">Ana Sayfa</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <canvas id="heroMascot" class="hero-mascot" width="240" height="240"></canvas>
+    <h1>Şifi Sticker Paketi 🎉</h1>
+    <p>Şifi'nin sevimli stickerlarını indir, WhatsApp ve Telegram'da arkadaşlarınla paylaş!</p>
+  </section>
+
+  <!-- Sticker Grid -->
+  <div class="container">
+    <div class="sticker-grid" id="stickerGrid"></div>
+
+    <!-- Download All -->
+    <div class="download-all-section">
+      <button class="btn-download-all" onclick="downloadAll()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Hepsini Indir (16 Sticker)
+      </button>
+    </div>
+
+    <!-- How to use -->
+    <section class="howto">
+      <h2>Nasil Kullanilir? 📱</h2>
+      <div class="howto-steps">
+        <div class="howto-step">
+          <div class="step-num">1</div>
+          <h3>Stickerlari Kaydet</h3>
+          <p>Begendigin stickera tikla ve "Indir" butonuyla telefonuna kaydet.</p>
+        </div>
+        <div class="howto-step">
+          <div class="step-num">2</div>
+          <h3>WhatsApp'a Ekle</h3>
+          <p>WhatsApp > Sticker magazasi > Kisisel sticker olustur bolumunden ekle.</p>
+        </div>
+        <div class="howto-step">
+          <div class="step-num">3</div>
+          <h3>Sticker Maker Kullan</h3>
+          <p>"Sticker Maker" uygulamasini indir, kaydettiklerin stickerlari iceri aktar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Share -->
+    <section class="share-section">
+      <h2>Arkadaslarinla Paylas! 🎉</h2>
+      <div class="share-btns">
+        <a href="https://api.whatsapp.com/send?text=Sifi%20sticker%20paketine%20bak!%20%F0%9F%8E%89%20https://www.sifaasistanim.com/stickers.html" target="_blank" class="share-btn whatsapp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="https://t.me/share/url?url=https://www.sifaasistanim.com/stickers.html&text=Sifi%20sticker%20paketine%20bak!%20%F0%9F%8E%89" target="_blank" class="share-btn telegram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Telegram
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Sifi%20sticker%20paketine%20bak!%20%F0%9F%8E%89&url=https://www.sifaasistanim.com/stickers.html" target="_blank" class="share-btn twitter">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+          Twitter
+        </a>
+        <button class="share-btn copy-link" onclick="copyLink()">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+          Linki Kopyala
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 <a href="/">Sifa Asistanim</a>. Tum haklar saklidir.</p>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+// Sticker definitions
+const stickers = [
+  { id: 1, text: "Ilacini aldin mi?", emoji: "💊", mood: "question" },
+  { id: 2, text: "Aferin sana!", emoji: "⭐", mood: "excited" },
+  { id: 3, text: "Doz zamani!", emoji: "⏰", mood: "alert" },
+  { id: 4, text: "Bugun harikasin!", emoji: "🔥", mood: "fire" },
+  { id: 5, text: "Gecmis olsun", emoji: "💙", mood: "caring" },
+  { id: 6, text: "Iyi geceler", emoji: "🌙", mood: "sleeping" },
+  { id: 7, text: "Gunaydin!", emoji: "☀️", mood: "wakeup" },
+  { id: 8, text: "Super!", emoji: "💪", mood: "strong" },
+  { id: 9, text: "Unutma!", emoji: "🔔", mood: "bell" },
+  { id: 10, text: "Seni seviyorum", emoji: "❤️", mood: "love" },
+  { id: 11, text: "Tesekkurler", emoji: "🙏", mood: "bow" },
+  { id: 12, text: "Hadi!", emoji: "🚀", mood: "rocket" },
+  { id: 13, text: "XP +10", emoji: "🎮", mood: "xp" },
+  { id: 14, text: "Streak!", emoji: "🔥", mood: "streak" },
+  { id: 15, text: "Level Up!", emoji: "🏆", mood: "trophy" },
+  { id: 16, text: "Tamam", emoji: "👍", mood: "thumbsup" },
+];
+
+// Draw Şifi character
+function drawSifi(ctx, cx, cy, scale, mood) {
+  const s = scale;
+
+  // Body - blue capsule
+  ctx.save();
+
+  // Body shadow
+  ctx.fillStyle = 'rgba(37,99,235,0.15)';
+  ctx.beginPath();
+  ctx.ellipse(cx + 3*s, cy + 100*s, 55*s, 85*s, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Main body
+  const bodyGrad = ctx.createLinearGradient(cx - 50*s, cy - 80*s, cx + 50*s, cy + 80*s);
+  bodyGrad.addColorStop(0, '#60A5FA');
+  bodyGrad.addColorStop(0.5, '#2563EB');
+  bodyGrad.addColorStop(1, '#1D4ED8');
+  ctx.fillStyle = bodyGrad;
+  ctx.beginPath();
+  ctx.moveTo(cx - 45*s, cy + 10*s);
+  ctx.quadraticCurveTo(cx - 50*s, cy - 70*s, cx - 30*s, cy - 90*s);
+  ctx.quadraticCurveTo(cx, cy - 110*s, cx + 30*s, cy - 90*s);
+  ctx.quadraticCurveTo(cx + 50*s, cy - 70*s, cx + 45*s, cy + 10*s);
+  ctx.quadraticCurveTo(cx + 50*s, cy + 80*s, cx + 30*s, cy + 95*s);
+  ctx.quadraticCurveTo(cx, cy + 110*s, cx - 30*s, cy + 95*s);
+  ctx.quadraticCurveTo(cx - 50*s, cy + 80*s, cx - 45*s, cy + 10*s);
+  ctx.fill();
+
+  // Body highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  ctx.beginPath();
+  ctx.ellipse(cx - 15*s, cy - 40*s, 18*s, 50*s, -0.3, 0, Math.PI*2);
+  ctx.fill();
+
+  // Antennas
+  const antennaY = cy - 90*s;
+
+  // Left antenna stick
+  ctx.strokeStyle = '#1D4ED8';
+  ctx.lineWidth = 4*s;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(cx - 18*s, antennaY);
+  ctx.quadraticCurveTo(cx - 25*s, antennaY - 30*s, cx - 28*s, antennaY - 45*s);
+  ctx.stroke();
+
+  // Right antenna stick
+  ctx.beginPath();
+  ctx.moveTo(cx + 18*s, antennaY);
+  ctx.quadraticCurveTo(cx + 25*s, antennaY - 30*s, cx + 28*s, antennaY - 45*s);
+  ctx.stroke();
+
+  // Left antenna ball
+  const antGrad1 = ctx.createRadialGradient(cx - 30*s, antennaY - 50*s, 2*s, cx - 28*s, antennaY - 47*s, 12*s);
+  antGrad1.addColorStop(0, '#FF6B6B');
+  antGrad1.addColorStop(1, '#EF4444');
+  ctx.fillStyle = antGrad1;
+  ctx.beginPath();
+  ctx.arc(cx - 28*s, antennaY - 48*s, 10*s, 0, Math.PI*2);
+  ctx.fill();
+
+  // Right antenna ball
+  const antGrad2 = ctx.createRadialGradient(cx + 26*s, antennaY - 50*s, 2*s, cx + 28*s, antennaY - 47*s, 12*s);
+  antGrad2.addColorStop(0, '#FF6B6B');
+  antGrad2.addColorStop(1, '#EF4444');
+  ctx.fillStyle = antGrad2;
+  ctx.beginPath();
+  ctx.arc(cx + 28*s, antennaY - 48*s, 10*s, 0, Math.PI*2);
+  ctx.fill();
+
+  // Antenna highlights
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.beginPath();
+  ctx.arc(cx - 31*s, antennaY - 52*s, 3*s, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(cx + 25*s, antennaY - 52*s, 3*s, 0, Math.PI*2);
+  ctx.fill();
+
+  // Eyes
+  const eyeY = cy - 30*s;
+  const leftEyeX = cx - 16*s;
+  const rightEyeX = cx + 16*s;
+
+  // Eye whites
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath();
+  ctx.ellipse(leftEyeX, eyeY, 14*s, 16*s, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(rightEyeX, eyeY, 14*s, 16*s, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Pupils based on mood
+  let pupilOffX = 0, pupilOffY = 0;
+  let pupilSize = 7*s;
+
+  if (mood === 'question') { pupilOffX = 2*s; pupilOffY = -2*s; }
+  else if (mood === 'sleeping') { pupilSize = 0; }
+  else if (mood === 'love') { pupilSize = 9*s; }
+  else if (mood === 'bow') { pupilOffY = 4*s; }
+  else if (mood === 'wakeup') { pupilSize = 5*s; pupilOffY = -2*s; }
+
+  if (pupilSize > 0) {
+    ctx.fillStyle = '#1E293B';
+    ctx.beginPath();
+    ctx.arc(leftEyeX + pupilOffX, eyeY + pupilOffY, pupilSize, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(rightEyeX + pupilOffX, eyeY + pupilOffY, pupilSize, 0, Math.PI*2);
+    ctx.fill();
+
+    // Eye highlights
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.arc(leftEyeX + pupilOffX - 2*s, eyeY + pupilOffY - 3*s, 3*s, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(rightEyeX + pupilOffX - 2*s, eyeY + pupilOffY - 3*s, 3*s, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Special eye overrides
+  if (mood === 'sleeping') {
+    // Closed eyes (lines)
+    ctx.strokeStyle = '#1E293B';
+    ctx.lineWidth = 3*s;
+    ctx.beginPath();
+    ctx.moveTo(leftEyeX - 10*s, eyeY);
+    ctx.quadraticCurveTo(leftEyeX, eyeY + 6*s, leftEyeX + 10*s, eyeY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(rightEyeX - 10*s, eyeY);
+    ctx.quadraticCurveTo(rightEyeX, eyeY + 6*s, rightEyeX + 10*s, eyeY);
+    ctx.stroke();
+  }
+
+  if (mood === 'excited' || mood === 'fire' || mood === 'streak') {
+    // Sparkle eyes
+    ctx.fillStyle = '#FDE68A';
+    const starPts = (x, y, r) => {
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const a = (Math.PI * 2 * i / 5) - Math.PI/2;
+        const ox = x + Math.cos(a) * r;
+        const oy = y + Math.sin(a) * r;
+        if (i === 0) ctx.moveTo(ox, oy);
+        else ctx.lineTo(ox, oy);
+        const a2 = a + Math.PI*2/10;
+        ctx.lineTo(x + Math.cos(a2) * r * 0.4, y + Math.sin(a2) * r * 0.4);
+      }
+      ctx.closePath();
+      ctx.fill();
+    };
+    starPts(leftEyeX, eyeY, 5*s);
+    starPts(rightEyeX, eyeY, 5*s);
+  }
+
+  if (mood === 'love') {
+    // Heart-shaped pupils
+    ctx.fillStyle = '#EF4444';
+    const drawHeart = (hx, hy, hs) => {
+      ctx.beginPath();
+      ctx.moveTo(hx, hy + hs*0.3);
+      ctx.bezierCurveTo(hx, hy - hs*0.3, hx - hs*0.6, hy - hs*0.3, hx - hs*0.6, hy + hs*0.05);
+      ctx.bezierCurveTo(hx - hs*0.6, hy + hs*0.4, hx, hy + hs*0.7, hx, hy + hs*0.7);
+      ctx.bezierCurveTo(hx, hy + hs*0.7, hx + hs*0.6, hy + hs*0.4, hx + hs*0.6, hy + hs*0.05);
+      ctx.bezierCurveTo(hx + hs*0.6, hy - hs*0.3, hx, hy - hs*0.3, hx, hy + hs*0.3);
+      ctx.fill();
+    };
+    drawHeart(leftEyeX, eyeY - 6*s, 14*s);
+    drawHeart(rightEyeX, eyeY - 6*s, 14*s);
+  }
+
+  // Eyebrows based on mood
+  ctx.strokeStyle = '#1E293B';
+  ctx.lineWidth = 2.5*s;
+  if (mood === 'question') {
+    // One raised eyebrow
+    ctx.beginPath();
+    ctx.moveTo(leftEyeX - 10*s, eyeY - 22*s);
+    ctx.quadraticCurveTo(leftEyeX, eyeY - 28*s, leftEyeX + 10*s, eyeY - 22*s);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(rightEyeX - 10*s, eyeY - 28*s);
+    ctx.quadraticCurveTo(rightEyeX, eyeY - 34*s, rightEyeX + 10*s, eyeY - 26*s);
+    ctx.stroke();
+  } else if (mood === 'alert' || mood === 'bell') {
+    // Alert eyebrows
+    ctx.beginPath();
+    ctx.moveTo(leftEyeX - 10*s, eyeY - 26*s);
+    ctx.lineTo(leftEyeX + 10*s, eyeY - 22*s);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(rightEyeX - 10*s, eyeY - 22*s);
+    ctx.lineTo(rightEyeX + 10*s, eyeY - 26*s);
+    ctx.stroke();
+  } else if (mood !== 'sleeping') {
+    // Normal happy eyebrows
+    ctx.beginPath();
+    ctx.moveTo(leftEyeX - 10*s, eyeY - 22*s);
+    ctx.quadraticCurveTo(leftEyeX, eyeY - 26*s, leftEyeX + 10*s, eyeY - 22*s);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(rightEyeX - 10*s, eyeY - 22*s);
+    ctx.quadraticCurveTo(rightEyeX, eyeY - 26*s, rightEyeX + 10*s, eyeY - 22*s);
+    ctx.stroke();
+  }
+
+  // Mouth based on mood
+  const mouthY = cy + 10*s;
+  ctx.lineWidth = 3*s;
+  ctx.lineCap = 'round';
+
+  if (mood === 'question') {
+    // O mouth
+    ctx.fillStyle = '#1E293B';
+    ctx.beginPath();
+    ctx.ellipse(cx, mouthY + 5*s, 8*s, 10*s, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#EF4444';
+    ctx.beginPath();
+    ctx.ellipse(cx, mouthY + 8*s, 5*s, 5*s, 0, 0, Math.PI*2);
+    ctx.fill();
+  } else if (mood === 'sleeping') {
+    // Small pursed mouth
+    ctx.strokeStyle = '#1E293B';
+    ctx.beginPath();
+    ctx.moveTo(cx - 5*s, mouthY + 5*s);
+    ctx.quadraticCurveTo(cx, mouthY + 2*s, cx + 5*s, mouthY + 5*s);
+    ctx.stroke();
+    // Zzzs
+    ctx.fillStyle = '#94A3B8';
+    ctx.font = `bold ${18*s}px ${getComputedStyle(document.body).fontFamily}`;
+    ctx.fillText('Z', cx + 40*s, cy - 50*s);
+    ctx.font = `bold ${14*s}px ${getComputedStyle(document.body).fontFamily}`;
+    ctx.fillText('z', cx + 52*s, cy - 70*s);
+    ctx.font = `bold ${10*s}px ${getComputedStyle(document.body).fontFamily}`;
+    ctx.fillText('z', cx + 58*s, cy - 82*s);
+  } else if (mood === 'excited' || mood === 'fire' || mood === 'wakeup' || mood === 'rocket' || mood === 'streak') {
+    // Big open smile
+    ctx.fillStyle = '#1E293B';
+    ctx.beginPath();
+    ctx.moveTo(cx - 18*s, mouthY);
+    ctx.quadraticCurveTo(cx, mouthY + 25*s, cx + 18*s, mouthY);
+    ctx.closePath();
+    ctx.fill();
+    // Tongue
+    ctx.fillStyle = '#EF4444';
+    ctx.beginPath();
+    ctx.ellipse(cx, mouthY + 12*s, 8*s, 6*s, 0, 0, Math.PI);
+    ctx.fill();
+  } else if (mood === 'caring') {
+    // Gentle smile
+    ctx.strokeStyle = '#1E293B';
+    ctx.beginPath();
+    ctx.moveTo(cx - 14*s, mouthY + 2*s);
+    ctx.quadraticCurveTo(cx, mouthY + 14*s, cx + 14*s, mouthY + 2*s);
+    ctx.stroke();
+  } else if (mood === 'strong' || mood === 'xp' || mood === 'trophy') {
+    // Confident grin
+    ctx.fillStyle = '#1E293B';
+    ctx.beginPath();
+    ctx.moveTo(cx - 16*s, mouthY);
+    ctx.quadraticCurveTo(cx, mouthY + 20*s, cx + 16*s, mouthY);
+    ctx.closePath();
+    ctx.fill();
+    // Teeth
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(cx - 12*s, mouthY, 24*s, 5*s);
+  } else if (mood === 'bow') {
+    // Small humble smile
+    ctx.strokeStyle = '#1E293B';
+    ctx.beginPath();
+    ctx.moveTo(cx - 10*s, mouthY + 2*s);
+    ctx.quadraticCurveTo(cx, mouthY + 10*s, cx + 10*s, mouthY + 2*s);
+    ctx.stroke();
+  } else {
+    // Default smile
+    ctx.strokeStyle = '#1E293B';
+    ctx.beginPath();
+    ctx.moveTo(cx - 15*s, mouthY);
+    ctx.quadraticCurveTo(cx, mouthY + 16*s, cx + 15*s, mouthY);
+    ctx.stroke();
+  }
+
+  // Blush cheeks for caring/love/bow
+  if (['caring', 'love', 'bow', 'sleeping'].includes(mood)) {
+    ctx.fillStyle = 'rgba(239,68,68,0.15)';
+    ctx.beginPath();
+    ctx.ellipse(cx - 30*s, cy - 8*s, 10*s, 7*s, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(cx + 30*s, cy - 8*s, 10*s, 7*s, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Arms for specific moods
+  ctx.strokeStyle = '#2563EB';
+  ctx.lineWidth = 6*s;
+  ctx.lineCap = 'round';
+
+  if (mood === 'strong') {
+    // Flexing arms
+    // Left arm
+    ctx.beginPath();
+    ctx.moveTo(cx - 45*s, cy + 10*s);
+    ctx.lineTo(cx - 65*s, cy - 20*s);
+    ctx.lineTo(cx - 55*s, cy - 50*s);
+    ctx.stroke();
+    // Right arm
+    ctx.beginPath();
+    ctx.moveTo(cx + 45*s, cy + 10*s);
+    ctx.lineTo(cx + 65*s, cy - 20*s);
+    ctx.lineTo(cx + 55*s, cy - 50*s);
+    ctx.stroke();
+    // Muscle bumps
+    ctx.fillStyle = '#3B82F6';
+    ctx.beginPath();
+    ctx.arc(cx - 58*s, cy - 35*s, 8*s, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(cx + 58*s, cy - 35*s, 8*s, 0, Math.PI*2);
+    ctx.fill();
+  } else if (mood === 'thumbsup') {
+    // Thumbs up arm
+    ctx.beginPath();
+    ctx.moveTo(cx + 45*s, cy + 20*s);
+    ctx.lineTo(cx + 65*s, cy - 10*s);
+    ctx.stroke();
+    // Thumb
+    ctx.fillStyle = '#3B82F6';
+    ctx.beginPath();
+    ctx.roundRect(cx + 58*s, cy - 40*s, 14*s, 30*s, 7*s);
+    ctx.fill();
+    // Fist
+    ctx.beginPath();
+    ctx.roundRect(cx + 54*s, cy - 16*s, 22*s, 16*s, 5*s);
+    ctx.fill();
+  } else if (mood === 'bow') {
+    // Hands together
+    ctx.beginPath();
+    ctx.moveTo(cx - 45*s, cy + 20*s);
+    ctx.quadraticCurveTo(cx - 30*s, cy + 60*s, cx - 5*s, cy + 55*s);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx + 45*s, cy + 20*s);
+    ctx.quadraticCurveTo(cx + 30*s, cy + 60*s, cx + 5*s, cy + 55*s);
+    ctx.stroke();
+  } else if (mood === 'wakeup') {
+    // Stretching arms up
+    ctx.beginPath();
+    ctx.moveTo(cx - 44*s, cy);
+    ctx.quadraticCurveTo(cx - 70*s, cy - 40*s, cx - 55*s, cy - 70*s);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx + 44*s, cy);
+    ctx.quadraticCurveTo(cx + 70*s, cy - 40*s, cx + 55*s, cy - 70*s);
+    ctx.stroke();
+  }
+
+  // Feet
+  ctx.fillStyle = '#1D4ED8';
+  ctx.beginPath();
+  ctx.ellipse(cx - 18*s, cy + 100*s, 16*s, 8*s, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx + 18*s, cy + 100*s, 16*s, 8*s, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+// Draw mood-specific accessories
+function drawAccessory(ctx, cx, cy, scale, mood, emoji) {
+  const s = scale;
+
+  if (mood === 'question') {
+    // Question mark + pill
+    ctx.font = `bold ${40*s}px Nunito, sans-serif`;
+    ctx.fillStyle = '#F59E0B';
+    ctx.textAlign = 'center';
+    ctx.fillText('?', cx + 50*s, cy - 60*s);
+    // Pill
+    ctx.fillStyle = '#EF4444';
+    ctx.beginPath();
+    ctx.roundRect(cx + 45*s, cy + 20*s, 30*s, 14*s, 7*s);
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.roundRect(cx + 60*s, cy + 20*s, 15*s, 14*s, [0, 7*s, 7*s, 0]);
+    ctx.fill();
+  }
+
+  if (mood === 'excited') {
+    // Stars around
+    ctx.fillStyle = '#FDE68A';
+    const drawStar = (sx, sy, sr) => {
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const a = (Math.PI*2*i/5) - Math.PI/2;
+        ctx.lineTo(sx + Math.cos(a)*sr, sy + Math.sin(a)*sr);
+        const a2 = a + Math.PI/5;
+        ctx.lineTo(sx + Math.cos(a2)*sr*0.4, sy + Math.sin(a2)*sr*0.4);
+      }
+      ctx.closePath();
+      ctx.fill();
+    };
+    drawStar(cx - 55*s, cy - 65*s, 12*s);
+    drawStar(cx + 55*s, cy - 55*s, 10*s);
+    drawStar(cx + 60*s, cy + 30*s, 8*s);
+    drawStar(cx - 60*s, cy + 40*s, 9*s);
+  }
+
+  if (mood === 'alert') {
+    // Alarm clock
+    ctx.fillStyle = '#F59E0B';
+    ctx.beginPath();
+    ctx.arc(cx + 55*s, cy - 30*s, 22*s, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.arc(cx + 55*s, cy - 30*s, 17*s, 0, Math.PI*2);
+    ctx.fill();
+    // Clock hands
+    ctx.strokeStyle = '#1E293B';
+    ctx.lineWidth = 2*s;
+    ctx.beginPath();
+    ctx.moveTo(cx + 55*s, cy - 30*s);
+    ctx.lineTo(cx + 55*s, cy - 42*s);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx + 55*s, cy - 30*s);
+    ctx.lineTo(cx + 63*s, cy - 26*s);
+    ctx.stroke();
+    // Bell on top
+    ctx.fillStyle = '#F59E0B';
+    ctx.beginPath();
+    ctx.arc(cx + 40*s, cy - 50*s, 5*s, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(cx + 70*s, cy - 50*s, 5*s, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  if (mood === 'fire' || mood === 'streak') {
+    // Fire flames
+    const drawFlame = (fx, fy, fh) => {
+      const fg = ctx.createLinearGradient(fx, fy, fx, fy - fh);
+      fg.addColorStop(0, '#EF4444');
+      fg.addColorStop(0.5, '#F59E0B');
+      fg.addColorStop(1, '#FDE68A');
+      ctx.fillStyle = fg;
+      ctx.beginPath();
+      ctx.moveTo(fx - fh*0.3, fy);
+      ctx.quadraticCurveTo(fx - fh*0.2, fy - fh*0.5, fx, fy - fh);
+      ctx.quadraticCurveTo(fx + fh*0.2, fy - fh*0.5, fx + fh*0.3, fy);
+      ctx.closePath();
+      ctx.fill();
+    };
+    drawFlame(cx - 50*s, cy + 40*s, 50*s);
+    drawFlame(cx + 50*s, cy + 30*s, 45*s);
+    if (mood === 'streak') {
+      drawFlame(cx, cy + 80*s, 60*s);
+      // Streak number
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = `900 ${22*s}px Nunito, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('7', cx, cy + 55*s);
+    }
+  }
+
+  if (mood === 'caring') {
+    // Hearts floating
+    ctx.fillStyle = '#60A5FA';
+    const drawHeart = (hx, hy, hs) => {
+      ctx.beginPath();
+      ctx.moveTo(hx, hy + hs*0.3);
+      ctx.bezierCurveTo(hx, hy - hs*0.3, hx - hs*0.6, hy - hs*0.3, hx - hs*0.6, hy + hs*0.05);
+      ctx.bezierCurveTo(hx - hs*0.6, hy + hs*0.4, hx, hy + hs*0.7, hx, hy + hs*0.7);
+      ctx.bezierCurveTo(hx, hy + hs*0.7, hx + hs*0.6, hy + hs*0.4, hx + hs*0.6, hy + hs*0.05);
+      ctx.bezierCurveTo(hx + hs*0.6, hy - hs*0.3, hx, hy - hs*0.3, hx, hy + hs*0.3);
+      ctx.fill();
+    };
+    drawHeart(cx + 55*s, cy - 40*s, 20*s);
+    ctx.fillStyle = '#93C5FD';
+    drawHeart(cx - 55*s, cy - 20*s, 14*s);
+    ctx.fillStyle = '#DBEAFE';
+    drawHeart(cx + 45*s, cy + 30*s, 12*s);
+  }
+
+  if (mood === 'sleeping') {
+    // Moon
+    ctx.fillStyle = '#FDE68A';
+    ctx.beginPath();
+    ctx.arc(cx + 55*s, cy - 55*s, 18*s, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#1E3A5F';
+    ctx.beginPath();
+    ctx.arc(cx + 62*s, cy - 60*s, 15*s, 0, Math.PI*2);
+    ctx.fill();
+    // Re-fill moon with the bg color (crescent effect)
+    ctx.fillStyle = '#FDE68A';
+    ctx.beginPath();
+    ctx.arc(cx + 55*s, cy - 55*s, 18*s, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(219,234,254,0.95)';
+    ctx.beginPath();
+    ctx.arc(cx + 63*s, cy - 58*s, 15*s, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  if (mood === 'bell') {
+    // Bell
+    ctx.fillStyle = '#F59E0B';
+    ctx.beginPath();
+    ctx.moveTo(cx + 45*s, cy - 20*s);
+    ctx.quadraticCurveTo(cx + 55*s, cy - 60*s, cx + 65*s, cy - 20*s);
+    ctx.lineTo(cx + 70*s, cy - 15*s);
+    ctx.lineTo(cx + 40*s, cy - 15*s);
+    ctx.closePath();
+    ctx.fill();
+    // Bell clapper
+    ctx.fillStyle = '#B45309';
+    ctx.beginPath();
+    ctx.arc(cx + 55*s, cy - 10*s, 4*s, 0, Math.PI*2);
+    ctx.fill();
+    // Sound waves
+    ctx.strokeStyle = '#F59E0B';
+    ctx.lineWidth = 2*s;
+    ctx.beginPath();
+    ctx.arc(cx + 75*s, cy - 35*s, 8*s, -0.5, 0.5);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx + 75*s, cy - 35*s, 14*s, -0.5, 0.5);
+    ctx.stroke();
+  }
+
+  if (mood === 'love') {
+    // Big heart
+    ctx.fillStyle = '#EF4444';
+    const drawHeart = (hx, hy, hs) => {
+      ctx.beginPath();
+      ctx.moveTo(hx, hy + hs*0.3);
+      ctx.bezierCurveTo(hx, hy - hs*0.3, hx - hs*0.6, hy - hs*0.3, hx - hs*0.6, hy + hs*0.05);
+      ctx.bezierCurveTo(hx - hs*0.6, hy + hs*0.4, hx, hy + hs*0.7, hx, hy + hs*0.7);
+      ctx.bezierCurveTo(hx, hy + hs*0.7, hx + hs*0.6, hy + hs*0.4, hx + hs*0.6, hy + hs*0.05);
+      ctx.bezierCurveTo(hx + hs*0.6, hy - hs*0.3, hx, hy - hs*0.3, hx, hy + hs*0.3);
+      ctx.fill();
+    };
+    drawHeart(cx, cy + 60*s, 35*s);
+    // Small hearts
+    ctx.fillStyle = '#FCA5A5';
+    drawHeart(cx - 55*s, cy - 40*s, 12*s);
+    drawHeart(cx + 55*s, cy - 50*s, 10*s);
+  }
+
+  if (mood === 'rocket') {
+    // Rocket
+    const rx = cx + 52*s, ry = cy - 20*s;
+    // Flames
+    const flameG = ctx.createLinearGradient(rx, ry + 25*s, rx, ry + 50*s);
+    flameG.addColorStop(0, '#F59E0B');
+    flameG.addColorStop(1, '#EF4444');
+    ctx.fillStyle = flameG;
+    ctx.beginPath();
+    ctx.moveTo(rx - 8*s, ry + 25*s);
+    ctx.quadraticCurveTo(rx, ry + 50*s, rx + 8*s, ry + 25*s);
+    ctx.fill();
+    // Body
+    const rg = ctx.createLinearGradient(rx - 10*s, ry, rx + 10*s, ry);
+    rg.addColorStop(0, '#E2E8F0');
+    rg.addColorStop(1, '#FFFFFF');
+    ctx.fillStyle = rg;
+    ctx.beginPath();
+    ctx.moveTo(rx, ry - 30*s);
+    ctx.quadraticCurveTo(rx + 12*s, ry - 15*s, rx + 10*s, ry + 25*s);
+    ctx.lineTo(rx - 10*s, ry + 25*s);
+    ctx.quadraticCurveTo(rx - 12*s, ry - 15*s, rx, ry - 30*s);
+    ctx.fill();
+    // Window
+    ctx.fillStyle = '#60A5FA';
+    ctx.beginPath();
+    ctx.arc(rx, ry, 5*s, 0, Math.PI*2);
+    ctx.fill();
+    // Nose
+    ctx.fillStyle = '#EF4444';
+    ctx.beginPath();
+    ctx.moveTo(rx, ry - 30*s);
+    ctx.lineTo(rx - 5*s, ry - 20*s);
+    ctx.lineTo(rx + 5*s, ry - 20*s);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  if (mood === 'xp') {
+    // XP badge
+    ctx.fillStyle = '#8B5CF6';
+    ctx.beginPath();
+    ctx.roundRect(cx + 35*s, cy - 55*s, 50*s, 28*s, 8*s);
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = `900 ${14*s}px Nunito, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('+10', cx + 60*s, cy - 36*s);
+    // Sparkles
+    ctx.fillStyle = '#FDE68A';
+    ctx.font = `${12*s}px sans-serif`;
+    ctx.fillText('✨', cx - 55*s, cy - 50*s);
+    ctx.fillText('✨', cx + 50*s, cy + 50*s);
+  }
+
+  if (mood === 'trophy') {
+    // Trophy
+    ctx.fillStyle = '#F59E0B';
+    ctx.beginPath();
+    ctx.moveTo(cx + 40*s, cy - 55*s);
+    ctx.lineTo(cx + 70*s, cy - 55*s);
+    ctx.lineTo(cx + 66*s, cy - 30*s);
+    ctx.quadraticCurveTo(cx + 55*s, cy - 20*s, cx + 44*s, cy - 30*s);
+    ctx.closePath();
+    ctx.fill();
+    // Handle left
+    ctx.strokeStyle = '#F59E0B';
+    ctx.lineWidth = 3*s;
+    ctx.beginPath();
+    ctx.arc(cx + 38*s, cy - 42*s, 8*s, 0.5, 2.5);
+    ctx.stroke();
+    // Handle right
+    ctx.beginPath();
+    ctx.arc(cx + 72*s, cy - 42*s, 8*s, 0.6, 2.6);
+    ctx.stroke();
+    // Base
+    ctx.fillStyle = '#B45309';
+    ctx.fillRect(cx + 48*s, cy - 22*s, 14*s, 5*s);
+    ctx.fillRect(cx + 44*s, cy - 18*s, 22*s, 4*s);
+    // Star on trophy
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = `${10*s}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('★', cx + 55*s, cy - 38*s);
+  }
+}
+
+// Draw a single sticker
+function drawSticker(canvas, sticker) {
+  const ctx = canvas.getContext('2d');
+  const W = 512, H = 512;
+  canvas.width = W;
+  canvas.height = H;
+
+  // Clear with very light blue bg
+  ctx.clearRect(0, 0, W, H);
+
+  // Soft rounded background
+  ctx.fillStyle = 'rgba(219,234,254,0.35)';
+  ctx.beginPath();
+  ctx.roundRect(8, 8, W - 16, H - 16, 40);
+  ctx.fill();
+
+  // Draw Şifi
+  const sifiCY = 200;
+  drawSifi(ctx, 256, sifiCY, 1.6, sticker.mood);
+
+  // Draw accessories
+  drawAccessory(ctx, 256, sifiCY, 1.6, sticker.mood, sticker.emoji);
+
+  // Text background pill
+  const textY = 430;
+  ctx.fillStyle = 'rgba(255,255,255,0.85)';
+  ctx.beginPath();
+  ctx.roundRect(40, textY - 30, W - 80, 65, 20);
+  ctx.fill();
+
+  // Border
+  ctx.strokeStyle = 'rgba(37,99,235,0.15)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.roundRect(40, textY - 30, W - 80, 65, 20);
+  ctx.stroke();
+
+  // Text
+  ctx.fillStyle = '#0F172A';
+  ctx.font = 'bold 32px Nunito, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(sticker.text + ' ' + sticker.emoji, 256, textY + 3);
+}
+
+// Download a single sticker
+function downloadSticker(canvas, name) {
+  const link = document.createElement('a');
+  link.download = `sifi-sticker-${name}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+// Download all stickers
+function downloadAll() {
+  const canvases = document.querySelectorAll('.sticker-canvas');
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i >= canvases.length) {
+      clearInterval(interval);
+      showToast('Tum stickerlar indiriliyor!');
+      return;
+    }
+    const c = canvases[i];
+    downloadSticker(c, stickers[i].id);
+    i++;
+  }, 300);
+}
+
+// Copy link
+function copyLink() {
+  navigator.clipboard.writeText('https://www.sifaasistanim.com/stickers.html').then(() => {
+    showToast('Link kopyalandi!');
+  });
+}
+
+// Toast
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  // Draw hero mascot
+  const heroCanvas = document.getElementById('heroMascot');
+  const hCtx = heroCanvas.getContext('2d');
+  drawSifi(hCtx, 120, 110, 0.9, 'excited');
+
+  // Draw accessories for hero
+  hCtx.fillStyle = '#FDE68A';
+  const drawStar = (sx, sy, sr) => {
+    hCtx.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const a = (Math.PI*2*i/5) - Math.PI/2;
+      hCtx.lineTo(sx + Math.cos(a)*sr, sy + Math.sin(a)*sr);
+      const a2 = a + Math.PI/5;
+      hCtx.lineTo(sx + Math.cos(a2)*sr*0.4, sy + Math.sin(a2)*sr*0.4);
+    }
+    hCtx.closePath();
+    hCtx.fill();
+  };
+  drawStar(25, 30, 10);
+  drawStar(200, 50, 8);
+  drawStar(190, 170, 9);
+  drawStar(35, 180, 7);
+
+  // Create sticker cards
+  const grid = document.getElementById('stickerGrid');
+  stickers.forEach(sticker => {
+    const card = document.createElement('div');
+    card.className = 'sticker-card';
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'sticker-canvas';
+    canvas.setAttribute('data-id', sticker.id);
+    drawSticker(canvas, sticker);
+
+    const label = document.createElement('div');
+    label.className = 'sticker-label';
+    label.textContent = sticker.text + ' ' + sticker.emoji;
+
+    const btn = document.createElement('button');
+    btn.className = 'sticker-dl';
+    btn.textContent = 'Indir';
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      downloadSticker(canvas, sticker.id);
+      showToast('Sticker indiriliyor!');
+    };
+
+    card.onclick = () => {
+      downloadSticker(canvas, sticker.id);
+      showToast('Sticker indiriliyor!');
+    };
+
+    card.appendChild(canvas);
+    card.appendChild(label);
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+});
+</script>
+</body>
+</html>
