@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Şifi Printify Tasarımları — Şifa Asistanım</title>
+  <meta name="description" content="Şifi karakteri ile yüksek çözünürlüklü baskı tasarımları. T-shirt, kupa ve daha fazlası için PNG indir.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2563EB;
+      --blue-dark: #1D4ED8;
+      --blue-light: #EFF6FF;
+      --blue-mid: #DBEAFE;
+      --green: #10B981;
+      --orange: #F59E0B;
+      --red: #EF4444;
+      --purple: #8B5CF6;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --bg: #F8FAFF;
+      --white: #FFFFFF;
+      --font-display: 'Nunito', sans-serif;
+      --font: 'Figtree', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(170deg, #EFF6FF 0%, #DBEAFE 30%, #F8FAFF 60%, #EFF6FF 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(248,250,255,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(226,232,240,0.7);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .nav-logo img { width: 36px; height: 36px; border-radius: 10px; }
+    .nav-link { color: var(--blue); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+    .nav-link:hover { text-decoration: underline; }
+
+    .hero {
+      margin-top: 80px;
+      text-align: center;
+      padding: 60px 24px 40px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #2563EB, #8B5CF6, #EC4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #8B5CF6, #EC4899);
+      color: white;
+      border-radius: 30px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    .design-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+      padding: 20px 0 60px;
+    }
+
+    .design-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(37,99,235,0.1);
+      border: 1px solid rgba(37,99,235,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .design-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563EB, #8B5CF6, #EC4899, #F59E0B);
+      border-radius: 24px 24px 0 0;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .design-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(37,99,235,0.2);
+    }
+
+    .design-card:hover::before { opacity: 1; }
+
+    .design-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .canvas-wrapper {
+      position: relative;
+      background: repeating-conic-gradient(#e8e8e8 0% 25%, #fff 0% 50%) 50% / 20px 20px;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 260px;
+    }
+
+    .canvas-wrapper canvas {
+      max-width: 100%;
+      max-height: 400px;
+      height: auto;
+    }
+
+    .design-info {
+      margin-top: 14px;
+    }
+
+    .design-label {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .design-size {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .design-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 10px 24px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .design-dl:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+    }
+
+    .download-all-section { text-align: center; padding: 20px 0 60px; }
+
+    .btn-download-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 48px;
+      background: linear-gradient(135deg, #2563EB, #7C3AED, #EC4899);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 6px 30px rgba(37,99,235,0.35);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-download-all::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer { 100% { left: 100%; } }
+
+    .btn-download-all:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 40px rgba(37,99,235,0.45);
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(248,250,255,0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      transition: opacity 0.5s;
+    }
+
+    .loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 5px solid var(--blue-mid);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text {
+      margin-top: 20px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: linear-gradient(135deg, #1E293B, #334155);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 999;
+      pointer-events: none;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 1.9rem; }
+      .design-grid { grid-template-columns: 1fr; gap: 18px; }
+      .design-card { padding: 14px; }
+      .btn-download-all { padding: 14px 32px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Tasarimlar hazirlaniyor...</div>
+  </div>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="1.jpg" alt="Sifa Asistanim">
+      <span>Sifa Asistanim</span>
+    </a>
+    <a href="/" class="nav-link">Ana Sayfa</a>
+  </nav>
+
+  <section class="hero">
+    <h1>Sifi Printify Tasarimlari</h1>
+    <p>Yuksek cozunurluklu, seffaf arkaplanli PNG tasarimlar. T-shirt, kupa, poster ve daha fazlasi icin hazir!</p>
+    <div class="badge">6 Tasarim - Baski Kalitesinde</div>
+  </section>
+
+  <div class="container">
+    <div class="design-grid" id="designGrid"></div>
+
+    <div class="download-all-section">
+      <button class="btn-download-all" onclick="downloadAll()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Hepsini Indir (6 Tasarim)
+      </button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <footer>
+    <p>&copy; 2026 <a href="/">Sifa Asistanim</a> — Sifi ile saglikli kal!</p>
+  </footer>
+
+<script>
+// ============================================================
+// REUSABLE SIFI CHARACTER DRAWING
+// ============================================================
+
+function drawSifi(ctx, cx, cy, s, opts = {}) {
+  // opts: { mood, noShadow }
+  const mood = opts.mood || 'happy';
+  ctx.save();
+
+  // === DROP SHADOW ===
+  if (!opts.noShadow) {
+    ctx.fillStyle = 'rgba(30,41,59,0.10)';
+    ctx.beginPath();
+    ctx.ellipse(cx + 2*s, cy + 100*s, 52*s, 16*s, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // === FEET (gray, drawn behind body) ===
+  ctx.fillStyle = '#9CA3AF';
+  // Left foot
+  ctx.beginPath();
+  ctx.ellipse(cx - 22*s, cy + 98*s, 18*s, 10*s, 0.1, 0, Math.PI*2);
+  ctx.fill();
+  // Right foot
+  ctx.beginPath();
+  ctx.ellipse(cx + 22*s, cy + 98*s, 18*s, 10*s, -0.1, 0, Math.PI*2);
+  ctx.fill();
+  // Foot outlines
+  ctx.strokeStyle = 'rgba(107,114,128,0.4)';
+  ctx.lineWidth = 1.5*s;
+  ctx.beginPath();
+  ctx.ellipse(cx - 22*s, cy + 98*s, 18*s, 10*s, 0.1, 0, Math.PI*2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(cx + 22*s, cy + 98*s, 18*s, 10*s, -0.1, 0, Math.PI*2);
+  ctx.stroke();
+
+  // === BODY (two-tone capsule) ===
+  // Draw the body path helper
+  function bodyPath() {
+    ctx.beginPath();
+    ctx.moveTo(cx - 42*s, cy + 5*s);
+    ctx.bezierCurveTo(cx - 48*s, cy - 45*s, cx - 38*s, cy - 95*s, cx, cy - 105*s);
+    ctx.bezierCurveTo(cx + 38*s, cy - 95*s, cx + 48*s, cy - 45*s, cx + 42*s, cy + 5*s);
+    ctx.bezierCurveTo(cx + 48*s, cy + 55*s, cx + 38*s, cy + 95*s, cx, cy + 100*s);
+    ctx.bezierCurveTo(cx - 38*s, cy + 95*s, cx - 48*s, cy + 55*s, cx - 42*s, cy + 5*s);
+  }
+
+  // Upper blue half
+  ctx.save();
+  bodyPath();
+  ctx.clip();
+  // Blue top
+  const topGrad = ctx.createLinearGradient(cx - 50*s, cy - 105*s, cx + 50*s, cy + 10*s);
+  topGrad.addColorStop(0, '#60A5FA');
+  topGrad.addColorStop(0.4, '#2563EB');
+  topGrad.addColorStop(1, '#2563EB');
+  ctx.fillStyle = topGrad;
+  ctx.fillRect(cx - 55*s, cy - 115*s, 110*s, 120*s);
+  // Light bottom
+  const bottomGrad = ctx.createLinearGradient(cx, cy + 5*s, cx, cy + 105*s);
+  bottomGrad.addColorStop(0, '#E8EDF5');
+  bottomGrad.addColorStop(1, '#D1D9E8');
+  ctx.fillStyle = bottomGrad;
+  ctx.fillRect(cx - 55*s, cy + 5*s, 110*s, 105*s);
+  // Soft blend line
+  const blendGrad = ctx.createLinearGradient(cx, cy - 8*s, cx, cy + 18*s);
+  blendGrad.addColorStop(0, '#2563EB');
+  blendGrad.addColorStop(0.3, 'rgba(37,99,235,0.5)');
+  blendGrad.addColorStop(0.7, 'rgba(232,237,245,0.5)');
+  blendGrad.addColorStop(1, '#E8EDF5');
+  ctx.fillStyle = blendGrad;
+  ctx.fillRect(cx - 55*s, cy - 8*s, 110*s, 26*s);
+  ctx.restore();
+
+  // Body outline
+  bodyPath();
+  ctx.strokeStyle = 'rgba(29,78,216,0.25)';
+  ctx.lineWidth = 2.5*s;
+  ctx.stroke();
+
+  // === BODY SHINE (left highlight) ===
+  ctx.save();
+  bodyPath();
+  ctx.clip();
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  ctx.beginPath();
+  ctx.ellipse(cx - 18*s, cy - 35*s, 14*s, 55*s, -0.2, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.beginPath();
+  ctx.ellipse(cx - 10*s, cy - 75*s, 8*s, 12*s, -0.3, 0, Math.PI*2);
+  ctx.fill();
+  ctx.restore();
+
+  // === ARMS (gray) ===
+  ctx.strokeStyle = '#9CA3AF';
+  ctx.lineWidth = 8*s;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  // Left arm
+  ctx.beginPath();
+  ctx.moveTo(cx - 44*s, cy - 5*s);
+  ctx.quadraticCurveTo(cx - 68*s, cy + 10*s, cx - 62*s, cy + 40*s);
+  ctx.stroke();
+  // Left hand
+  ctx.fillStyle = '#9CA3AF';
+  ctx.beginPath();
+  ctx.arc(cx - 61*s, cy + 42*s, 8*s, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(107,114,128,0.4)';
+  ctx.lineWidth = 1.5*s;
+  ctx.stroke();
+
+  // Right arm
+  ctx.strokeStyle = '#9CA3AF';
+  ctx.lineWidth = 8*s;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(cx + 44*s, cy - 5*s);
+  ctx.quadraticCurveTo(cx + 68*s, cy + 10*s, cx + 62*s, cy + 40*s);
+  ctx.stroke();
+  // Right hand
+  ctx.fillStyle = '#9CA3AF';
+  ctx.beginPath();
+  ctx.arc(cx + 61*s, cy + 42*s, 8*s, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(107,114,128,0.4)';
+  ctx.lineWidth = 1.5*s;
+  ctx.stroke();
+
+  // === ANTENNA STICKS ===
+  ctx.strokeStyle = '#2563EB';
+  ctx.lineWidth = 3.5*s;
+  ctx.lineCap = 'round';
+
+  const antBaseY = cy - 95*s;
+  ctx.beginPath();
+  ctx.moveTo(cx - 16*s, antBaseY);
+  ctx.quadraticCurveTo(cx - 24*s, antBaseY - 25*s, cx - 28*s, antBaseY - 42*s);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(cx + 16*s, antBaseY);
+  ctx.quadraticCurveTo(cx + 24*s, antBaseY - 25*s, cx + 28*s, antBaseY - 42*s);
+  ctx.stroke();
+
+  // === ANTENNA BALLS (red gradient + shine) ===
+  const antR = 11*s;
+
+  // Left ball
+  let ag = ctx.createRadialGradient(cx - 30*s, antBaseY - 48*s, 1, cx - 28*s, antBaseY - 45*s, antR);
+  ag.addColorStop(0, '#FF8A8A');
+  ag.addColorStop(0.6, '#EF4444');
+  ag.addColorStop(1, '#DC2626');
+  ctx.fillStyle = ag;
+  ctx.beginPath();
+  ctx.arc(cx - 28*s, antBaseY - 46*s, antR, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.beginPath();
+  ctx.arc(cx - 32*s, antBaseY - 51*s, 3.5*s, 0, Math.PI*2);
+  ctx.fill();
+
+  // Right ball
+  ag = ctx.createRadialGradient(cx + 26*s, antBaseY - 48*s, 1, cx + 28*s, antBaseY - 45*s, antR);
+  ag.addColorStop(0, '#FF8A8A');
+  ag.addColorStop(0.6, '#EF4444');
+  ag.addColorStop(1, '#DC2626');
+  ctx.fillStyle = ag;
+  ctx.beginPath();
+  ctx.arc(cx + 28*s, antBaseY - 46*s, antR, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.beginPath();
+  ctx.arc(cx + 24*s, antBaseY - 51*s, 3.5*s, 0, Math.PI*2);
+  ctx.fill();
+
+  // === EYES ===
+  const eyeY = cy - 25*s;
+  const lx = cx - 16*s;
+  const rx = cx + 16*s;
+  const eyeW = 15*s;
+  const eyeH = 17*s;
+
+  if (mood === 'excited' || mood === 'fire' || mood === 'streak' || mood === 'trophy') {
+    // Slightly larger excited eyes
+    const eW = 17*s, eH = 19*s;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.08)';
+    ctx.shadowBlur = 4*s;
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.ellipse(lx, eyeY, eW, eH, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(rx, eyeY, eW, eH, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    const pSize = 9*s;
+    let pg = ctx.createRadialGradient(lx - 1*s, eyeY - 1*s, 0, lx, eyeY, pSize);
+    pg.addColorStop(0, '#334155');
+    pg.addColorStop(1, '#0F172A');
+    ctx.fillStyle = pg;
+    ctx.beginPath();
+    ctx.arc(lx, eyeY, pSize, 0, Math.PI*2);
+    ctx.fill();
+
+    pg = ctx.createRadialGradient(rx - 1*s, eyeY - 1*s, 0, rx, eyeY, pSize);
+    pg.addColorStop(0, '#334155');
+    pg.addColorStop(1, '#0F172A');
+    ctx.fillStyle = pg;
+    ctx.beginPath();
+    ctx.arc(rx, eyeY, pSize, 0, Math.PI*2);
+    ctx.fill();
+
+    // Sparkle highlights
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath(); ctx.arc(lx - 3*s, eyeY - 3*s, 3.5*s, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(lx + 2*s, eyeY + 2*s, 1.5*s, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(rx - 3*s, eyeY - 3*s, 3.5*s, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(rx + 2*s, eyeY + 2*s, 1.5*s, 0, Math.PI*2); ctx.fill();
+
+    // Star sparkle in eyes
+    ctx.fillStyle = 'rgba(253,230,138,0.8)';
+    drawStar(ctx, lx, eyeY, 5*s, 2*s, 4, 0);
+    ctx.fill();
+    drawStar(ctx, rx, eyeY, 5*s, 2*s, 4, 0);
+    ctx.fill();
+  } else {
+    // Normal cute eyes
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.08)';
+    ctx.shadowBlur = 4*s;
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.ellipse(lx, eyeY, eyeW, eyeH, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(rx, eyeY, eyeW, eyeH, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    // Pupils
+    const pSize = 7.5*s;
+    let pg = ctx.createRadialGradient(lx - 1*s, eyeY - 1*s, 0, lx, eyeY, pSize);
+    pg.addColorStop(0, '#334155');
+    pg.addColorStop(1, '#0F172A');
+    ctx.fillStyle = pg;
+    ctx.beginPath();
+    ctx.arc(lx, eyeY, pSize, 0, Math.PI*2);
+    ctx.fill();
+
+    pg = ctx.createRadialGradient(rx - 1*s, eyeY - 1*s, 0, rx, eyeY, pSize);
+    pg.addColorStop(0, '#334155');
+    pg.addColorStop(1, '#0F172A');
+    ctx.fillStyle = pg;
+    ctx.beginPath();
+    ctx.arc(rx, eyeY, pSize, 0, Math.PI*2);
+    ctx.fill();
+
+    // Sparkle highlights
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath(); ctx.arc(lx - 3*s, eyeY - 3*s, 3.5*s, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(lx + 2*s, eyeY + 2*s, 1.5*s, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(rx - 3*s, eyeY - 3*s, 3.5*s, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(rx + 2*s, eyeY + 2*s, 1.5*s, 0, Math.PI*2); ctx.fill();
+  }
+
+  // === EYEBROWS ===
+  ctx.strokeStyle = '#1E293B';
+  ctx.lineWidth = 2.5*s;
+  ctx.lineCap = 'round';
+
+  if (mood === 'excited' || mood === 'fire' || mood === 'streak' || mood === 'trophy') {
+    // Raised excited brows
+    ctx.lineWidth = 3*s;
+    ctx.beginPath();
+    ctx.moveTo(lx - 10*s, eyeY - 24*s);
+    ctx.quadraticCurveTo(lx, eyeY - 32*s, lx + 10*s, eyeY - 24*s);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(rx - 10*s, eyeY - 24*s);
+    ctx.quadraticCurveTo(rx, eyeY - 32*s, rx + 10*s, eyeY - 24*s);
+    ctx.stroke();
+  } else {
+    // Normal happy arched
+    ctx.beginPath();
+    ctx.moveTo(lx - 10*s, eyeY - 22*s);
+    ctx.quadraticCurveTo(lx, eyeY - 28*s, lx + 10*s, eyeY - 22*s);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(rx - 10*s, eyeY - 22*s);
+    ctx.quadraticCurveTo(rx, eyeY - 28*s, rx + 10*s, eyeY - 22*s);
+    ctx.stroke();
+  }
+
+  // === CHEEK BLUSH ===
+  ctx.fillStyle = 'rgba(252,165,165,0.35)';
+  ctx.beginPath();
+  ctx.ellipse(cx - 32*s, cy - 6*s, 10*s, 6*s, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx + 32*s, cy - 6*s, 10*s, 6*s, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // === MOUTH ===
+  const mY = cy + 12*s;
+
+  if (mood === 'excited' || mood === 'fire' || mood === 'streak' || mood === 'trophy') {
+    // Big open smile
+    ctx.fillStyle = '#1E293B';
+    ctx.beginPath();
+    ctx.moveTo(cx - 20*s, mY - 2*s);
+    ctx.quadraticCurveTo(cx, mY + 28*s, cx + 20*s, mY - 2*s);
+    ctx.closePath();
+    ctx.fill();
+    // Teeth
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.moveTo(cx - 16*s, mY - 1*s);
+    ctx.lineTo(cx + 16*s, mY - 1*s);
+    ctx.lineTo(cx + 14*s, mY + 5*s);
+    ctx.lineTo(cx - 14*s, mY + 5*s);
+    ctx.closePath();
+    ctx.fill();
+    // Tongue
+    ctx.fillStyle = '#DC2626';
+    ctx.beginPath();
+    ctx.ellipse(cx, mY + 16*s, 10*s, 7*s, 0, 0, Math.PI);
+    ctx.fill();
+  } else {
+    // Cute smile
+    ctx.strokeStyle = '#1E293B';
+    ctx.lineWidth = 3*s;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(cx - 14*s, mY);
+    ctx.quadraticCurveTo(cx, mY + 16*s, cx + 14*s, mY);
+    ctx.stroke();
+  }
+
+  ctx.restore();
+}
+
+// Helper: draw a star shape
+function drawStar(ctx, cx, cy, outerR, innerR, points, rotation) {
+  ctx.beginPath();
+  for (let i = 0; i < points * 2; i++) {
+    const r = i % 2 === 0 ? outerR : innerR;
+    const angle = (Math.PI * i / points) - Math.PI/2 + rotation;
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+}
+
+// Helper: draw a heart
+function drawHeart(ctx, cx, cy, size) {
+  ctx.beginPath();
+  const s = size / 16;
+  ctx.moveTo(cx, cy + 5*s);
+  ctx.bezierCurveTo(cx, cy + 2*s, cx - 5*s, cy - 4*s, cx - 9*s, cy - 4*s);
+  ctx.bezierCurveTo(cx - 14*s, cy - 4*s, cx - 14*s, cy + 2*s, cx - 14*s, cy + 2*s);
+  ctx.bezierCurveTo(cx - 14*s, cy + 8*s, cx - 5*s, cy + 14*s, cx, cy + 18*s);
+  ctx.bezierCurveTo(cx + 5*s, cy + 14*s, cx + 14*s, cy + 8*s, cx + 14*s, cy + 2*s);
+  ctx.bezierCurveTo(cx + 14*s, cy + 2*s, cx + 14*s, cy - 4*s, cx + 9*s, cy - 4*s);
+  ctx.bezierCurveTo(cx + 5*s, cy - 4*s, cx, cy + 2*s, cx, cy + 5*s);
+  ctx.closePath();
+}
+
+// Helper: draw a pill/capsule shape
+function drawPill(ctx, cx, cy, w, h, angle, color1, color2) {
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(angle);
+  const r = h / 2;
+  // Left half
+  ctx.fillStyle = color1;
+  ctx.beginPath();
+  ctx.arc(-w/2 + r, 0, r, Math.PI/2, -Math.PI/2, false);
+  ctx.lineTo(0, -r);
+  ctx.lineTo(0, r);
+  ctx.closePath();
+  ctx.fill();
+  // Right half
+  ctx.fillStyle = color2;
+  ctx.beginPath();
+  ctx.arc(w/2 - r, 0, r, -Math.PI/2, Math.PI/2, false);
+  ctx.lineTo(0, r);
+  ctx.lineTo(0, -r);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+// Helper: draw trophy
+function drawTrophy(ctx, cx, cy, s) {
+  // Cup
+  const cupGrad = ctx.createLinearGradient(cx - 25*s, cy - 30*s, cx + 25*s, cy + 20*s);
+  cupGrad.addColorStop(0, '#FCD34D');
+  cupGrad.addColorStop(0.5, '#F59E0B');
+  cupGrad.addColorStop(1, '#D97706');
+  ctx.fillStyle = cupGrad;
+  ctx.beginPath();
+  ctx.moveTo(cx - 28*s, cy - 30*s);
+  ctx.lineTo(cx + 28*s, cy - 30*s);
+  ctx.lineTo(cx + 22*s, cy + 5*s);
+  ctx.quadraticCurveTo(cx, cy + 18*s, cx - 22*s, cy + 5*s);
+  ctx.closePath();
+  ctx.fill();
+  // Handles
+  ctx.strokeStyle = '#D97706';
+  ctx.lineWidth = 4*s;
+  ctx.beginPath();
+  ctx.arc(cx - 30*s, cy - 12*s, 12*s, -Math.PI/2, Math.PI/2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cx + 30*s, cy - 12*s, 12*s, Math.PI/2, -Math.PI/2);
+  ctx.stroke();
+  // Stem
+  ctx.fillStyle = '#D97706';
+  ctx.fillRect(cx - 5*s, cy + 12*s, 10*s, 14*s);
+  // Base
+  ctx.fillStyle = '#B45309';
+  ctx.beginPath();
+  ctx.roundRect(cx - 18*s, cy + 24*s, 36*s, 8*s, 3*s);
+  ctx.fill();
+  // Star on cup
+  ctx.fillStyle = '#FFFBEB';
+  drawStar(ctx, cx, cy - 12*s, 10*s, 4*s, 5, 0);
+  ctx.fill();
+  // Shine
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.beginPath();
+  ctx.ellipse(cx - 10*s, cy - 18*s, 5*s, 15*s, -0.2, 0, Math.PI*2);
+  ctx.fill();
+}
+
+// Helper: draw fire flame
+function drawFlame(ctx, cx, cy, s) {
+  // Outer flame
+  const fg = ctx.createLinearGradient(cx, cy - 40*s, cx, cy + 20*s);
+  fg.addColorStop(0, '#EF4444');
+  fg.addColorStop(0.4, '#F97316');
+  fg.addColorStop(0.8, '#FBBF24');
+  fg.addColorStop(1, '#FDE68A');
+  ctx.fillStyle = fg;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - 40*s);
+  ctx.bezierCurveTo(cx + 20*s, cy - 30*s, cx + 28*s, cy - 10*s, cx + 22*s, cy + 5*s);
+  ctx.bezierCurveTo(cx + 18*s, cy + 16*s, cx + 8*s, cy + 20*s, cx, cy + 18*s);
+  ctx.bezierCurveTo(cx - 8*s, cy + 20*s, cx - 18*s, cy + 16*s, cx - 22*s, cy + 5*s);
+  ctx.bezierCurveTo(cx - 28*s, cy - 10*s, cx - 20*s, cy - 30*s, cx, cy - 40*s);
+  ctx.fill();
+  // Inner flame
+  const ig = ctx.createLinearGradient(cx, cy - 20*s, cx, cy + 14*s);
+  ig.addColorStop(0, '#FDE68A');
+  ig.addColorStop(1, '#FFFBEB');
+  ctx.fillStyle = ig;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - 18*s);
+  ctx.bezierCurveTo(cx + 10*s, cy - 10*s, cx + 12*s, cy, cx + 8*s, cy + 8*s);
+  ctx.bezierCurveTo(cx + 4*s, cy + 14*s, cx - 4*s, cy + 14*s, cx - 8*s, cy + 8*s);
+  ctx.bezierCurveTo(cx - 12*s, cy, cx - 10*s, cy - 10*s, cx, cy - 18*s);
+  ctx.fill();
+}
+
+// ============================================================
+// DESIGN DEFINITIONS
+// ============================================================
+
+const designs = [
+  {
+    id: 'sifi-logo',
+    label: 'Sifi Logo',
+    size: '2000x2000',
+    width: 2000,
+    height: 2000,
+    draw: function(ctx, w, h) {
+      // Just Sifi, large, centered
+      drawSifi(ctx, w/2, h/2 + 40, 7.5);
+    }
+  },
+  {
+    id: 'ilac-design',
+    label: 'Ilaclarini Aldin mi?',
+    size: '3000x3000',
+    width: 3000,
+    height: 3000,
+    draw: function(ctx, w, h) {
+      // Sifi character above
+      drawSifi(ctx, w/2, h*0.38, 9);
+
+      // Floating pills around
+      drawPill(ctx, w*0.15, h*0.2, 120, 50, -0.4, '#EF4444', '#FECACA');
+      drawPill(ctx, w*0.85, h*0.25, 100, 42, 0.5, '#3B82F6', '#BFDBFE');
+      drawPill(ctx, w*0.12, h*0.55, 90, 38, 0.3, '#10B981', '#A7F3D0');
+      drawPill(ctx, w*0.88, h*0.5, 110, 46, -0.6, '#F59E0B', '#FDE68A');
+
+      // Text below
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#1E293B';
+      ctx.font = 'bold 160px Nunito';
+      ctx.fillText('Ilaclarini', w/2, h*0.73);
+      ctx.fillText('Aldin mi?', w/2, h*0.73 + 180);
+
+      // Pill emoji text
+      ctx.font = '140px Nunito';
+      ctx.fillText('\uD83D\uDC8A', w/2, h*0.73 + 380);
+    }
+  },
+  {
+    id: 'saglik-design',
+    label: 'Sifi & Saglik',
+    size: '3000x3000',
+    width: 3000,
+    height: 3000,
+    draw: function(ctx, w, h) {
+      // Floating hearts
+      ctx.fillStyle = '#EF4444';
+      const hearts = [
+        { x: w*0.12, y: h*0.15, s: 40 },
+        { x: w*0.88, y: h*0.2, s: 35 },
+        { x: w*0.08, y: h*0.45, s: 28 },
+        { x: w*0.92, y: h*0.48, s: 32 },
+        { x: w*0.2, y: h*0.62, s: 24 },
+        { x: w*0.82, y: h*0.12, s: 26 },
+      ];
+      hearts.forEach(ht => {
+        ctx.fillStyle = ht.s > 30 ? '#EF4444' : '#F87171';
+        drawHeart(ctx, ht.x, ht.y, ht.s);
+        ctx.fill();
+        // Shine
+        ctx.fillStyle = 'rgba(255,255,255,0.4)';
+        ctx.beginPath();
+        ctx.arc(ht.x - ht.s*0.2, ht.y + ht.s*0.1, ht.s*0.15, 0, Math.PI*2);
+        ctx.fill();
+      });
+
+      // Floating pills
+      drawPill(ctx, w*0.18, h*0.32, 100, 42, 0.7, '#3B82F6', '#BFDBFE');
+      drawPill(ctx, w*0.84, h*0.38, 90, 38, -0.5, '#10B981', '#A7F3D0');
+
+      // Sifi
+      drawSifi(ctx, w/2, h*0.38, 9);
+
+      // Plus symbols
+      ctx.strokeStyle = '#10B981';
+      ctx.lineWidth = 12;
+      const plusPositions = [{x: w*0.15, y: h*0.7}, {x: w*0.85, y: h*0.65}];
+      plusPositions.forEach(p => {
+        ctx.beginPath();
+        ctx.moveTo(p.x - 25, p.y); ctx.lineTo(p.x + 25, p.y);
+        ctx.moveTo(p.x, p.y - 25); ctx.lineTo(p.x, p.y + 25);
+        ctx.stroke();
+      });
+
+      // Text
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#1E293B';
+      ctx.font = 'bold 170px Nunito';
+      ctx.fillText('Saglik', w/2, h*0.74);
+      ctx.fillText('Arkadasin', w/2, h*0.74 + 190);
+
+      // Blue heart
+      ctx.font = '140px Nunito';
+      ctx.fillText('\uD83D\uDC99', w/2, h*0.74 + 400);
+    }
+  },
+  {
+    id: 'levelup-design',
+    label: 'Level Up!',
+    size: '3000x3000',
+    width: 3000,
+    height: 3000,
+    draw: function(ctx, w, h) {
+      // Stars scattered
+      const starColors = ['#FCD34D', '#F59E0B', '#FBBF24', '#FDE68A'];
+      const starPositions = [
+        { x: w*0.1, y: h*0.12, r: 35, c: 0 },
+        { x: w*0.9, y: h*0.15, r: 28, c: 1 },
+        { x: w*0.15, y: h*0.5, r: 22, c: 2 },
+        { x: w*0.87, y: h*0.45, r: 30, c: 3 },
+        { x: w*0.22, y: h*0.28, r: 18, c: 0 },
+        { x: w*0.78, y: h*0.3, r: 20, c: 1 },
+        { x: w*0.05, y: h*0.35, r: 16, c: 2 },
+        { x: w*0.95, y: h*0.55, r: 24, c: 3 },
+      ];
+      starPositions.forEach(sp => {
+        ctx.fillStyle = starColors[sp.c];
+        drawStar(ctx, sp.x, sp.y, sp.r, sp.r*0.4, 5, Math.random()*0.5);
+        ctx.fill();
+      });
+
+      // Trophy above Sifi
+      drawTrophy(ctx, w/2, h*0.12, 3.5);
+
+      // Sifi excited
+      drawSifi(ctx, w/2, h*0.42, 9, { mood: 'excited' });
+
+      // Game-style text with outline
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // "Level Up!" text with game feel
+      ctx.font = '900 200px Nunito';
+      // Stroke outline
+      ctx.strokeStyle = '#1D4ED8';
+      ctx.lineWidth = 18;
+      ctx.lineJoin = 'round';
+      ctx.strokeText('Level Up!', w/2, h*0.76);
+      // Fill gradient
+      const tg = ctx.createLinearGradient(w*0.2, h*0.7, w*0.8, h*0.82);
+      tg.addColorStop(0, '#FCD34D');
+      tg.addColorStop(0.5, '#F59E0B');
+      tg.addColorStop(1, '#FCD34D');
+      ctx.fillStyle = tg;
+      ctx.fillText('Level Up!', w/2, h*0.76);
+
+      // Trophy emoji
+      ctx.font = '160px Nunito';
+      ctx.fillText('\uD83C\uDFC6', w/2, h*0.76 + 260);
+    }
+  },
+  {
+    id: 'streak-design',
+    label: 'Streak Master',
+    size: '3000x3000',
+    width: 3000,
+    height: 3000,
+    draw: function(ctx, w, h) {
+      // Flames around
+      const flamePositions = [
+        { x: w*0.1, y: h*0.35, s: 2.5 },
+        { x: w*0.9, y: h*0.38, s: 2.8 },
+        { x: w*0.15, y: h*0.55, s: 2 },
+        { x: w*0.85, y: h*0.5, s: 2.2 },
+        { x: w*0.06, y: h*0.18, s: 1.8 },
+        { x: w*0.94, y: h*0.2, s: 2 },
+      ];
+      flamePositions.forEach(fp => {
+        drawFlame(ctx, fp.x, fp.y, fp.s);
+      });
+
+      // Big flame behind Sifi head
+      drawFlame(ctx, w/2, h*0.14, 5);
+
+      // Sifi with fire mood
+      drawSifi(ctx, w/2, h*0.42, 9, { mood: 'fire' });
+
+      // Text
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Fire emoji + text
+      ctx.font = '160px Nunito';
+      ctx.fillText('\uD83D\uDD25', w/2, h*0.72);
+
+      ctx.font = '900 190px Nunito';
+      // Stroke
+      ctx.strokeStyle = '#B45309';
+      ctx.lineWidth = 16;
+      ctx.lineJoin = 'round';
+      ctx.strokeText('Streak', w/2, h*0.82);
+      ctx.strokeText('Master', w/2, h*0.82 + 210);
+      // Fill gradient
+      const fg = ctx.createLinearGradient(w*0.2, h*0.78, w*0.8, h*0.92);
+      fg.addColorStop(0, '#FDE68A');
+      fg.addColorStop(0.3, '#F59E0B');
+      fg.addColorStop(0.7, '#EF4444');
+      fg.addColorStop(1, '#FDE68A');
+      ctx.fillStyle = fg;
+      ctx.fillText('Streak', w/2, h*0.82);
+      ctx.fillText('Master', w/2, h*0.82 + 210);
+    }
+  },
+  {
+    id: 'brand-header',
+    label: 'Sifa Asistanim Brand',
+    size: '4000x2000',
+    width: 4000,
+    height: 2000,
+    draw: function(ctx, w, h) {
+      // Sifi on the left
+      drawSifi(ctx, w*0.22, h*0.5 + 20, 6.5);
+
+      // "Sifa Asistanim" text on the right
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+
+      // Main text
+      ctx.font = '900 210px Nunito';
+      const tg = ctx.createLinearGradient(w*0.38, h*0.3, w*0.95, h*0.7);
+      tg.addColorStop(0, '#2563EB');
+      tg.addColorStop(0.5, '#7C3AED');
+      tg.addColorStop(1, '#2563EB');
+      ctx.fillStyle = tg;
+      ctx.fillText('Sifa', w*0.4, h*0.38);
+      ctx.fillText('Asistanim', w*0.4, h*0.38 + 240);
+
+      // Tagline
+      ctx.font = '700 72px Nunito';
+      ctx.fillStyle = '#64748B';
+      ctx.fillText('Ilac takip uygulamasi', w*0.4, h*0.38 + 440);
+
+      // Decorative pill
+      drawPill(ctx, w*0.88, h*0.18, 120, 50, -0.4, '#EF4444', '#FECACA');
+      drawPill(ctx, w*0.92, h*0.85, 100, 42, 0.3, '#3B82F6', '#BFDBFE');
+
+      // Heart
+      ctx.fillStyle = '#EF4444';
+      drawHeart(ctx, w*0.82, h*0.82, 30);
+      ctx.fill();
+    }
+  }
+];
+
+// ============================================================
+// RENDER AND DOWNLOAD
+// ============================================================
+
+function renderDesigns() {
+  const grid = document.getElementById('designGrid');
+  grid.innerHTML = '';
+
+  designs.forEach((d, i) => {
+    const card = document.createElement('div');
+    card.className = 'design-card' + (d.width > d.height ? ' wide' : '');
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'canvas-wrapper';
+
+    const canvas = document.createElement('canvas');
+    canvas.width = d.width;
+    canvas.height = d.height;
+    canvas.id = 'canvas-' + d.id;
+    canvas.style.width = d.width > d.height ? '100%' : 'auto';
+    canvas.style.maxHeight = '400px';
+
+    wrapper.appendChild(canvas);
+
+    const info = document.createElement('div');
+    info.className = 'design-info';
+    info.innerHTML = `
+      <div class="design-label">${d.label}</div>
+      <div class="design-size">${d.size} px - Seffaf PNG</div>
+      <button class="design-dl" onclick="downloadDesign(${i})">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        PNG Indir
+      </button>
+    `;
+
+    card.appendChild(wrapper);
+    card.appendChild(info);
+    grid.appendChild(card);
+
+    // Draw
+    const ctx = canvas.getContext('2d');
+    // Transparent background - no fill
+    d.draw(ctx, d.width, d.height);
+  });
+}
+
+function downloadDesign(index) {
+  const d = designs[index];
+  const canvas = document.getElementById('canvas-' + d.id);
+  const link = document.createElement('a');
+  link.download = 'sifi-' + d.id + '.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+  showToast('Indirildi: ' + d.label);
+}
+
+async function downloadAll() {
+  showToast('Tasarimlar hazirlaniyor...');
+  for (let i = 0; i < designs.length; i++) {
+    await new Promise(r => setTimeout(r, 300));
+    downloadDesign(i);
+  }
+  showToast('Tum tasarimlar indirildi!');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Wait for fonts then render
+document.fonts.ready.then(() => {
+  renderDesigns();
+  setTimeout(() => {
+    document.getElementById('loadingOverlay').classList.add('hidden');
+  }, 600);
+});
+</script>
+
+</body>
+</html>
