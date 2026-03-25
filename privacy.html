@@ -206,6 +206,22 @@
   <p class="en">English: All cloud communication uses TLS encryption. Supabase RLS ensures data isolation. Passwords are hashed with bcrypt. No ad tracking or analytics SDKs.</p>
 </div>
 
+<!-- 6b. Uluslararası Veri Transferi -->
+<div class="card">
+  <h2>6b. Uluslararası Veri Transferi</h2>
+  <p>KVKK madde 9 kapsamında, kişisel verilerinizin yurt dışına aktarımına ilişkin bilgilendirme:</p>
+  <ul>
+    <li>Supabase sunucuları <strong>AB bölgesinde</strong> (AWS eu-central-1, Frankfurt) barındırılmaktadır</li>
+    <li>KVKK md. 9 kapsamında <strong>yeterli koruma sağlanan ülkelere</strong> veri transferi gerçekleştirilmektedir</li>
+    <li>Veri transfer mekanizması: <strong>Standart Sözleşme Maddeleri (SCCs — Standard Contractual Clauses)</strong></li>
+    <li>Tüm veri transferleri <strong>TLS 1.2+ şifreleme</strong> ile korunmaktadır</li>
+    <li>Expo bildirim sunucuları (ABD) yalnızca push token ve bildirim içeriği işler; kişisel sağlık verisi aktarılmaz</li>
+    <li>Resend e-posta hizmeti yalnızca kimlik doğrulama e-postaları için kullanılır</li>
+  </ul>
+
+  <p class="en">English: Under KVKK Article 9, we disclose cross-border data transfers. Supabase is hosted in the EU (AWS eu-central-1, Frankfurt). Transfers to adequate-protection countries are governed by Standard Contractual Clauses (SCCs). All transfers are encrypted with TLS 1.2+. Expo (US) only processes push tokens, not personal health data. Resend handles only transactional auth emails.</p>
+</div>
+
 <!-- 7. Hesap Silme -->
 <div class="card">
   <h2>7. Hesap ve Veri Silme</h2>
