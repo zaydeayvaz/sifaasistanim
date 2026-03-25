@@ -408,15 +408,20 @@
       <!-- Şifi mesajı -->
       <div class="sifi-message" id="sifiMsg"></div>
 
-      <!-- Paylaş -->
+      <!-- Story Görseli Oluştur -->
       <div class="share-section">
-        <div class="share-text">Burcunu paylaş, arkadaşların da öğrensin!</div>
+        <div class="share-text">📸 Story / Durum olarak paylaş!</div>
+        <button class="share-btn" style="background:linear-gradient(135deg,#E040FB,#FF6D00);width:100%;padding:14px;font-size:15px;border-radius:14px;margin-bottom:12px;" onclick="createStoryImage()">
+          📱 Story Görseli Oluştur & İndir
+        </button>
+        <div class="share-text" style="margin-top:8px;">veya metin olarak paylaş</div>
         <div class="share-btns">
           <button class="share-btn share-wp" onclick="shareWP()">WhatsApp</button>
           <button class="share-btn share-tw" onclick="shareTW()">Twitter</button>
           <button class="share-btn share-copy" onclick="copyLink()">🔗 Kopyala</button>
         </div>
       </div>
+      <canvas id="storyCanvas" width="1080" height="1920" style="display:none;"></canvas>
 
       <!-- CTA -->
       <div class="cta-card">
@@ -623,6 +628,264 @@
       btn.textContent = '✅ Kopyalandı!';
       setTimeout(() => btn.textContent = '🔗 Kopyala', 2000);
     });
+  }
+
+  // Story görseli oluştur (1080x1920 — Instagram/WP story boyutu)
+  function createStoryImage() {
+    const c = document.getElementById('storyCanvas');
+    const x = c.getContext('2d');
+    const W = 1080, H = 1920;
+    const name = window._burcName || 'Dostum';
+    const score = window._burcScore || 0;
+
+    // Arka plan — kozmik gradient
+    const bg = x.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#0F0A2E');
+    bg.addColorStop(0.3, '#1A1145');
+    bg.addColorStop(0.6, '#2D1B69');
+    bg.addColorStop(1, '#0F0A2E');
+    x.fillStyle = bg;
+    x.fillRect(0, 0, W, H);
+
+    // Yıldızlar
+    for (let i = 0; i < 100; i++) {
+      x.fillStyle = `rgba(255,255,255,${0.2 + Math.random() * 0.6})`;
+      x.beginPath();
+      x.arc(Math.random() * W, Math.random() * H, 0.5 + Math.random() * 1.5, 0, Math.PI * 2);
+      x.fill();
+    }
+
+    // Dekoratif daireler
+    x.fillStyle = 'rgba(124,58,237,0.08)';
+    x.beginPath(); x.arc(200, 300, 200, 0, Math.PI * 2); x.fill();
+    x.fillStyle = 'rgba(37,99,235,0.06)';
+    x.beginPath(); x.arc(880, 1400, 250, 0, Math.PI * 2); x.fill();
+
+    // Şifi karakteri (mor versiyon)
+    const sx = W / 2, sy = 420;
+    const sc = 2.2;
+
+    // Bacaklar
+    x.fillStyle = '#94A3B8';
+    roundRectC(x, sx - 15 * sc, sy + 105 * sc, 9 * sc, 16 * sc, 4.5 * sc);
+    roundRectC(x, sx + 6 * sc, sy + 105 * sc, 9 * sc, 16 * sc, 4.5 * sc);
+
+    // Kollar
+    x.strokeStyle = '#94A3B8';
+    x.lineWidth = 5 * sc;
+    x.lineCap = 'round';
+    x.beginPath(); x.moveTo(sx - 36 * sc, sy); x.lineTo(sx - 54 * sc, sy - 2.5 * sc); x.stroke();
+    x.beginPath(); x.moveTo(sx + 36 * sc, sy); x.lineTo(sx + 54 * sc, sy - 2.5 * sc); x.stroke();
+
+    // Kapsül gövde
+    x.save();
+    x.beginPath();
+    roundRectPathC(x, sx - 36 * sc, sy - 57.5 * sc, 72 * sc, 110 * sc, 36 * sc);
+    x.clip();
+    x.fillStyle = '#7C3AED';
+    x.fillRect(sx - 36 * sc, sy - 57.5 * sc, 72 * sc, 60 * sc);
+    x.fillStyle = '#F5F3FF';
+    x.fillRect(sx - 36 * sc, sy + 2.5 * sc, 72 * sc, 50 * sc);
+    x.fillStyle = 'rgba(91,33,182,0.15)';
+    x.fillRect(sx - 36 * sc, sy + 1 * sc, 72 * sc, 1.5 * sc);
+    x.restore();
+
+    // Gözler
+    x.fillStyle = 'white';
+    x.beginPath(); x.arc(sx - 13 * sc, sy - 15 * sc, 11 * sc, 0, Math.PI * 2); x.fill();
+    x.beginPath(); x.arc(sx + 13 * sc, sy - 15 * sc, 11 * sc, 0, Math.PI * 2); x.fill();
+    x.fillStyle = '#0F172A';
+    x.beginPath(); x.arc(sx - 11 * sc, sy - 16 * sc, 5.5 * sc, 0, Math.PI * 2); x.fill();
+    x.beginPath(); x.arc(sx + 15 * sc, sy - 16 * sc, 5.5 * sc, 0, Math.PI * 2); x.fill();
+    x.fillStyle = 'white';
+    x.beginPath(); x.arc(sx - 9 * sc, sy - 18.5 * sc, 2.5 * sc, 0, Math.PI * 2); x.fill();
+    x.beginPath(); x.arc(sx + 17 * sc, sy - 18.5 * sc, 2.5 * sc, 0, Math.PI * 2); x.fill();
+
+    // Ağız
+    x.strokeStyle = '#0F172A';
+    x.lineWidth = 1.75 * sc;
+    x.beginPath();
+    x.moveTo(sx - 9 * sc, sy + 17.5 * sc);
+    x.quadraticCurveTo(sx, sy + 27.5 * sc, sx + 9 * sc, sy + 17.5 * sc);
+    x.stroke();
+
+    // Antenler
+    x.strokeStyle = '#E9D5FF';
+    x.lineWidth = 2 * sc;
+    x.beginPath(); x.moveTo(sx - 15 * sc, sy - 52.5 * sc); x.lineTo(sx - 22.5 * sc, sy - 79 * sc); x.stroke();
+    x.beginPath(); x.moveTo(sx + 15 * sc, sy - 52.5 * sc); x.lineTo(sx + 22.5 * sc, sy - 79 * sc); x.stroke();
+    x.fillStyle = '#C084FC';
+    x.beginPath(); x.arc(sx - 22.5 * sc, sy - 81 * sc, 5 * sc, 0, Math.PI * 2); x.fill();
+    x.beginPath(); x.arc(sx + 22.5 * sc, sy - 81 * sc, 5 * sc, 0, Math.PI * 2); x.fill();
+
+    // "Şifi'nin Günlük Sağlık Burcu" başlık
+    x.fillStyle = '#C084FC';
+    x.font = '900 36px Nunito';
+    x.textAlign = 'center';
+    x.fillText('🔮 Şifi\'nin Günlük Sağlık Burcu', W / 2, 680);
+
+    // Tarih
+    x.fillStyle = 'rgba(255,255,255,0.5)';
+    x.font = '600 28px Nunito';
+    x.fillText(dateStr, W / 2, 730);
+
+    // İsim + skor kartı
+    const cardY = 790;
+    x.fillStyle = 'rgba(255,255,255,0.08)';
+    roundRectC(x, 80, cardY, W - 160, 340, 30);
+    x.fillStyle = 'rgba(255,255,255,0.04)';
+    x.fill();
+
+    // İsim
+    x.fillStyle = 'white';
+    x.font = '900 52px Nunito';
+    x.fillText(`${name}`, W / 2, cardY + 70);
+
+    // Skor halka
+    const ringX = W / 2, ringY = cardY + 190, ringR = 70;
+    x.strokeStyle = 'rgba(255,255,255,0.1)';
+    x.lineWidth = 12;
+    x.beginPath(); x.arc(ringX, ringY, ringR, 0, Math.PI * 2); x.stroke();
+
+    const grad = x.createLinearGradient(ringX - ringR, ringY, ringX + ringR, ringY);
+    grad.addColorStop(0, '#C084FC');
+    grad.addColorStop(0.5, '#F9A8D4');
+    grad.addColorStop(1, '#FDE68A');
+    x.strokeStyle = grad;
+    x.lineWidth = 12;
+    x.lineCap = 'round';
+    x.beginPath();
+    x.arc(ringX, ringY, ringR, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * score / 100));
+    x.stroke();
+
+    x.fillStyle = 'white';
+    x.font = '900 56px Nunito';
+    x.fillText(score.toString(), ringX, ringY + 20);
+
+    x.fillStyle = 'rgba(255,255,255,0.5)';
+    x.font = '600 22px Nunito';
+    x.fillText('Sağlık Enerjisi', ringX, ringY + 55);
+
+    // Enerji tipi
+    const energyEl = document.querySelector('.section-title');
+    const energyName = energyEl ? energyEl.textContent : '';
+    const energyEmoji = document.querySelector('.section-emoji');
+    const emojiText = energyEmoji ? energyEmoji.textContent : '✨';
+    x.fillStyle = '#C084FC';
+    x.font = '800 34px Nunito';
+    x.fillText(`${emojiText} ${energyName}`, W / 2, 1210);
+
+    // Challenge
+    const challengeTitle = document.querySelector('.challenge-title');
+    const challengeText = document.querySelector('.challenge-text');
+    if (challengeTitle) {
+      x.fillStyle = 'rgba(245,158,11,0.15)';
+      roundRectC(x, 80, 1270, W - 160, 140, 20);
+      x.fillStyle = '#FDE68A';
+      x.font = '800 28px Nunito';
+      x.fillText(challengeTitle.textContent, W / 2, 1320);
+      x.fillStyle = 'rgba(255,255,255,0.7)';
+      x.font = '500 24px Nunito';
+      const ct = challengeText ? challengeText.textContent.replace(/<[^>]*>/g, '') : '';
+      wrapText(x, ct, W / 2, 1365, W - 200, 32);
+    }
+
+    // Şanslı detaylar
+    x.fillStyle = 'rgba(255,255,255,0.6)';
+    x.font = '700 26px Nunito';
+    const luckySection = document.querySelectorAll('.section-body')[2];
+    if (luckySection) {
+      x.fillText(luckySection.textContent.trim(), W / 2, 1480);
+    }
+
+    // Alt reklam bandı
+    x.fillStyle = 'rgba(37,99,235,0.2)';
+    roundRectC(x, 60, 1580, W - 120, 200, 24);
+
+    x.fillStyle = 'white';
+    x.font = '900 38px Nunito';
+    x.fillText('💊 Şifa Asistanım', W / 2, 1640);
+
+    x.fillStyle = 'rgba(255,255,255,0.7)';
+    x.font = '600 26px Nunito';
+    x.fillText('İlaç takibini oyun gibi yap, Şifi seninle!', W / 2, 1685);
+
+    x.fillStyle = '#C084FC';
+    x.font = '800 24px Nunito';
+    x.fillText('📱 www.sifaasistanim.com', W / 2, 1730);
+
+    // İndir + paylaş
+    c.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+
+      // Mobilde native share
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], 'sifi-burc.png', { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+          navigator.share({
+            files: [file],
+            title: 'Şifi\'nin Günlük Sağlık Burcu',
+            text: `🔮 Bugün sağlık enerjim ${score}/100!\n💊 www.sifaasistanim.com/burc`,
+          }).catch(() => {
+            // Fallback: indirme
+            downloadBlob(url);
+          });
+          return;
+        }
+      }
+      // Desktop: indirme
+      downloadBlob(url);
+    }, 'image/png');
+  }
+
+  function downloadBlob(url) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sifi-burc-' + new Date().toISOString().slice(0, 10) + '.png';
+    a.click();
+    URL.revokeObjectURL(url);
+    // İndirme sonrası mesaj
+    const btn = document.querySelector('.share-section .share-btn');
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✅ İndirildi! Story/Durum olarak paylaş!';
+      setTimeout(() => btn.innerHTML = orig, 3000);
+    }
+  }
+
+  function roundRectC(ctx, rx, ry, rw, rh, rr) {
+    ctx.beginPath();
+    roundRectPathC(ctx, rx, ry, rw, rh, rr);
+    ctx.fill();
+  }
+
+  function roundRectPathC(ctx, rx, ry, rw, rh, rr) {
+    ctx.moveTo(rx + rr, ry);
+    ctx.lineTo(rx + rw - rr, ry);
+    ctx.arcTo(rx + rw, ry, rx + rw, ry + rr, rr);
+    ctx.lineTo(rx + rw, ry + rh - rr);
+    ctx.arcTo(rx + rw, ry + rh, rx + rw - rr, ry + rh, rr);
+    ctx.lineTo(rx + rr, ry + rh);
+    ctx.arcTo(rx, ry + rh, rx, ry + rh - rr, rr);
+    ctx.lineTo(rx, ry + rr);
+    ctx.arcTo(rx, ry, rx + rr, ry, rr);
+    ctx.closePath();
+  }
+
+  function wrapText(ctx, text, cx, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + ' ';
+      if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+        ctx.fillText(line.trim(), cx, y);
+        line = words[i] + ' ';
+        y += lineHeight;
+      } else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line.trim(), cx, y);
   }
   </script>
 </body>
