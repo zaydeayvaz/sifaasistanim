@@ -154,6 +154,48 @@
 
     .nav-links a:hover { color: var(--blue); }
 
+    /* DROPDOWN */
+    .nav-dropdown {
+      position: relative;
+    }
+    .nav-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border-radius: 16px;
+      padding: 8px;
+      box-shadow: 0 12px 40px rgba(15,23,42,0.12);
+      border: 1px solid var(--border);
+      min-width: 180px;
+      z-index: 200;
+      margin-top: 12px;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu {
+      display: block;
+      animation: dropIn 0.2s ease;
+    }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .nav-dropdown-menu a {
+      display: block;
+      padding: 10px 14px;
+      color: var(--text) !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      border-radius: 10px;
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+    .nav-dropdown-menu a:hover {
+      background: var(--blue-light);
+      color: var(--blue) !important;
+    }
+
     /* LANG SWITCHER */
     .lang-switcher {
       display: flex;
@@ -1126,6 +1168,15 @@
       <li><a href="#pricing" data-tr="Fiyatlar" data-en="Pricing">Fiyatlar</a></li>
       <li><a href="#faq" data-tr="SSS" data-en="FAQ">SSS</a></li>
       <li><a href="blog.html" data-tr="Blog" data-en="Blog">Blog</a></li>
+      <li class="nav-dropdown">
+        <a href="#" data-tr="🎮 Oyunlar" data-en="🎮 Games">🎮 Oyunlar</a>
+        <div class="nav-dropdown-menu">
+          <a href="game-match.html">🧩 İlaç Eşleştir</a>
+          <a href="game-memory.html">🃏 Hafıza Oyunu</a>
+          <a href="game-flappy.html">🐦 Flappy Şifi</a>
+          <a href="game.html">💊 İlaç Yakala</a>
+        </div>
+      </li>
     </ul>
     <div class="nav-right">
       <div class="lang-switcher">
