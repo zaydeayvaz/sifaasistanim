@@ -615,7 +615,7 @@
       <a href="chat.html" style="color:#64748B;text-decoration:none;">Şifi'ye Sor</a>
       <a href="guide.html" style="color:#64748B;text-decoration:none;">Rehber</a>
     <a href="press.html" style="color:#64748B;text-decoration:none;">Basın</a>
-      <div style="position:relative;display:inline-block;" onmouseenter="this.querySelector('.dd').style.display='block'" onmouseleave="this.querySelector('.dd').style.display='none'"><a href="#" style="color:#64748B;text-decoration:none;">🎮 Oyunlar</a><div class="dd" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:white;border-radius:16px;padding:8px;box-shadow:0 12px 40px rgba(15,23,42,0.12);border:1px solid #E2E8F0;min-width:180px;z-index:200;margin-top:12px;"><a href="game-match.html" style="display:block;padding:10px 14px;color:#0F172A;font-size:14px;border-radius:10px;text-decoration:none;">🧩 İlaç Eşleştir</a><a href="game-memory.html" style="display:block;padding:10px 14px;color:#0F172A;font-size:14px;border-radius:10px;text-decoration:none;">🃏 Hafıza Oyunu</a><a href="game-flappy.html" style="display:block;padding:10px 14px;color:#0F172A;font-size:14px;border-radius:10px;text-decoration:none;">🐦 Flappy Şifi</a><a href="game.html" style="display:block;padding:10px 14px;color:#0F172A;font-size:14px;border-radius:10px;text-decoration:none;">💊 İlaç Yakala</a></div></div>
+      <div style="position:relative;display:inline-block;" onclick="event.stopPropagation(); var d=this.querySelector('.dd'); d.style.display=d.style.display==='block'?'none':'block';"><a href="#" style="color:#64748B;text-decoration:none;">🎮 Oyunlar ▾</a><div class="dd" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:white;border-radius:16px;padding:8px;box-shadow:0 12px 40px rgba(15,23,42,0.12);border:1px solid #E2E8F0;min-width:180px;z-index:200;margin-top:12px;"><a href="game-match.html" style="display:block;padding:10px 14px;color:#0F172A;font-size:14px;border-radius:10px;text-decoration:none;">🧩 İlaç Eşleştir</a><a href="game-memory.html" style="display:block;padding:10px 14px;color:#0F172A;font-size:14px;border-radius:10px;text-decoration:none;">🃏 Hafıza Oyunu</a><a href="game-flappy.html" style="display:block;padding:10px 14px;color:#0F172A;font-size:14px;border-radius:10px;text-decoration:none;">🐦 Flappy Şifi</a><a href="game.html" style="display:block;padding:10px 14px;color:#0F172A;font-size:14px;border-radius:10px;text-decoration:none;">💊 İlaç Yakala</a></div></div>
     <a href="index.html" style="padding:8px 16px;border-radius:10px;background:#2563EB;color:white;text-decoration:none;font-weight:700;">Ana Sayfa</a>
   </div>
 </nav>
@@ -892,5 +892,6 @@
   }
 </script>
 
+<script>document.addEventListener("click",function(e){document.querySelectorAll(".dd").forEach(function(d){if(!d.parentElement.contains(e.target))d.style.display="none";});});</script>
 </body>
 </html>
