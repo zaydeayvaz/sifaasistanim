@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Şifi'ye İlaç Ver! 🎮 — Şifa Asistanım</title>
+  <meta name="description" content="Şifi'ye doğru zamanda doğru ilacı ver! Eğlenceli ilaç takip oyunu.">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #0F0A2E;
+      color: white;
+      overflow: hidden;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      height: 100vh;
+      height: 100dvh;
+    }
+
+    /* Screens */
+    .screen { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; height: 100dvh; padding: 20px; position: relative; }
+    .screen.active { display: flex; }
+
+    /* Stars bg */
+    .stars-bg {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 30% 20%, rgba(124,58,237,0.15), transparent 60%),
+                  radial-gradient(ellipse at 70% 80%, rgba(37,99,235,0.1), transparent 60%),
+                  #0F0A2E;
+      z-index: 0;
+    }
+
+    /* Menu */
+    .menu-title {
+      font-size: clamp(28px, 7vw, 42px);
+      font-weight: 900;
+      background: linear-gradient(135deg, #C084FC, #60A5FA, #34D399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin-bottom: 8px;
+      position: relative; z-index: 1;
+    }
+    .menu-sub {
+      color: rgba(255,255,255,0.6);
+      font-size: 15px;
+      text-align: center;
+      margin-bottom: 32px;
+      position: relative; z-index: 1;
+    }
+    .play-btn {
+      padding: 18px 48px;
+      border-radius: 100px;
+      background: linear-gradient(135deg, #7C3AED, #2563EB);
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      border: none;
+      cursor: pointer;
+      position: relative; z-index: 1;
+      transition: all 0.2s;
+      box-shadow: 0 4px 24px rgba(124,58,237,0.4);
+    }
+    .play-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(124,58,237,0.6); }
+    .how-to {
+      margin-top: 24px;
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+      text-align: center;
+      line-height: 1.8;
+      position: relative; z-index: 1;
+    }
+
+    /* Game canvas area */
+    #gameScreen { padding: 0; }
+    .game-hud {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 12px 16px;
+      padding-top: max(12px, env(safe-area-inset-top));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      background: linear-gradient(180deg, rgba(15,10,46,0.9), transparent);
+    }
+    .hud-score {
+      font-size: 22px;
+      font-weight: 900;
+    }
+    .hud-score span { color: #FDE68A; }
+    .hud-lives {
+      font-size: 20px;
+      letter-spacing: 4px;
+    }
+    .hud-level {
+      font-size: 13px;
+      font-weight: 700;
+      color: #C084FC;
+      background: rgba(124,58,237,0.2);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+    .hud-timer {
+      font-size: 14px;
+      font-weight: 800;
+      color: #FDE68A;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+    }
+
+    /* Game Over */
+    .go-score {
+      font-size: 64px;
+      font-weight: 900;
+      color: #FDE68A;
+      position: relative; z-index: 1;
+    }
+    .go-label {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 8px;
+      position: relative; z-index: 1;
+    }
+    .go-best {
+      font-size: 14px;
+      color: #C084FC;
+      margin-bottom: 24px;
+      position: relative; z-index: 1;
+    }
+    .go-stats {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
+      position: relative; z-index: 1;
+    }
+    .go-stat {
+      text-align: center;
+    }
+    .go-stat-num {
+      font-size: 28px;
+      font-weight: 900;
+    }
+    .go-stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+    .share-score-btn {
+      padding: 12px 32px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 12px;
+      position: relative; z-index: 1;
+    }
+
+    /* CTA */
+    .game-cta {
+      position: relative; z-index: 1;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .game-cta a {
+      color: #60A5FA;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stars-bg"></div>
+
+  <!-- MENU -->
+  <div class="screen active" id="menuScreen">
+    <svg width="100" height="125" viewBox="0 0 300 380" fill="none" style="margin-bottom: 20px; position: relative; z-index: 1; filter: drop-shadow(0 0 30px rgba(124,58,237,0.5));">
+      <defs><clipPath id="gc"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath></defs>
+      <rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/><rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+      <line x1="78" y1="195" x2="42" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/>
+      <line x1="222" y1="195" x2="258" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/>
+      <g clip-path="url(#gc)"><rect x="78" y="85" width="144" height="120" fill="#2563EB"/><rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/><rect x="78" y="203" width="144" height="3" fill="#1D4ED8" opacity="0.15"/></g>
+      <circle cx="124" cy="170" r="22" fill="white"/><circle cx="128" cy="168" r="11" fill="#0F172A"/><circle cx="133" cy="163" r="5" fill="white"/>
+      <circle cx="176" cy="170" r="22" fill="white"/><circle cx="180" cy="168" r="11" fill="#0F172A"/><circle cx="185" cy="163" r="5" fill="white"/>
+      <path d="M132 225 Q150 245 168 225" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><circle cx="105" cy="38" r="10" fill="#EF4444"/>
+      <line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><circle cx="195" cy="38" r="10" fill="#EF4444"/>
+    </svg>
+    <div class="menu-title">Şifi'ye İlaç Ver!</div>
+    <div class="menu-sub">Doğru ilacı yakala, yanlışlardan kaçın!</div>
+    <button class="play-btn" onclick="startGame()">🎮 Oyna</button>
+    <div class="how-to">
+      💊 Düşen ilaçları yakala — Şifi'ye ver!<br>
+      ✅ Doğru ilaç = +10 puan<br>
+      ⭐ Altın ilaç = +25 puan<br>
+      ❌ Yanlış ilaç = can kaybı<br>
+      👆 Şifi'yi sağa-sola kaydır
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div class="screen" id="gameScreen">
+    <div class="game-hud">
+      <div class="hud-score">⭐ <span id="score">0</span></div>
+      <div class="hud-level" id="level">Seviye 1</div>
+      <div class="hud-lives" id="lives">❤️❤️❤️</div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+  </div>
+
+  <!-- GAME OVER -->
+  <div class="screen" id="overScreen">
+    <svg width="80" height="100" viewBox="0 0 300 380" fill="none" style="margin-bottom: 16px; position: relative; z-index: 1; opacity: 0.7;">
+      <defs><clipPath id="go"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath></defs>
+      <rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/><rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+      <line x1="78" y1="195" x2="42" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/>
+      <line x1="222" y1="195" x2="258" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/>
+      <g clip-path="url(#go)"><rect x="78" y="85" width="144" height="120" fill="#2563EB"/><rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/></g>
+      <path d="M108 175 Q124 168 140 175" stroke="#0F172A" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M160 175 Q176 168 192 175" stroke="#0F172A" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M135 235 Q150 225 165 235" stroke="#0F172A" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><circle cx="105" cy="38" r="10" fill="#EF4444"/>
+      <line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><circle cx="195" cy="38" r="10" fill="#EF4444"/>
+    </svg>
+    <div class="go-label">Oyun Bitti!</div>
+    <div class="go-score" id="finalScore">0</div>
+    <div class="go-best" id="bestScore">En iyi: 0</div>
+    <div class="go-stats">
+      <div class="go-stat">
+        <div class="go-stat-num" style="color: #34D399;" id="statCaught">0</div>
+        <div class="go-stat-label">Yakalanan</div>
+      </div>
+      <div class="go-stat">
+        <div class="go-stat-num" style="color: #EF4444;" id="statMissed">0</div>
+        <div class="go-stat-label">Kaçırılan</div>
+      </div>
+      <div class="go-stat">
+        <div class="go-stat-num" style="color: #C084FC;" id="statLevel">1</div>
+        <div class="go-stat-label">Seviye</div>
+      </div>
+    </div>
+    <button class="play-btn" onclick="startGame()">🔄 Tekrar Oyna</button>
+    <button class="share-score-btn" onclick="shareScore()">📤 Skorumu Paylaş</button>
+    <div class="game-cta">
+      <a href="index.html">💊 Gerçek ilaç takibi için Şifa Asistanım'ı indir!</a>
+    </div>
+  </div>
+
+  <script>
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Game state
+  let gameActive = false;
+  let score = 0;
+  let lives = 3;
+  let level = 1;
+  let caught = 0;
+  let missed = 0;
+  let pills = [];
+  let sifiX = 0;
+  let targetSifiX = 0;
+  let frameId;
+  let spawnTimer = 0;
+  let lastTime = 0;
+  let bestScore = parseInt(localStorage.getItem('sifi_game_best') || '0');
+  let touchStartX = 0;
+  let particles = [];
+
+  // Pill types
+  const PILL_TYPES = [
+    { emoji: '💊', name: 'Tablet', color: '#3B82F6', good: true, points: 10 },
+    { emoji: '🧴', name: 'Şurup', color: '#8B5CF6', good: true, points: 10 },
+    { emoji: '💉', name: 'İğne', color: '#10B981', good: true, points: 10 },
+    { emoji: '🩹', name: 'Yara Bandı', color: '#F59E0B', good: true, points: 10 },
+    { emoji: '⭐', name: 'Altın İlaç', color: '#FDE68A', good: true, points: 25 },
+    { emoji: '🦠', name: 'Virüs', color: '#EF4444', good: false, points: 0 },
+    { emoji: '🍬', name: 'Şeker', color: '#EC4899', good: false, points: 0 },
+    { emoji: '☠️', name: 'Zehir', color: '#7F1D1D', good: false, points: 0 },
+  ];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    sifiX = canvas.width / 2;
+    targetSifiX = sifiX;
+  }
+
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function startGame() {
+    resizeCanvas();
+    score = 0;
+    lives = 3;
+    level = 1;
+    caught = 0;
+    missed = 0;
+    pills = [];
+    particles = [];
+    spawnTimer = 0;
+    sifiX = canvas.width / 2;
+    targetSifiX = sifiX;
+    gameActive = true;
+    updateHUD();
+    showScreen('gameScreen');
+    lastTime = performance.now();
+    frameId = requestAnimationFrame(gameLoop);
+  }
+
+  function updateHUD() {
+    document.getElementById('score').textContent = score;
+    document.getElementById('level').textContent = 'Seviye ' + level;
+    let hearts = '';
+    for (let i = 0; i < 3; i++) hearts += i < lives ? '❤️' : '🖤';
+    document.getElementById('lives').textContent = hearts;
+  }
+
+  function spawnPill() {
+    const type = PILL_TYPES[Math.floor(Math.random() * PILL_TYPES.length)];
+    // Higher levels = more bad pills
+    const badChance = 0.2 + level * 0.05;
+    const isBad = Math.random() < badChance;
+    const chosen = isBad
+      ? PILL_TYPES.filter(p => !p.good)[Math.floor(Math.random() * 3)]
+      : type.good ? type : PILL_TYPES[0];
+
+    pills.push({
+      x: 30 + Math.random() * (canvas.width - 60),
+      y: -40,
+      size: 36 + Math.random() * 8,
+      speed: 1.5 + level * 0.3 + Math.random() * 0.5,
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.05,
+      ...chosen,
+    });
+  }
+
+  function addParticles(x, y, color, count) {
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x, y,
+        vx: (Math.random() - 0.5) * 6,
+        vy: -Math.random() * 5 - 2,
+        size: 3 + Math.random() * 4,
+        color,
+        life: 1,
+        decay: 0.02 + Math.random() * 0.02,
+      });
+    }
+  }
+
+  function drawSifi(x, y) {
+    const s = 0.5;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(s, s);
+
+    // Shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    ctx.beginPath();
+    ctx.ellipse(0, 110, 55, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Legs
+    ctx.fillStyle = '#94A3B8';
+    roundRect(-15, 55, 14, 25, 7);
+    roundRect(1, 55, 14, 25, 7);
+
+    // Arms
+    ctx.strokeStyle = '#94A3B8';
+    ctx.lineWidth = 8;
+    ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(-55, -5); ctx.lineTo(-85, -10); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(55, -5); ctx.lineTo(85, -10); ctx.stroke();
+
+    // Body
+    ctx.save();
+    ctx.beginPath();
+    roundRectPath(-55, -75, 110, 140, 55);
+    ctx.clip();
+    ctx.fillStyle = '#2563EB';
+    ctx.fillRect(-55, -75, 110, 76);
+    ctx.fillStyle = '#F8FAFC';
+    ctx.fillRect(-55, 1, 110, 64);
+    ctx.fillStyle = 'rgba(29,78,216,0.15)';
+    ctx.fillRect(-55, -1, 110, 3);
+    ctx.restore();
+
+    // Body outline
+    ctx.strokeStyle = 'rgba(29,78,216,0.15)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    roundRectPath(-55, -75, 110, 140, 55);
+    ctx.stroke();
+
+    // Eyes
+    ctx.fillStyle = 'white';
+    ctx.beginPath(); ctx.arc(-20, -30, 17, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(20, -30, 17, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#0F172A';
+    ctx.beginPath(); ctx.arc(-16, -32, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(24, -32, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'white';
+    ctx.beginPath(); ctx.arc(-13, -35, 4, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(27, -35, 4, 0, Math.PI * 2); ctx.fill();
+
+    // Mouth
+    ctx.strokeStyle = '#0F172A';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-12, 10);
+    ctx.quadraticCurveTo(0, 25, 12, 10);
+    ctx.stroke();
+
+    // Antennas
+    ctx.strokeStyle = '#1E293B';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(-22, -72); ctx.lineTo(-35, -115); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(22, -72); ctx.lineTo(35, -115); ctx.stroke();
+    ctx.fillStyle = '#EF4444';
+    ctx.beginPath(); ctx.arc(-35, -118, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(35, -118, 8, 0, Math.PI * 2); ctx.fill();
+
+    ctx.restore();
+  }
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    roundRectPath(x, y, w, h, r);
+    ctx.fill();
+  }
+
+  function roundRectPath(x, y, w, h, r) {
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h);
+    ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r);
+    ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+
+  function gameLoop(time) {
+    if (!gameActive) return;
+    const dt = Math.min((time - lastTime) / 16.67, 3);
+    lastTime = time;
+
+    // Spawn pills
+    spawnTimer += dt;
+    const spawnRate = Math.max(20, 50 - level * 4);
+    if (spawnTimer >= spawnRate) {
+      spawnPill();
+      spawnTimer = 0;
+    }
+
+    // Move Sifi
+    sifiX += (targetSifiX - sifiX) * 0.15 * dt;
+    sifiX = Math.max(40, Math.min(canvas.width - 40, sifiX));
+
+    // Clear
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw pills
+    const sifiY = canvas.height - 100;
+    const catchRadius = 50;
+
+    for (let i = pills.length - 1; i >= 0; i--) {
+      const p = pills[i];
+      p.y += p.speed * dt;
+      p.rotation += p.rotSpeed * dt;
+
+      // Draw pill
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      ctx.font = p.size + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Glow
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 15;
+      ctx.fillText(p.emoji, 0, 0);
+      ctx.shadowBlur = 0;
+      ctx.restore();
+
+      // Collision with Sifi
+      const dx = p.x - sifiX;
+      const dy = p.y - sifiY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < catchRadius) {
+        if (p.good) {
+          score += p.points;
+          caught++;
+          addParticles(p.x, p.y, p.color, 8);
+
+          // Level up every 100 points
+          const newLevel = Math.floor(score / 100) + 1;
+          if (newLevel > level) {
+            level = newLevel;
+            addParticles(canvas.width / 2, canvas.height / 2, '#FDE68A', 20);
+          }
+        } else {
+          lives--;
+          addParticles(p.x, p.y, '#EF4444', 12);
+          // Screen shake effect
+          canvas.style.transform = 'translateX(5px)';
+          setTimeout(() => canvas.style.transform = 'translateX(-5px)', 50);
+          setTimeout(() => canvas.style.transform = '', 100);
+
+          if (lives <= 0) {
+            gameOver();
+            return;
+          }
+        }
+        updateHUD();
+        pills.splice(i, 1);
+        continue;
+      }
+
+      // Off screen
+      if (p.y > canvas.height + 50) {
+        if (p.good) {
+          missed++;
+        }
+        pills.splice(i, 1);
+      }
+    }
+
+    // Update particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.vy += 0.15 * dt;
+      p.life -= p.decay * dt;
+
+      if (p.life <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+
+      ctx.globalAlpha = p.life;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+
+    // Draw Sifi
+    drawSifi(sifiX, sifiY);
+
+    // Score floating text
+    ctx.fillStyle = 'rgba(255,255,255,0.1)';
+    ctx.font = '900 120px Nunito';
+    ctx.textAlign = 'center';
+    ctx.fillText(score, canvas.width / 2, canvas.height / 2 + 40);
+
+    frameId = requestAnimationFrame(gameLoop);
+  }
+
+  function gameOver() {
+    gameActive = false;
+    cancelAnimationFrame(frameId);
+
+    if (score > bestScore) {
+      bestScore = score;
+      localStorage.setItem('sifi_game_best', bestScore.toString());
+    }
+
+    document.getElementById('finalScore').textContent = score;
+    document.getElementById('bestScore').textContent = 'En iyi: ' + bestScore;
+    document.getElementById('statCaught').textContent = caught;
+    document.getElementById('statMissed').textContent = missed;
+    document.getElementById('statLevel').textContent = level;
+
+    showScreen('overScreen');
+  }
+
+  function shareScore() {
+    const text = `🎮 Şifi'ye İlaç Ver oyununda ${score} puan yaptım! (Seviye ${level})\n\nSen de dene 👉 ${location.href}\n\n💊 @sifaasistanim`;
+    if (navigator.share) {
+      navigator.share({ text }).catch(() => {});
+    } else {
+      window.open('https://wa.me/?text=' + encodeURIComponent(text));
+    }
+  }
+
+  // Touch controls
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    touchStartX = e.touches[0].clientX;
+    targetSifiX = e.touches[0].clientX;
+  });
+  canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    targetSifiX = e.touches[0].clientX;
+  });
+
+  // Mouse controls (desktop)
+  canvas.addEventListener('mousemove', (e) => {
+    if (gameActive) targetSifiX = e.clientX;
+  });
+  canvas.addEventListener('mousedown', (e) => {
+    if (gameActive) targetSifiX = e.clientX;
+  });
+
+  // Keyboard controls
+  document.addEventListener('keydown', (e) => {
+    if (!gameActive) return;
+    if (e.key === 'ArrowLeft') targetSifiX = sifiX - 40;
+    if (e.key === 'ArrowRight') targetSifiX = sifiX + 40;
+  });
+
+  window.addEventListener('resize', () => {
+    if (gameActive) resizeCanvas();
+  });
+  </script>
+</body>
+</html>
