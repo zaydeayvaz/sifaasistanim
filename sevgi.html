@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Şifi Sevgi Metresi 💕 — Şifa Asistanım</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: linear-gradient(180deg, #1A0025 0%, #2D0A4E 30%, #4A1078 60%, #2D0A4E 100%);
+      color: white;
+    }
+
+    /* Kalp parçacıkları */
+    .hearts-bg { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .floating-heart {
+      position: absolute;
+      font-size: 20px;
+      animation: heartFloat linear infinite;
+      opacity: 0.3;
+    }
+    @keyframes heartFloat {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 14px; }
+    .back:hover { color: white; }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 900;
+      margin: 20px 0 8px;
+      background: linear-gradient(135deg, #FF6B9D, #C084FC, #FF6B9D);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .subtitle { text-align: center; color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 24px; }
+
+    /* İsim girişi */
+    .name-section { text-align: center; margin-bottom: 24px; }
+    .name-row { display: flex; gap: 10px; max-width: 360px; margin: 0 auto; }
+    .name-input {
+      flex: 1; padding: 14px 20px; border-radius: 100px;
+      border: 2px solid rgba(255,107,157,0.3); background: rgba(255,255,255,0.08);
+      color: white; font-family: 'Nunito'; font-size: 16px; font-weight: 600; outline: none;
+    }
+    .name-input:focus { border-color: #FF6B9D; }
+    .name-input::placeholder { color: rgba(255,255,255,0.3); }
+    .go-btn {
+      padding: 14px 24px; border-radius: 100px;
+      background: linear-gradient(135deg, #FF6B9D, #C084FC);
+      color: white; border: none; font-family: 'Nunito'; font-weight: 800; font-size: 15px; cursor: pointer;
+    }
+
+    /* Sevgi kartı */
+    .love-card {
+      display: none;
+      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,107,157,0.2);
+      border-radius: 28px;
+      padding: 32px 24px;
+      backdrop-filter: blur(20px);
+      animation: cardPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .love-card.visible { display: block; }
+    @keyframes cardPop {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Sevgi seviyesi ismi */
+    .level-name {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .level-subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+
+    /* Şifi + metre */
+    .sifi-meter-area {
+      text-align: center;
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .meter-ring {
+      width: 180px; height: 180px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .meter-ring svg { transform: rotate(-90deg); }
+    .meter-value {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .meter-num {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .meter-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Sevgi aksiyonları */
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .action-btn {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .action-btn:hover {
+      transform: scale(1.15);
+      border-color: #FF6B9D;
+      background: rgba(255,107,157,0.15);
+    }
+    .action-btn:active { transform: scale(0.95); }
+    .action-btn.cooldown { opacity: 0.3; pointer-events: none; }
+
+    /* Etki popup */
+    .love-popup {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-size: 64px;
+      z-index: 100;
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+      opacity: 0;
+    }
+    .love-popup.show {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    /* XP çarpanı */
+    .xp-badge {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .xp-badge span {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    /* Bugünün logları */
+    .love-log {
+      margin-bottom: 20px;
+    }
+    .love-log-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .love-log-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+    }
+    .log-item {
+      background: rgba(255,255,255,0.06);
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Share */
+    .share-area { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .share-story-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #FF6B9D, #C084FC);
+      color: white;
+      border: none;
+      font-family: 'Nunito';
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: all 0.2s;
+    }
+    .share-story-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(255,107,157,0.4); }
+    .share-small { display: flex; gap: 8px; justify-content: center; }
+    .share-sm-btn {
+      padding: 8px 16px; border-radius: 100px; border: none;
+      font-family: 'Nunito'; font-weight: 700; font-size: 13px; cursor: pointer; color: white;
+    }
+
+    /* CTA */
+    .cta { text-align: center; margin-top: 16px; }
+    .cta a { color: #FF6B9D; text-decoration: none; font-weight: 700; font-size: 14px; }
+
+    canvas { display: none; }
+
+    .footer { text-align: center; padding: 30px 20px; position: relative; z-index: 1; }
+    .footer a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+  <div class="hearts-bg" id="heartsBg"></div>
+  <div class="love-popup" id="lovePopup"></div>
+
+  <div class="container">
+    <a href="index.html" class="back">← Şifa Asistanım</a>
+
+    <h1>💕 Şifi Sevgi Metresi</h1>
+    <p class="subtitle">Şifi'ne sevgi gönder, mutluluğunu artır!</p>
+
+    <div class="name-section" id="nameArea">
+      <div class="name-row">
+        <input type="text" class="name-input" id="nameInput" placeholder="Adını yaz..." maxlength="15" />
+        <button class="go-btn" onclick="startLove()">💕 Başla</button>
+      </div>
+    </div>
+
+    <div class="love-card" id="loveCard">
+      <div class="level-name" id="levelName">Uykuda 😴</div>
+      <div class="level-subtitle" id="levelSub">Şifi'ne sevgi gönder!</div>
+
+      <div class="sifi-meter-area">
+        <div class="meter-ring">
+          <svg width="180" height="180">
+            <circle cx="90" cy="90" r="78" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="10"/>
+            <circle id="meterCircle" cx="90" cy="90" r="78" fill="none" stroke="#FF6B9D" stroke-width="10" stroke-linecap="round" stroke-dasharray="490" stroke-dashoffset="490" style="transition: stroke-dashoffset 0.5s ease, stroke 0.5s;"/>
+          </svg>
+          <div class="meter-value">
+            <div class="meter-num" id="meterNum">0</div>
+            <div class="meter-label">SEVGİ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="xp-badge">
+        <span id="xpBadge" style="background: rgba(255,255,255,0.1); color: #94A3B8;">XP Çarpanı: 1.0x</span>
+      </div>
+
+      <div class="actions" id="actions">
+        <button class="action-btn" onclick="sendLove('heart')" title="Kalp">❤️</button>
+        <button class="action-btn" onclick="sendLove('tickle')" title="Gıdıkla">🤭</button>
+        <button class="action-btn" onclick="sendLove('hug')" title="Sarıl">🤗</button>
+        <button class="action-btn" onclick="sendLove('star')" title="Yıldız">⭐</button>
+        <button class="action-btn" onclick="sendLove('kiss')" title="Öpücük">😘</button>
+      </div>
+
+      <div class="love-log">
+        <div class="love-log-title" id="logTitle">Bugünkü sevgiler</div>
+        <div class="love-log-items" id="logItems"></div>
+      </div>
+
+      <div class="share-area">
+        <button class="share-story-btn" onclick="createLoveStory()">📱 Story Görseli Oluştur & Paylaş</button>
+        <div class="share-small">
+          <button class="share-sm-btn" style="background:#25D366;" onclick="shareWP()">WhatsApp</button>
+          <button class="share-sm-btn" style="background:#1DA1F2;" onclick="shareTW()">Twitter</button>
+          <button class="share-sm-btn" style="background:rgba(255,255,255,0.15);" onclick="copyLink()">🔗</button>
+        </div>
+      </div>
+
+      <div class="cta">
+        <a href="index.html#download">💊 Şifa Asistanım'ı İndir — Gerçek sevgi metresi app'te!</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="index.html">Şifa Asistanım</a> · <a href="burc.html">🔮 Burç</a> · <a href="game.html">🎮 Oyun</a>
+  </div>
+
+  <canvas id="storyCanvas" width="1080" height="1920"></canvas>
+
+  <script>
+  // Floating hearts background
+  const heartsBg = document.getElementById('heartsBg');
+  const heartEmojis = ['❤️', '💕', '💖', '💗', '💝', '💙', '💜', '🩷'];
+  for (let i = 0; i < 15; i++) {
+    const h = document.createElement('div');
+    h.className = 'floating-heart';
+    h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    h.style.left = Math.random() * 100 + '%';
+    h.style.fontSize = (14 + Math.random() * 16) + 'px';
+    h.style.animationDuration = (8 + Math.random() * 12) + 's';
+    h.style.animationDelay = Math.random() * 10 + 's';
+    heartsBg.appendChild(h);
+  }
+
+  const ACTIONS = {
+    heart: { points: 5, emoji: '❤️', cooldown: 3000 },
+    tickle: { points: 3, emoji: '🤭', cooldown: 4000 },
+    hug: { points: 8, emoji: '🤗', cooldown: 8000 },
+    star: { points: 10, emoji: '⭐', cooldown: 12000 },
+    kiss: { points: 7, emoji: '😘', cooldown: 5000 },
+  };
+
+  const LEVELS = [
+    { min: 0, name: 'Uykuda 😴', color: '#94A3B8', xp: '1.0x' },
+    { min: 10, name: 'Uyanıyor 🙂', color: '#60A5FA', xp: '1.0x' },
+    { min: 25, name: 'Mutlu 😊', color: '#34D399', xp: '1.1x' },
+    { min: 50, name: 'Çok Mutlu 😄', color: '#FBBF24', xp: '1.25x' },
+    { min: 75, name: 'Aşırı Mutlu 🥰', color: '#F472B6', xp: '1.5x' },
+    { min: 90, name: 'Uçuyor! 🚀', color: '#C084FC', xp: '2.0x' },
+    { min: 100, name: 'SEVGİ PATLAMASI! 💥❤️‍🔥', color: '#EF4444', xp: '2.5x' },
+  ];
+
+  let points = 0;
+  let userName = '';
+  let log = [];
+  let cooldowns = {};
+
+  function getLevel(pts) {
+    let lvl = LEVELS[0];
+    for (const l of LEVELS) { if (pts >= l.min) lvl = l; }
+    return lvl;
+  }
+
+  function updateUI() {
+    const lvl = getLevel(points);
+    document.getElementById('levelName').textContent = lvl.name;
+    document.getElementById('levelSub').textContent = points >= 100 ? '🎉 MAKSIMUM SEVGİ! Şifi çıldırıyor!' : `${userName}'in Şifi'si bugün ${points} sevgi aldı`;
+    document.getElementById('meterNum').textContent = Math.min(points, 100);
+    document.getElementById('xpBadge').textContent = `XP Çarpanı: ${lvl.xp}`;
+    document.getElementById('xpBadge').style.background = lvl.color + '30';
+    document.getElementById('xpBadge').style.color = lvl.color;
+
+    const circle = document.getElementById('meterCircle');
+    const pct = Math.min(points, 100) / 100;
+    circle.style.strokeDashoffset = 490 - (490 * pct);
+    circle.style.stroke = lvl.color;
+
+    // Log güncelle
+    const logEl = document.getElementById('logItems');
+    logEl.innerHTML = log.slice(-20).reverse().map(l =>
+      `<span class="log-item">${ACTIONS[l.type]?.emoji || '💕'} ${l.time}</span>`
+    ).join('');
+    document.getElementById('logTitle').textContent = `Bugünkü sevgiler (${log.length})`;
+  }
+
+  function startLove() {
+    userName = document.getElementById('nameInput').value.trim() || 'Anonim';
+    document.getElementById('nameArea').style.display = 'none';
+    document.getElementById('loveCard').classList.add('visible');
+    updateUI();
+  }
+
+  function sendLove(type) {
+    const action = ACTIONS[type];
+    if (!action) return;
+
+    // Cooldown
+    if (cooldowns[type]) return;
+    cooldowns[type] = true;
+
+    // Puan ekle
+    const oldPts = points;
+    points = Math.min(150, points + action.points);
+
+    // Log
+    const now = new Date();
+    log.push({ type, time: `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}` });
+
+    // Popup animasyonu
+    const popup = document.getElementById('lovePopup');
+    popup.textContent = action.emoji;
+    popup.classList.add('show');
+    setTimeout(() => popup.classList.remove('show'), 600);
+
+    // Ekstra kalpler fırlat
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => spawnHeart(action.emoji), i * 100);
+    }
+
+    // Milestone kontrolü
+    const milestones = [25, 50, 75, 100];
+    for (const m of milestones) {
+      if (oldPts < m && points >= m) {
+        setTimeout(() => {
+          popup.textContent = points >= 100 ? '💥❤️‍🔥💥' : points >= 75 ? '💝🎉' : points >= 50 ? '💖✨' : '💙';
+          popup.style.fontSize = '80px';
+          popup.classList.add('show');
+          setTimeout(() => { popup.classList.remove('show'); popup.style.fontSize = '64px'; }, 1200);
+          // Kalp patlaması
+          for (let i = 0; i < 20; i++) {
+            setTimeout(() => spawnHeart(heartEmojis[Math.floor(Math.random() * heartEmojis.length)]), i * 50);
+          }
+        }, 300);
+      }
+    }
+
+    updateUI();
+
+    // Buton cooldown
+    const btns = document.querySelectorAll('.action-btn');
+    const idx = Object.keys(ACTIONS).indexOf(type);
+    if (btns[idx]) {
+      btns[idx].classList.add('cooldown');
+      setTimeout(() => {
+        btns[idx].classList.remove('cooldown');
+        cooldowns[type] = false;
+      }, action.cooldown);
+    }
+  }
+
+  function spawnHeart(emoji) {
+    const h = document.createElement('div');
+    h.textContent = emoji;
+    h.style.cssText = `
+      position: fixed; z-index: 99;
+      font-size: ${20 + Math.random() * 20}px;
+      left: ${30 + Math.random() * 40}%;
+      bottom: 30%;
+      pointer-events: none;
+      animation: heartUp ${1 + Math.random()}s ease forwards;
+    `;
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 2000);
+  }
+
+  // Heart up animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes heartUp {
+      0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-200px) scale(0.5) rotate(${Math.random() > 0.5 ? '' : '-'}30deg); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Enter
+  document.getElementById('nameInput').addEventListener('keydown', e => { if (e.key === 'Enter') startLove(); });
+
+  // Story görsel
+  function createLoveStory() {
+    const c = document.getElementById('storyCanvas');
+    const x = c.getContext('2d');
+    const W = 1080, H = 1920;
+    const lvl = getLevel(points);
+
+    // BG
+    const bg = x.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#1A0025'); bg.addColorStop(0.4, '#2D0A4E');
+    bg.addColorStop(0.7, '#4A1078'); bg.addColorStop(1, '#1A0025');
+    x.fillStyle = bg;
+    x.fillRect(0, 0, W, H);
+
+    // Kalpler
+    x.font = '40px serif';
+    for (let i = 0; i < 30; i++) {
+      x.globalAlpha = 0.1 + Math.random() * 0.15;
+      x.fillText(heartEmojis[Math.floor(Math.random() * heartEmojis.length)], Math.random() * W, Math.random() * H);
+    }
+    x.globalAlpha = 1;
+
+    // Başlık
+    x.fillStyle = '#FF6B9D';
+    x.font = '900 42px Nunito';
+    x.textAlign = 'center';
+    x.fillText('💕 Şifi Sevgi Metresi', W/2, 200);
+
+    // İsim
+    x.fillStyle = 'white';
+    x.font = '900 56px Nunito';
+    x.fillText(userName, W/2, 320);
+
+    // Seviye ismi
+    x.font = '900 48px Nunito';
+    x.fillStyle = lvl.color;
+    x.fillText(lvl.name, W/2, 520);
+
+    // Skor
+    x.font = '900 140px Nunito';
+    x.fillStyle = 'white';
+    x.fillText(Math.min(points, 100), W/2, 750);
+    x.font = '700 30px Nunito';
+    x.fillStyle = 'rgba(255,255,255,0.5)';
+    x.fillText('SEVGİ PUANI', W/2, 800);
+
+    // Halka
+    x.strokeStyle = 'rgba(255,255,255,0.08)';
+    x.lineWidth = 16;
+    x.beginPath(); x.arc(W/2, 680, 200, 0, Math.PI * 2); x.stroke();
+    x.strokeStyle = lvl.color;
+    x.lineCap = 'round';
+    x.beginPath();
+    x.arc(W/2, 680, 200, -Math.PI/2, -Math.PI/2 + (Math.PI * 2 * Math.min(points, 100) / 100));
+    x.stroke();
+
+    // XP çarpanı
+    x.fillStyle = lvl.color;
+    x.font = '800 36px Nunito';
+    x.fillText(`XP Çarpanı: ${lvl.xp}`, W/2, 960);
+
+    // Bugünkü sevgiler
+    x.fillStyle = 'rgba(255,255,255,0.5)';
+    x.font = '700 28px Nunito';
+    x.fillText(`Bugün ${log.length} sevgi gönderildi`, W/2, 1060);
+
+    // Emoji satırı
+    const emojis = log.slice(-10).map(l => ACTIONS[l.type]?.emoji || '💕').join(' ');
+    x.font = '36px serif';
+    x.fillText(emojis, W/2, 1120);
+
+    // Şifi (küçük, alt kısım)
+    const sx = W/2, sy = 1320, sc = 1.8;
+    x.fillStyle = '#94A3B8';
+    x.fillRect(sx - 12*sc, sy + 55*sc, 8*sc, 14*sc);
+    x.fillRect(sx + 4*sc, sy + 55*sc, 8*sc, 14*sc);
+
+    x.save();
+    x.beginPath();
+    x.moveTo(sx - 36*sc, sy - 57*sc + 36*sc);
+    x.arcTo(sx - 36*sc, sy - 57*sc, sx - 36*sc + 36*sc, sy - 57*sc, 36*sc);
+    x.arcTo(sx + 36*sc, sy - 57*sc, sx + 36*sc, sy - 57*sc + 36*sc, 36*sc);
+    x.lineTo(sx + 36*sc, sy + 52*sc - 36*sc);
+    x.arcTo(sx + 36*sc, sy + 52*sc, sx + 36*sc - 36*sc, sy + 52*sc, 36*sc);
+    x.arcTo(sx - 36*sc, sy + 52*sc, sx - 36*sc, sy + 52*sc - 36*sc, 36*sc);
+    x.closePath();
+    x.clip();
+    x.fillStyle = lvl.color;
+    x.fillRect(sx - 36*sc, sy - 57*sc, 72*sc, 60*sc);
+    x.fillStyle = '#F8FAFC';
+    x.fillRect(sx - 36*sc, sy + 3*sc, 72*sc, 50*sc);
+    x.restore();
+
+    x.fillStyle = 'white';
+    x.beginPath(); x.arc(sx - 13*sc, sy - 15*sc, 11*sc, 0, Math.PI*2); x.fill();
+    x.beginPath(); x.arc(sx + 13*sc, sy - 15*sc, 11*sc, 0, Math.PI*2); x.fill();
+    x.fillStyle = '#0F172A';
+    x.beginPath(); x.arc(sx - 11*sc, sy - 16*sc, 5.5*sc, 0, Math.PI*2); x.fill();
+    x.beginPath(); x.arc(sx + 15*sc, sy - 16*sc, 5.5*sc, 0, Math.PI*2); x.fill();
+    x.fillStyle = 'white';
+    x.beginPath(); x.arc(sx - 9*sc, sy - 18*sc, 2.5*sc, 0, Math.PI*2); x.fill();
+    x.beginPath(); x.arc(sx + 17*sc, sy - 18*sc, 2.5*sc, 0, Math.PI*2); x.fill();
+
+    // Reklam bandı
+    x.fillStyle = 'rgba(255,107,157,0.15)';
+    x.fillRect(60, 1620, W - 120, 180);
+    x.fillStyle = 'white';
+    x.font = '900 40px Nunito';
+    x.fillText('💊 Şifa Asistanım', W/2, 1690);
+    x.fillStyle = 'rgba(255,255,255,0.7)';
+    x.font = '600 26px Nunito';
+    x.fillText('Şifi\'ne sevgi gönder, mutluluğunu artır!', W/2, 1735);
+    x.fillStyle = '#FF6B9D';
+    x.font = '800 24px Nunito';
+    x.fillText('📱 www.sifaasistanim.com/sevgi', W/2, 1775);
+
+    c.toBlob(blob => {
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], 'sifi-sevgi.png', { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+          navigator.share({ files: [file], title: 'Şifi Sevgi Metresi', text: `💕 Şifi'min sevgi puanı: ${Math.min(points,100)}/100 — ${lvl.name}\n📱 www.sifaasistanim.com/sevgi` }).catch(() => dlBlob(blob));
+          return;
+        }
+      }
+      dlBlob(blob);
+    }, 'image/png');
+  }
+
+  function dlBlob(blob) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'sifi-sevgi.png'; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function shareWP() {
+    const lvl = getLevel(points);
+    const text = `💕 Şifi'min sevgi puanı: ${Math.min(points,100)}/100\n${lvl.name}\n\nSen de Şifi'ne sevgi gönder 👉 ${location.href}`;
+    window.open('https://wa.me/?text=' + encodeURIComponent(text));
+  }
+  function shareTW() {
+    const lvl = getLevel(points);
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(`💕 Şifi'min sevgi puanı: ${Math.min(points,100)}/100 — ${lvl.name}\nSen de dene 👉`) + '&url=' + encodeURIComponent(location.href));
+  }
+  function copyLink() {
+    navigator.clipboard.writeText(location.href);
+  }
+  </script>
+</body>
+</html>
