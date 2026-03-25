@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Şifi Vektörel — Baskı Kalitesinde SVG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: #F8FAFF; color: #0F172A; padding: 20px; }
+    h1 { text-align: center; font-size: 28px; margin: 20px 0 8px; }
+    .subtitle { text-align: center; color: #64748B; font-size: 15px; margin-bottom: 30px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; }
+    .card { background: white; border-radius: 20px; padding: 24px; border: 1px solid #E2E8F0; text-align: center; }
+    .card h3 { font-size: 16px; margin: 12px 0 4px; }
+    .card p { font-size: 13px; color: #64748B; margin-bottom: 12px; }
+    .card svg { filter: drop-shadow(0 4px 12px rgba(37,99,235,0.15)); }
+    .btn { display: inline-block; padding: 10px 24px; border-radius: 12px; background: #2563EB; color: white; font-weight: 800; font-size: 14px; border: none; cursor: pointer; margin: 4px; }
+    .btn:hover { background: #1D4ED8; }
+    .btn-outline { background: white; color: #2563EB; border: 2px solid #2563EB; }
+    .checkerboard { background: repeating-conic-gradient(#f0f0f0 0% 25%, white 0% 50%) 50% / 20px 20px; border-radius: 12px; padding: 20px; display: inline-block; }
+  </style>
+</head>
+<body>
+
+<h1>Şifi Vektörel Tasarımlar</h1>
+<p class="subtitle">SVG formatında — sonsuz büyütülebilir, baskı kalitesinde</p>
+
+<div class="grid">
+
+  <!-- 1. Temel Şifi -->
+  <div class="card">
+    <div class="checkerboard">
+      <svg id="sifi-basic" width="300" height="380" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Gölge -->
+        <ellipse cx="150" cy="355" rx="55" ry="10" fill="#94A3B8" opacity="0.15"/>
+
+        <!-- Bacaklar -->
+        <rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+        <rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+        <!-- Ayak parlama -->
+        <rect x="123" y="298" width="6" height="14" rx="3" fill="#B0BEC5" opacity="0.5"/>
+        <rect x="165" y="298" width="6" height="14" rx="3" fill="#B0BEC5" opacity="0.5"/>
+
+        <!-- Sol kol -->
+        <rect x="32" y="175" width="48" height="14" rx="7" fill="#94A3B8"/>
+        <circle cx="35" cy="182" r="9" fill="#94A3B8"/>
+        <circle cx="35" cy="182" r="4" fill="#B0BEC5" opacity="0.4"/>
+
+        <!-- Sağ kol -->
+        <rect x="220" y="175" width="48" height="14" rx="7" fill="#94A3B8"/>
+        <circle cx="265" cy="182" r="9" fill="#94A3B8"/>
+        <circle cx="265" cy="182" r="4" fill="#B0BEC5" opacity="0.4"/>
+
+        <!-- Kapsül gövde - clip ile iki renkli -->
+        <defs>
+          <clipPath id="capsule-clip">
+            <rect x="78" y="85" width="144" height="220" rx="72"/>
+          </clipPath>
+          <!-- Üst yarı gradient (opsiyonel parlama) -->
+          <linearGradient id="body-shine" x1="78" y1="85" x2="222" y2="85" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="white" stop-opacity="0.15"/>
+            <stop offset="30%" stop-color="white" stop-opacity="0.05"/>
+            <stop offset="100%" stop-color="white" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="cheek-left" cx="108" cy="210" r="14" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FCA5A5" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#FCA5A5" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="cheek-right" cx="192" cy="210" r="14" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FCA5A5" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#FCA5A5" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Gövde arka plan -->
+        <g clip-path="url(#capsule-clip)">
+          <!-- Üst yarı - mavi -->
+          <rect x="78" y="85" width="144" height="120" fill="#2563EB"/>
+          <!-- Alt yarı - beyaz/açık -->
+          <rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/>
+          <!-- Ayırıcı çizgi -->
+          <rect x="78" y="203" width="144" height="3" fill="#1D4ED8" opacity="0.15"/>
+          <!-- Parlama efekti -->
+          <rect x="78" y="85" width="144" height="220" fill="url(#body-shine)"/>
+        </g>
+
+        <!-- Gövde dış çizgi (ince) -->
+        <rect x="78" y="85" width="144" height="220" rx="72" stroke="#1D4ED8" stroke-width="2" fill="none" opacity="0.15"/>
+
+        <!-- Yanaklar -->
+        <circle cx="108" cy="210" r="14" fill="url(#cheek-left)"/>
+        <circle cx="192" cy="210" r="14" fill="url(#cheek-right)"/>
+
+        <!-- Sol göz -->
+        <circle cx="124" cy="170" r="22" fill="white"/>
+        <circle cx="124" cy="170" r="22" stroke="#E2E8F0" stroke-width="1" fill="none"/>
+        <!-- Pupil -->
+        <circle cx="128" cy="168" r="11" fill="#0F172A"/>
+        <!-- Parlama büyük -->
+        <circle cx="133" cy="163" r="5" fill="white"/>
+        <!-- Parlama küçük -->
+        <circle cx="129" cy="173" r="2.5" fill="white" opacity="0.7"/>
+
+        <!-- Sağ göz -->
+        <circle cx="176" cy="170" r="22" fill="white"/>
+        <circle cx="176" cy="170" r="22" stroke="#E2E8F0" stroke-width="1" fill="none"/>
+        <!-- Pupil -->
+        <circle cx="180" cy="168" r="11" fill="#0F172A"/>
+        <!-- Parlama büyük -->
+        <circle cx="185" cy="163" r="5" fill="white"/>
+        <!-- Parlama küçük -->
+        <circle cx="181" cy="173" r="2.5" fill="white" opacity="0.7"/>
+
+        <!-- Ağız - gülümseme -->
+        <path d="M132 225 Q150 245 168 225" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+        <!-- Anten sol -->
+        <line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="105" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="102" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+
+        <!-- Anten sağ -->
+        <line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="195" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="192" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+      </svg>
+    </div>
+    <h3>Temel Şifi</h3>
+    <p>Varsayılan görünüm — mavi kapsül, sevimli gözler</p>
+    <button class="btn" onclick="downloadSVG('sifi-basic', 'sifi-temel.svg')">SVG İndir</button>
+    <button class="btn btn-outline" onclick="downloadPNG('sifi-basic', 'sifi-temel.png', 2000)">PNG 2000px</button>
+  </div>
+
+  <!-- 2. Mutlu Şifi -->
+  <div class="card">
+    <div class="checkerboard">
+      <svg id="sifi-happy" width="300" height="380" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="150" cy="355" rx="55" ry="10" fill="#94A3B8" opacity="0.15"/>
+        <rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+        <rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+        <!-- Kollar yukarı -->
+        <rect x="22" y="155" width="48" height="14" rx="7" fill="#94A3B8" transform="rotate(-25 46 162)"/>
+        <circle cx="28" cy="148" r="9" fill="#94A3B8"/>
+        <rect x="230" y="155" width="48" height="14" rx="7" fill="#94A3B8" transform="rotate(25 254 162)"/>
+        <circle cx="272" cy="148" r="9" fill="#94A3B8"/>
+
+        <defs>
+          <clipPath id="capsule-clip-h"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath>
+          <linearGradient id="body-shine-h" x1="78" y1="85" x2="222" y2="85" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="white" stop-opacity="0.15"/>
+            <stop offset="30%" stop-color="white" stop-opacity="0.05"/>
+            <stop offset="100%" stop-color="white" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g clip-path="url(#capsule-clip-h)">
+          <rect x="78" y="85" width="144" height="120" fill="#2563EB"/>
+          <rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/>
+          <rect x="78" y="203" width="144" height="3" fill="#1D4ED8" opacity="0.15"/>
+          <rect x="78" y="85" width="144" height="220" fill="url(#body-shine-h)"/>
+        </g>
+        <rect x="78" y="85" width="144" height="220" rx="72" stroke="#1D4ED8" stroke-width="2" fill="none" opacity="0.15"/>
+
+        <!-- Yanaklar (daha belirgin) -->
+        <circle cx="106" cy="210" r="16" fill="#FCA5A5" opacity="0.4"/>
+        <circle cx="194" cy="210" r="16" fill="#FCA5A5" opacity="0.4"/>
+
+        <!-- Gözler - mutlu (^ ^) -->
+        <path d="M108 168 Q124 155 140 168" stroke="#0F172A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M160 168 Q176 155 192 168" stroke="#0F172A" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+        <!-- Ağız - büyük gülümseme -->
+        <path d="M122 222 Q150 258 178 222" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <!-- Dil -->
+        <ellipse cx="150" cy="240" rx="10" ry="7" fill="#FCA5A5"/>
+
+        <!-- Yıldızlar -->
+        <text x="60" y="80" font-size="24" fill="#F59E0B">✨</text>
+        <text x="225" y="70" font-size="20" fill="#F59E0B">⭐</text>
+        <text x="245" y="130" font-size="16" fill="#F59E0B">✨</text>
+
+        <line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="105" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="102" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+        <line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="195" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="192" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+      </svg>
+    </div>
+    <h3>Mutlu Şifi ✨</h3>
+    <p>Kolları havada, gözleri gülen, yanakları kızarmış</p>
+    <button class="btn" onclick="downloadSVG('sifi-happy', 'sifi-mutlu.svg')">SVG İndir</button>
+    <button class="btn btn-outline" onclick="downloadPNG('sifi-happy', 'sifi-mutlu.png', 2000)">PNG 2000px</button>
+  </div>
+
+  <!-- 3. Uyuyan Şifi -->
+  <div class="card">
+    <div class="checkerboard">
+      <svg id="sifi-sleeping" width="300" height="380" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="150" cy="355" rx="55" ry="10" fill="#94A3B8" opacity="0.15"/>
+        <rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+        <rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+        <rect x="32" y="180" width="48" height="14" rx="7" fill="#94A3B8"/>
+        <circle cx="35" cy="187" r="9" fill="#94A3B8"/>
+        <rect x="220" y="180" width="48" height="14" rx="7" fill="#94A3B8"/>
+        <circle cx="265" cy="187" r="9" fill="#94A3B8"/>
+
+        <defs>
+          <clipPath id="capsule-clip-s"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath>
+        </defs>
+        <g clip-path="url(#capsule-clip-s)">
+          <rect x="78" y="85" width="144" height="120" fill="#2563EB"/>
+          <rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/>
+          <rect x="78" y="203" width="144" height="3" fill="#1D4ED8" opacity="0.15"/>
+        </g>
+        <rect x="78" y="85" width="144" height="220" rx="72" stroke="#1D4ED8" stroke-width="2" fill="none" opacity="0.15"/>
+
+        <!-- Yanaklar -->
+        <circle cx="108" cy="210" r="14" fill="#FCA5A5" opacity="0.35"/>
+        <circle cx="192" cy="210" r="14" fill="#FCA5A5" opacity="0.35"/>
+
+        <!-- Kapalı gözler -->
+        <path d="M108 172 Q124 180 140 172" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M160 172 Q176 180 192 172" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+        <!-- Ağız - küçük o -->
+        <ellipse cx="150" cy="230" rx="6" ry="5" fill="#0F172A"/>
+
+        <!-- Zzz -->
+        <text x="200" y="100" font-size="28" font-weight="900" fill="#93C5FD" opacity="0.8" font-family="Nunito">Z</text>
+        <text x="220" y="75" font-size="22" font-weight="900" fill="#93C5FD" opacity="0.6" font-family="Nunito">z</text>
+        <text x="235" y="55" font-size="16" font-weight="900" fill="#93C5FD" opacity="0.4" font-family="Nunito">z</text>
+
+        <!-- Ay -->
+        <path d="M55 50 Q45 30 55 15 Q35 20 35 40 Q35 55 55 50 Z" fill="#FCD34D" opacity="0.5"/>
+
+        <line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="105" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="102" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+        <line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="195" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="192" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+      </svg>
+    </div>
+    <h3>Uyuyan Şifi 🌙</h3>
+    <p>Gözleri kapalı, Zzz, ay ışığında uyuyor</p>
+    <button class="btn" onclick="downloadSVG('sifi-sleeping', 'sifi-uyuyan.svg')">SVG İndir</button>
+    <button class="btn btn-outline" onclick="downloadPNG('sifi-sleeping', 'sifi-uyuyan.png', 2000)">PNG 2000px</button>
+  </div>
+
+  <!-- 4. Aşık Şifi -->
+  <div class="card">
+    <div class="checkerboard">
+      <svg id="sifi-love" width="300" height="380" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="150" cy="355" rx="55" ry="10" fill="#94A3B8" opacity="0.15"/>
+        <rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+        <rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+        <rect x="32" y="175" width="48" height="14" rx="7" fill="#94A3B8"/>
+        <circle cx="35" cy="182" r="9" fill="#94A3B8"/>
+        <rect x="220" y="175" width="48" height="14" rx="7" fill="#94A3B8"/>
+        <circle cx="265" cy="182" r="9" fill="#94A3B8"/>
+
+        <defs>
+          <clipPath id="capsule-clip-l"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath>
+        </defs>
+        <g clip-path="url(#capsule-clip-l)">
+          <rect x="78" y="85" width="144" height="120" fill="#2563EB"/>
+          <rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/>
+          <rect x="78" y="203" width="144" height="3" fill="#1D4ED8" opacity="0.15"/>
+        </g>
+        <rect x="78" y="85" width="144" height="220" rx="72" stroke="#1D4ED8" stroke-width="2" fill="none" opacity="0.15"/>
+
+        <!-- Yanaklar güçlü -->
+        <circle cx="106" cy="210" r="18" fill="#FCA5A5" opacity="0.5"/>
+        <circle cx="194" cy="210" r="18" fill="#FCA5A5" opacity="0.5"/>
+
+        <!-- Kalp gözler -->
+        <path d="M112 165 C112 158 118 155 124 160 C130 155 136 158 136 165 C136 175 124 183 124 183 C124 183 112 175 112 165Z" fill="#EF4444"/>
+        <circle cx="120" cy="163" r="3" fill="#FF8A8A" opacity="0.5"/>
+        <path d="M164 165 C164 158 170 155 176 160 C182 155 188 158 188 165 C188 175 176 183 176 183 C176 183 164 175 164 165Z" fill="#EF4444"/>
+        <circle cx="172" cy="163" r="3" fill="#FF8A8A" opacity="0.5"/>
+
+        <!-- Ağız - büyük mutlu -->
+        <path d="M128 225 Q150 250 172 225" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+        <!-- Uçuşan kalpler -->
+        <text x="55" y="95" font-size="22" fill="#EF4444" opacity="0.7">❤️</text>
+        <text x="230" y="80" font-size="18" fill="#EF4444" opacity="0.6">💕</text>
+        <text x="40" y="150" font-size="14" fill="#EF4444" opacity="0.5">♥</text>
+        <text x="250" y="140" font-size="16" fill="#EF4444" opacity="0.5">💗</text>
+
+        <line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="105" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="102" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+        <line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="195" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="192" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+      </svg>
+    </div>
+    <h3>Aşık Şifi ❤️</h3>
+    <p>Kalp gözler, kızarmış yanaklar, uçuşan kalpler</p>
+    <button class="btn" onclick="downloadSVG('sifi-love', 'sifi-asik.svg')">SVG İndir</button>
+    <button class="btn btn-outline" onclick="downloadPNG('sifi-love', 'sifi-asik.png', 2000)">PNG 2000px</button>
+  </div>
+
+  <!-- 5. Güçlü Şifi -->
+  <div class="card">
+    <div class="checkerboard">
+      <svg id="sifi-strong" width="300" height="380" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="150" cy="355" rx="55" ry="10" fill="#94A3B8" opacity="0.15"/>
+        <rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+        <rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
+
+        <!-- Kollar yukarı (güçlü poz) -->
+        <rect x="18" y="130" width="48" height="14" rx="7" fill="#94A3B8" transform="rotate(-45 42 137)"/>
+        <circle cx="22" cy="118" r="11" fill="#94A3B8"/>
+        <rect x="234" y="130" width="48" height="14" rx="7" fill="#94A3B8" transform="rotate(45 258 137)"/>
+        <circle cx="278" cy="118" r="11" fill="#94A3B8"/>
+
+        <defs>
+          <clipPath id="capsule-clip-st"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath>
+        </defs>
+        <g clip-path="url(#capsule-clip-st)">
+          <rect x="78" y="85" width="144" height="120" fill="#2563EB"/>
+          <rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/>
+          <rect x="78" y="203" width="144" height="3" fill="#1D4ED8" opacity="0.15"/>
+        </g>
+        <rect x="78" y="85" width="144" height="220" rx="72" stroke="#1D4ED8" stroke-width="2" fill="none" opacity="0.15"/>
+
+        <!-- Kararlı gözler -->
+        <circle cx="124" cy="170" r="22" fill="white"/>
+        <circle cx="128" cy="168" r="11" fill="#0F172A"/>
+        <circle cx="133" cy="163" r="5" fill="white"/>
+        <!-- Kaş sol (kararlı) -->
+        <line x1="106" y1="148" x2="140" y2="152" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+
+        <circle cx="176" cy="170" r="22" fill="white"/>
+        <circle cx="180" cy="168" r="11" fill="#0F172A"/>
+        <circle cx="185" cy="163" r="5" fill="white"/>
+        <!-- Kaş sağ (kararlı) -->
+        <line x1="194" y1="148" x2="160" y2="152" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+
+        <!-- Ağız - kararlı gülümseme -->
+        <path d="M130 222 Q150 242 170 222" stroke="#0F172A" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+        <!-- Enerji çizgileri -->
+        <line x1="15" y1="100" x2="5" y2="95" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+        <line x1="18" y1="112" x2="4" y2="112" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+        <line x1="15" y1="124" x2="5" y2="129" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+        <line x1="285" y1="100" x2="295" y2="95" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+        <line x1="282" y1="112" x2="296" y2="112" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+        <line x1="285" y1="124" x2="295" y2="129" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+
+        <line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="105" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="102" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+        <line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="195" cy="38" r="10" fill="#EF4444"/>
+        <circle cx="192" cy="35" r="3.5" fill="#FF7171" opacity="0.6"/>
+      </svg>
+    </div>
+    <h3>Güçlü Şifi 💪</h3>
+    <p>Kolları havada, kararlı bakış, enerji çizgileri</p>
+    <button class="btn" onclick="downloadSVG('sifi-strong', 'sifi-guclu.svg')">SVG İndir</button>
+    <button class="btn btn-outline" onclick="downloadPNG('sifi-strong', 'sifi-guclu.png', 2000)">PNG 2000px</button>
+  </div>
+
+  <!-- 6. Marka Logo -->
+  <div class="card" style="grid-column: 1 / -1;">
+    <div class="checkerboard" style="width: 100%;">
+      <svg id="sifi-brand" width="600" height="200" viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Mini Şifi -->
+        <ellipse cx="80" cy="185" rx="30" ry="5" fill="#94A3B8" opacity="0.15"/>
+        <rect x="68" y="155" width="10" height="18" rx="5" fill="#94A3B8"/>
+        <rect x="82" y="155" width="10" height="18" rx="5" fill="#94A3B8"/>
+        <rect x="18" y="95" width="28" height="8" rx="4" fill="#94A3B8"/>
+        <circle cx="20" cy="99" r="5" fill="#94A3B8"/>
+        <rect x="114" y="95" width="28" height="8" rx="4" fill="#94A3B8"/>
+        <circle cx="140" cy="99" r="5" fill="#94A3B8"/>
+
+        <defs>
+          <clipPath id="capsule-clip-b"><rect x="40" y="35" width="80" height="125" rx="40"/></clipPath>
+        </defs>
+        <g clip-path="url(#capsule-clip-b)">
+          <rect x="40" y="35" width="80" height="68" fill="#2563EB"/>
+          <rect x="40" y="103" width="80" height="57" fill="#F8FAFC"/>
+          <rect x="40" y="101" width="80" height="2.5" fill="#1D4ED8" opacity="0.15"/>
+        </g>
+        <rect x="40" y="35" width="80" height="125" rx="40" stroke="#1D4ED8" stroke-width="1.5" fill="none" opacity="0.15"/>
+
+        <!-- Gözler -->
+        <circle cx="66" cy="82" r="12" fill="white"/>
+        <circle cx="68" cy="81" r="6" fill="#0F172A"/>
+        <circle cx="71" cy="78" r="2.5" fill="white"/>
+        <circle cx="94" cy="82" r="12" fill="white"/>
+        <circle cx="96" cy="81" r="6" fill="#0F172A"/>
+        <circle cx="99" cy="78" r="2.5" fill="white"/>
+
+        <!-- Ağız -->
+        <path d="M72 115 Q80 125 88 115" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+        <!-- Antenler -->
+        <line x1="65" y1="40" x2="57" y2="15" stroke="#1E293B" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="57" cy="13" r="6" fill="#EF4444"/>
+        <line x1="95" y1="40" x2="103" y2="15" stroke="#1E293B" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="103" cy="13" r="6" fill="#EF4444"/>
+
+        <!-- Marka Adı -->
+        <text x="180" y="95" font-family="Nunito" font-weight="900" font-size="48" fill="#0F172A">Şifa Asistanım</text>
+        <text x="180" y="130" font-family="Nunito" font-weight="700" font-size="20" fill="#64748B">Sevimli sağlık asistanın Şifi ile ilaç takibi 💊</text>
+      </svg>
+    </div>
+    <h3>Marka Logosu</h3>
+    <p>Şifi + Şifa Asistanım yazısı — web, sosyal medya, basılı materyal</p>
+    <button class="btn" onclick="downloadSVG('sifi-brand', 'sifa-asistanim-logo.svg')">SVG İndir</button>
+    <button class="btn btn-outline" onclick="downloadPNG('sifi-brand', 'sifa-asistanim-logo.png', 4000)">PNG 4000px</button>
+  </div>
+
+</div>
+
+<script>
+function downloadSVG(id, filename) {
+  const svg = document.getElementById(id);
+  const serializer = new XMLSerializer();
+  let source = serializer.serializeToString(svg);
+  source = '<?xml version="1.0" encoding="UTF-8"?>\n' + source;
+  const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadPNG(id, filename, targetSize) {
+  const svg = document.getElementById(id);
+  const serializer = new XMLSerializer();
+  const source = serializer.serializeToString(svg);
+  const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+
+  const img = new Image();
+  img.onload = () => {
+    const ratio = img.height / img.width;
+    const w = targetSize;
+    const h = Math.round(w * ratio);
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, w, h);
+    canvas.toBlob((blob) => {
+      const pngUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = pngUrl;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(pngUrl);
+    }, 'image/png');
+    URL.revokeObjectURL(url);
+  };
+  img.src = url;
+}
+</script>
+
+</body>
+</html>
