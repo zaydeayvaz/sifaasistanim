@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Şifa Match - Şifa Asistanım</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #1a0a2e 0%, #16213e 50%, #0a1628 100%);
+  min-height: 100vh;
+  color: #fff;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* ===== SCREENS ===== */
+.screen { display: none; flex-direction: column; align-items: center; min-height: 100vh; }
+.screen.active { display: flex; }
+
+/* ===== TITLE SCREEN ===== */
+#titleScreen {
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+  text-align: center;
+}
+#titleScreen h1 {
+  font-size: 42px;
+  background: linear-gradient(135deg, #f093fb, #f5576c, #4facfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  animation: titlePulse 2s ease-in-out infinite;
+}
+@keyframes titlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+#titleScreen .subtitle {
+  font-size: 16px;
+  color: #a78bfa;
+  margin-top: -15px;
+}
+.title-sifi {
+  font-size: 80px;
+  animation: sifiBounce 1.5s ease-in-out infinite;
+}
+@keyframes sifiBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+.title-pills {
+  font-size: 36px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  animation: pillsFloat 3s ease-in-out infinite;
+}
+@keyframes pillsFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(2deg); }
+  75% { transform: translateY(5px) rotate(-2deg); }
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  padding: 14px 40px;
+  border: none;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.btn:active { transform: scale(0.95); }
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+}
+.btn-primary:hover { box-shadow: 0 6px 30px rgba(102, 126, 234, 0.6); }
+.btn-success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  box-shadow: 0 4px 20px rgba(56, 239, 125, 0.3);
+}
+.btn-danger {
+  background: linear-gradient(135deg, #fc5c7d 0%, #6a82fb 100%);
+}
+.btn-small {
+  padding: 8px 20px;
+  font-size: 14px;
+}
+.btn-back {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ===== LEVEL SELECT ===== */
+#levelScreen { padding: 20px; gap: 15px; }
+#levelScreen h2 {
+  font-size: 28px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.level-section {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+.level-section h3 {
+  font-size: 16px;
+  color: #a78bfa;
+  margin-bottom: 8px;
+  padding-left: 5px;
+}
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.level-btn {
+  aspect-ratio: 1;
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: all 0.3s;
+  position: relative;
+}
+.level-btn.unlocked {
+  border-color: rgba(102, 126, 234, 0.5);
+  background: rgba(102, 126, 234, 0.15);
+}
+.level-btn.unlocked:hover {
+  border-color: rgba(102, 126, 234, 0.8);
+  background: rgba(102, 126, 234, 0.3);
+  transform: scale(1.05);
+}
+.level-btn.locked {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.level-btn .stars-display {
+  font-size: 10px;
+  letter-spacing: -1px;
+}
+.level-btn .stars-display .earned { color: #fbbf24; }
+.level-btn .stars-display .empty { color: rgba(255,255,255,0.2); }
+
+/* ===== GAME SCREEN ===== */
+#gameScreen { padding: 10px; gap: 8px; }
+
+.game-top-bar {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+.game-top-bar .level-info {
+  display: flex;
+  flex-direction: column;
+}
+.game-top-bar .level-name {
+  font-size: 13px;
+  color: #a78bfa;
+  font-weight: 600;
+}
+.game-top-bar .level-num {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+}
+.game-top-bar .score-info {
+  text-align: center;
+}
+.game-top-bar .score-value {
+  font-size: 22px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.game-top-bar .score-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+}
+.game-top-bar .moves-info {
+  text-align: right;
+}
+.game-top-bar .moves-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: #38ef7d;
+}
+.game-top-bar .moves-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+}
+
+.progress-container {
+  width: 100%;
+  max-width: 400px;
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+.progress-stars {
+  position: absolute;
+  top: -8px;
+  width: 100%;
+  height: 24px;
+  pointer-events: none;
+}
+.progress-star {
+  position: absolute;
+  font-size: 14px;
+  transform: translateX(-50%);
+  top: -3px;
+  opacity: 0.4;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.progress-star.earned {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.2);
+}
+
+/* ===== GAME BOARD ===== */
+.board-container {
+  position: relative;
+  padding: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+#gameBoard {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 3px;
+  position: relative;
+}
+.cell {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  position: relative;
+  z-index: 1;
+}
+.cell:hover { background: rgba(255,255,255,0.12); }
+.cell.selected {
+  background: rgba(102, 126, 234, 0.3);
+  box-shadow: 0 0 15px rgba(102, 126, 234, 0.6), inset 0 0 10px rgba(102, 126, 234, 0.3);
+  transform: scale(1.1);
+  z-index: 2;
+  animation: selectedPulse 0.8s ease-in-out infinite;
+}
+@keyframes selectedPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(102, 126, 234, 0.6), inset 0 0 10px rgba(102, 126, 234, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(102, 126, 234, 0.8), inset 0 0 15px rgba(102, 126, 234, 0.5); }
+}
+.cell.hint {
+  animation: hintPulse 0.6s ease-in-out infinite;
+}
+@keyframes hintPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.cell.matched {
+  animation: matchPop 0.4s ease forwards;
+  z-index: 3;
+}
+@keyframes matchPop {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
+}
+.cell.dropping {
+  animation: dropBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes dropBounce {
+  0% { transform: translateY(-60px); opacity: 0; }
+  60% { transform: translateY(5px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.cell.swap-invalid {
+  animation: shake 0.4s ease;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+.cell.blocked {
+  background: rgba(255,255,255,0.02);
+  cursor: not-allowed;
+  position: relative;
+}
+.cell.blocked::after {
+  content: '🚫';
+  font-size: 16px;
+  opacity: 0.3;
+}
+.cell .ice-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(147, 197, 253, 0.35);
+  border-radius: 8px;
+  border: 1.5px solid rgba(147, 197, 253, 0.5);
+  pointer-events: none;
+  z-index: 2;
+}
+.cell .ice-overlay.cracked {
+  background: rgba(147, 197, 253, 0.18);
+  border-style: dashed;
+}
+
+/* ===== SIFI ===== */
+.sifi-container {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
+}
+.sifi-emoji {
+  font-size: 40px;
+  transition: transform 0.3s;
+}
+.sifi-emoji.happy { animation: sifiHappy 0.5s ease; }
+@keyframes sifiHappy { 50% { transform: scale(1.3) rotate(10deg); } }
+.sifi-emoji.excited { animation: sifiExcited 0.6s ease; }
+@keyframes sifiExcited {
+  0% { transform: rotate(0) scale(1); }
+  25% { transform: rotate(-15deg) scale(1.2); }
+  50% { transform: rotate(15deg) scale(1.4); }
+  75% { transform: rotate(-10deg) scale(1.2); }
+  100% { transform: rotate(0) scale(1); }
+}
+.sifi-emoji.dancing { animation: sifiDance 0.8s ease infinite; }
+@keyframes sifiDance {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-10px) rotate(-10deg); }
+  50% { transform: translateY(0) rotate(0); }
+  75% { transform: translateY(-10px) rotate(10deg); }
+}
+.sifi-emoji.thinking { animation: sifiThink 1.5s ease-in-out infinite; }
+@keyframes sifiThink {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(15deg); }
+}
+.sifi-bubble {
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.sifi-bubble.visible { opacity: 1; }
+
+/* ===== PARTICLES ===== */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  font-size: 14px;
+  animation: particleFly 0.8s ease-out forwards;
+}
+@keyframes particleFly {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
+}
+
+/* ===== COMBO POPUP ===== */
+.combo-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 32px;
+  font-weight: 900;
+  z-index: 200;
+  pointer-events: none;
+  animation: comboPop 0.8s ease-out forwards;
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+}
+@keyframes comboPop {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  30% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+  100% { transform: translate(-50%, -70%) scale(0.8); opacity: 0; }
+}
+.score-fly {
+  position: fixed;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fbbf24;
+  z-index: 200;
+  pointer-events: none;
+  animation: scoreFly 1s ease-out forwards;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+@keyframes scoreFly {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-60px) scale(1.3); }
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  backdrop-filter: blur(5px);
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  border-radius: 24px;
+  padding: 30px;
+  max-width: 350px;
+  width: 90%;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.15);
+  animation: modalIn 0.4s ease;
+}
+@keyframes modalIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.modal h2 { font-size: 24px; margin-bottom: 10px; }
+.modal .modal-sifi { font-size: 60px; margin: 10px 0; }
+.modal .modal-stars { font-size: 36px; margin: 10px 0; }
+.modal .modal-score {
+  font-size: 18px;
+  color: #fbbf24;
+  margin-bottom: 15px;
+}
+.modal .modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ===== BACK LINK ===== */
+.back-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 300;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+.back-link:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 380px) {
+  .cell { width: 36px; height: 36px; font-size: 22px; }
+}
+@media (min-width: 500px) {
+  .cell { width: 50px; height: 50px; font-size: 30px; }
+}
+</style>
+</head>
+<body>
+
+<a href="https://sifaasistanim.com" class="back-link">← Şifa Asistanım</a>
+
+<!-- ===== TITLE SCREEN ===== -->
+<div id="titleScreen" class="screen active">
+  <div class="title-sifi">🧑‍⚕️</div>
+  <h1>Şifa Match</h1>
+  <div class="subtitle">İlaçları eşleştir, puanları topla!</div>
+  <div class="title-pills">💊 🧴 💉 🩹 🩺</div>
+  <button class="btn btn-primary" onclick="showLevelSelect()">Oyna</button>
+</div>
+
+<!-- ===== LEVEL SELECT ===== -->
+<div id="levelScreen" class="screen">
+  <h2>Seviye Seç</h2>
+  <div id="levelGrid"></div>
+  <button class="btn btn-back btn-small" onclick="showTitle()" style="margin-bottom:20px;">← Ana Menü</button>
+</div>
+
+<!-- ===== GAME SCREEN ===== -->
+<div id="gameScreen" class="screen">
+  <div class="game-top-bar">
+    <div class="level-info">
+      <span class="level-name" id="levelName"></span>
+      <span class="level-num" id="levelNum"></span>
+    </div>
+    <div class="score-info">
+      <div class="score-value" id="scoreValue">0</div>
+      <div class="score-label">PUAN</div>
+    </div>
+    <div class="moves-info">
+      <div class="moves-value" id="movesValue">20</div>
+      <div class="moves-label">HAMLE</div>
+    </div>
+  </div>
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="progress-stars">
+      <div class="progress-star" id="pStar1" style="left:50%">⭐</div>
+      <div class="progress-star" id="pStar2" style="left:75%">⭐</div>
+      <div class="progress-star" id="pStar3" style="left:100%">⭐</div>
+    </div>
+  </div>
+  <div class="board-container">
+    <div id="gameBoard"></div>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:6px;">
+    <button class="btn btn-back btn-small" onclick="showLevelSelect()">✕</button>
+    <button class="btn btn-back btn-small" id="hintBtn" onclick="showHint()">💡 İpucu</button>
+  </div>
+</div>
+
+<!-- ===== SIFI ===== -->
+<div class="sifi-container" id="sifiContainer" style="display:none;">
+  <div class="sifi-bubble" id="sifiBubble"></div>
+  <div class="sifi-emoji" id="sifiEmoji">🧑‍⚕️</div>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+// ===== CONSTANTS =====
+const COLS = 8, ROWS = 8;
+const PILL_TYPES = ['💊','🧴','💉','🩹','🩺','💎','⭐'];
+const PILL_COLORS = {
+  '💊':'#60a5fa','🧴':'#a78bfa','💉':'#34d399','🩹':'#fb923c',
+  '🩺':'#f87171','💎':'#22d3ee','⭐':'#fbbf24'
+};
+const SPARKLES = ['✨','💫','⚡','🌟','💥'];
+
+// ===== LEVEL DATA =====
+const LEVELS = [
+  // Stajyer (1-5)
+  { name:'Stajyer', target:500, moves:20, types:5, blocked:[], ice:false },
+  { name:'Stajyer', target:800, moves:20, types:5, blocked:[], ice:false },
+  { name:'Stajyer', target:1200, moves:20, types:6, blocked:[], ice:false },
+  { name:'Stajyer', target:1500, moves:20, types:6, blocked:[], ice:false },
+  { name:'Stajyer', target:2000, moves:20, types:6, blocked:[], ice:false },
+  // Asistan (6-10)
+  { name:'Asistan', target:2500, moves:15, types:6, blocked:[], ice:false },
+  { name:'Asistan', target:3000, moves:15, types:6, blocked:[], ice:false },
+  { name:'Asistan', target:3500, moves:15, types:7, blocked:[], ice:false },
+  { name:'Asistan', target:4000, moves:15, types:7, blocked:[], ice:false },
+  { name:'Asistan', target:5000, moves:15, types:7, blocked:[], ice:false },
+  // Uzman (11-15)
+  { name:'Uzman', target:5000, moves:12, types:6, blocked:[[2,2],[2,5],[5,2],[5,5]], ice:false },
+  { name:'Uzman', target:5500, moves:12, types:6, blocked:[[1,3],[1,4],[6,3],[6,4]], ice:false },
+  { name:'Uzman', target:6000, moves:12, types:7, blocked:[[0,0],[0,7],[7,0],[7,7],[3,3],[4,4]], ice:false },
+  { name:'Uzman', target:7000, moves:12, types:7, blocked:[[2,1],[2,6],[5,1],[5,6],[3,3],[4,4]], ice:false },
+  { name:'Uzman', target:8000, moves:12, types:7, blocked:[[1,1],[1,6],[6,1],[6,6],[3,0],[3,7],[4,0],[4,7]], ice:false },
+  // Başhekim (16-20)
+  { name:'Başhekim', target:8000, moves:10, types:6, blocked:[], ice:true, iceCount:8 },
+  { name:'Başhekim', target:9500, moves:10, types:6, blocked:[[3,3],[4,4]], ice:true, iceCount:12 },
+  { name:'Başhekim', target:11000, moves:10, types:7, blocked:[[0,0],[7,7]], ice:true, iceCount:14 },
+  { name:'Başhekim', target:13000, moves:10, types:7, blocked:[[3,3],[4,4],[2,2],[5,5]], ice:true, iceCount:16 },
+  { name:'Başhekim', target:15000, moves:10, types:7, blocked:[[1,1],[1,6],[6,1],[6,6]], ice:true, iceCount:20 },
+];
+
+// ===== GAME STATE =====
+let board = [];
+let iceLayer = []; // 0 = no ice, 1 = cracked ice, 2 = solid ice
+let blockedCells = new Set();
+let currentLevel = 0;
+let score = 0;
+let movesLeft = 0;
+let targetScore = 0;
+let selectedCell = null;
+let isAnimating = false;
+let comboCount = 0;
+let levelStars = JSON.parse(localStorage.getItem('sifaMatchStars') || '{}');
+let highestUnlocked = parseInt(localStorage.getItem('sifaMatchUnlocked') || '0');
+let hintTimeout = null;
+
+// ===== SCREENS =====
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('sifiContainer').style.display = id === 'gameScreen' ? 'flex' : 'none';
+}
+function showTitle() { showScreen('titleScreen'); }
+function showLevelSelect() {
+  renderLevelGrid();
+  showScreen('levelScreen');
+}
+
+function renderLevelGrid() {
+  const container = document.getElementById('levelGrid');
+  container.innerHTML = '';
+  const sections = [
+    { name: '🩺 Stajyer (1-5)', range: [0, 5] },
+    { name: '💊 Asistan (6-10)', range: [5, 10] },
+    { name: '💉 Uzman (11-15)', range: [10, 15] },
+    { name: '⭐ Başhekim (16-20)', range: [15, 20] },
+  ];
+  sections.forEach(sec => {
+    const div = document.createElement('div');
+    div.className = 'level-section';
+    div.innerHTML = `<h3>${sec.name}</h3><div class="level-grid"></div>`;
+    const grid = div.querySelector('.level-grid');
+    for (let i = sec.range[0]; i < sec.range[1]; i++) {
+      const btn = document.createElement('button');
+      const unlocked = i <= highestUnlocked;
+      btn.className = 'level-btn ' + (unlocked ? 'unlocked' : 'locked');
+      const stars = levelStars[i] || 0;
+      const starStr = (unlocked
+        ? '<span class="earned">★</span>'.repeat(stars) + '<span class="empty">★</span>'.repeat(3 - stars)
+        : '🔒');
+      btn.innerHTML = `<span>${i + 1}</span><span class="stars-display">${starStr}</span>`;
+      if (unlocked) btn.onclick = () => startLevel(i);
+      grid.appendChild(btn);
+    }
+    container.appendChild(div);
+  });
+}
+
+// ===== GAME INIT =====
+function startLevel(lvlIndex) {
+  currentLevel = lvlIndex;
+  const lvl = LEVELS[lvlIndex];
+  score = 0;
+  movesLeft = lvl.moves;
+  targetScore = lvl.target;
+  comboCount = 0;
+  selectedCell = null;
+  isAnimating = false;
+
+  // Setup blocked cells
+  blockedCells = new Set();
+  lvl.blocked.forEach(([r, c]) => blockedCells.add(r * COLS + c));
+
+  // Init board
+  const typeCount = lvl.types;
+  board = [];
+  for (let r = 0; r < ROWS; r++) {
+    board[r] = [];
+    for (let c = 0; c < COLS; c++) {
+      if (blockedCells.has(r * COLS + c)) {
+        board[r][c] = null;
+      } else {
+        board[r][c] = randomPill(typeCount);
+      }
+    }
+  }
+  // Remove initial matches
+  removeInitialMatches(typeCount);
+
+  // Init ice layer
+  iceLayer = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+  if (lvl.ice) {
+    let placed = 0;
+    const iceTarget = lvl.iceCount || 10;
+    while (placed < iceTarget) {
+      const r = Math.floor(Math.random() * ROWS);
+      const c = Math.floor(Math.random() * COLS);
+      if (!blockedCells.has(r * COLS + c) && iceLayer[r][c] === 0) {
+        iceLayer[r][c] = 2;
+        placed++;
+      }
+    }
+  }
+
+  // Update UI
+  document.getElementById('levelName').textContent = lvl.name;
+  document.getElementById('levelNum').textContent = `Seviye ${lvlIndex + 1}`;
+  updateUI();
+  renderBoard();
+  showScreen('gameScreen');
+  setSifi('happy', 'Haydi başlayalım!');
+
+  // Auto-hint
+  clearTimeout(hintTimeout);
+  hintTimeout = setTimeout(showHint, 6000);
+}
+
+function randomPill(typeCount) {
+  return PILL_TYPES[Math.floor(Math.random() * typeCount)];
+}
+
+function removeInitialMatches(typeCount) {
+  let hasMatch = true;
+  while (hasMatch) {
+    hasMatch = false;
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        if (!board[r][c]) continue;
+        // Check horizontal
+        if (c < COLS - 2 && board[r][c] === board[r][c+1] && board[r][c] === board[r][c+2]) {
+          board[r][c] = randomPill(typeCount);
+          hasMatch = true;
+        }
+        // Check vertical
+        if (r < ROWS - 2 && board[r][c] === board[r+1]?.[c] && board[r][c] === board[r+2]?.[c]) {
+          board[r][c] = randomPill(typeCount);
+          hasMatch = true;
+        }
+      }
+    }
+  }
+}
+
+// ===== RENDER =====
+function renderBoard() {
+  const boardEl = document.getElementById('gameBoard');
+  boardEl.innerHTML = '';
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.dataset.row = r;
+      cell.dataset.col = c;
+      if (blockedCells.has(r * COLS + c)) {
+        cell.classList.add('blocked');
+      } else {
+        cell.textContent = board[r][c] || '';
+        if (iceLayer[r][c] > 0) {
+          const ice = document.createElement('div');
+          ice.className = 'ice-overlay' + (iceLayer[r][c] === 1 ? ' cracked' : '');
+          cell.appendChild(ice);
+        }
+        cell.addEventListener('pointerdown', onCellPointerDown);
+        cell.addEventListener('pointerup', onCellPointerUp);
+        cell.addEventListener('pointermove', onCellPointerMove);
+      }
+      boardEl.appendChild(cell);
+    }
+  }
+}
+
+function updateUI() {
+  document.getElementById('scoreValue').textContent = score;
+  document.getElementById('movesValue').textContent = movesLeft;
+  const pct = Math.min(100, (score / targetScore) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+
+  // Update progress stars
+  const s1 = score >= targetScore;
+  const s2 = score >= targetScore * 1.5;
+  const s3 = score >= targetScore * 2;
+  document.getElementById('pStar1').classList.toggle('earned', s1);
+  document.getElementById('pStar2').classList.toggle('earned', s2);
+  document.getElementById('pStar3').classList.toggle('earned', s3);
+
+  // Color moves if low
+  const movesEl = document.getElementById('movesValue');
+  if (movesLeft <= 3) movesEl.style.color = '#f87171';
+  else if (movesLeft <= 5) movesEl.style.color = '#fbbf24';
+  else movesEl.style.color = '#38ef7d';
+}
+
+// ===== INPUT =====
+let dragStart = null;
+let dragCell = null;
+
+function onCellPointerDown(e) {
+  if (isAnimating) return;
+  e.preventDefault();
+  const r = parseInt(e.currentTarget.dataset.row);
+  const c = parseInt(e.currentTarget.dataset.col);
+  if (blockedCells.has(r * COLS + c) || !board[r][c]) return;
+  dragStart = { x: e.clientX, y: e.clientY, r, c };
+  dragCell = { r, c };
+}
+
+function onCellPointerMove(e) {
+  if (!dragStart || isAnimating) return;
+  const dx = e.clientX - dragStart.x;
+  const dy = e.clientY - dragStart.y;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  if (dist > 20) {
+    let dr = 0, dc = 0;
+    if (Math.abs(dx) > Math.abs(dy)) dc = dx > 0 ? 1 : -1;
+    else dr = dy > 0 ? 1 : -1;
+    const nr = dragStart.r + dr;
+    const nc = dragStart.c + dc;
+    dragStart = null;
+    if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && !blockedCells.has(nr * COLS + nc)) {
+      trySwap(dragCell.r, dragCell.c, nr, nc);
+    }
+  }
+}
+
+function onCellPointerUp(e) {
+  if (isAnimating) return;
+  dragStart = null;
+  const r = parseInt(e.currentTarget.dataset.row);
+  const c = parseInt(e.currentTarget.dataset.col);
+  if (blockedCells.has(r * COLS + c) || !board[r][c]) return;
+
+  if (selectedCell) {
+    const sr = selectedCell.r, sc = selectedCell.c;
+    if (sr === r && sc === c) {
+      clearSelection();
+      return;
+    }
+    if (Math.abs(sr - r) + Math.abs(sc - c) === 1) {
+      clearSelection();
+      trySwap(sr, sc, r, c);
+    } else {
+      clearSelection();
+      selectCell(r, c);
+    }
+  } else {
+    selectCell(r, c);
+  }
+}
+
+function selectCell(r, c) {
+  selectedCell = { r, c };
+  renderBoard();
+  const idx = r * COLS + c;
+  const cell = document.getElementById('gameBoard').children[idx];
+  if (cell) cell.classList.add('selected');
+  clearTimeout(hintTimeout);
+  hintTimeout = setTimeout(showHint, 6000);
+}
+
+function clearSelection() {
+  selectedCell = null;
+  document.querySelectorAll('.cell.selected').forEach(c => c.classList.remove('selected'));
+}
+
+// ===== SWAP & MATCH =====
+async function trySwap(r1, c1, r2, c2) {
+  if (isAnimating) return;
+  isAnimating = true;
+  clearTimeout(hintTimeout);
+  document.querySelectorAll('.cell.hint').forEach(c => c.classList.remove('hint'));
+
+  // Swap
+  [board[r1][c1], board[r2][c2]] = [board[r2][c2], board[r1][c1]];
+
+  const matches = findAllMatches();
+  if (matches.length > 0) {
+    movesLeft--;
+    comboCount = 0;
+    renderBoard();
+    await processMatches();
+    updateUI();
+
+    if (movesLeft <= 0 || !hasPossibleMoves()) {
+      setTimeout(endLevel, 500);
+    } else {
+      hintTimeout = setTimeout(showHint, 6000);
+    }
+  } else {
+    // Invalid swap - swap back
+    [board[r1][c1], board[r2][c2]] = [board[r2][c2], board[r1][c1]];
+    renderBoard();
+    const idx1 = r1 * COLS + c1;
+    const idx2 = r2 * COLS + c2;
+    const cells = document.getElementById('gameBoard').children;
+    cells[idx1]?.classList.add('swap-invalid');
+    cells[idx2]?.classList.add('swap-invalid');
+    await sleep(400);
+    hintTimeout = setTimeout(showHint, 6000);
+  }
+  isAnimating = false;
+}
+
+function findAllMatches() {
+  const matched = new Set();
+  // Horizontal
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS - 2; c++) {
+      if (!board[r][c]) continue;
+      let len = 1;
+      while (c + len < COLS && board[r][c + len] === board[r][c]) len++;
+      if (len >= 3) {
+        for (let i = 0; i < len; i++) matched.add(r * COLS + (c + i));
+      }
+    }
+  }
+  // Vertical
+  for (let c = 0; c < COLS; c++) {
+    for (let r = 0; r < ROWS - 2; r++) {
+      if (!board[r][c]) continue;
+      let len = 1;
+      while (r + len < ROWS && board[r + len]?.[c] === board[r][c]) len++;
+      if (len >= 3) {
+        for (let i = 0; i < len; i++) matched.add((r + i) * COLS + c);
+      }
+    }
+  }
+  return [...matched];
+}
+
+function findMatchGroups() {
+  const groups = [];
+  const visited = new Set();
+
+  // Horizontal groups
+  for (let r = 0; r < ROWS; r++) {
+    let c = 0;
+    while (c < COLS) {
+      if (!board[r][c]) { c++; continue; }
+      let len = 1;
+      while (c + len < COLS && board[r][c + len] === board[r][c]) len++;
+      if (len >= 3) {
+        const group = [];
+        for (let i = 0; i < len; i++) group.push(r * COLS + (c + i));
+        groups.push(group);
+      }
+      c += Math.max(len, 1);
+    }
+  }
+  // Vertical groups
+  for (let c = 0; c < COLS; c++) {
+    let r = 0;
+    while (r < ROWS) {
+      if (!board[r]?.[c]) { r++; continue; }
+      let len = 1;
+      while (r + len < ROWS && board[r + len]?.[c] === board[r][c]) len++;
+      if (len >= 3) {
+        const group = [];
+        for (let i = 0; i < len; i++) group.push((r + i) * COLS + c);
+        groups.push(group);
+      }
+      r += Math.max(len, 1);
+    }
+  }
+  return groups;
+}
+
+async function processMatches() {
+  let matches = findAllMatches();
+  while (matches.length > 0) {
+    comboCount++;
+    const groups = findMatchGroups();
+
+    // Calculate score for this round
+    let roundScore = 0;
+    groups.forEach(group => {
+      const len = group.length;
+      if (len === 3) roundScore += 50;
+      else if (len === 4) roundScore += 150;
+      else if (len >= 5) roundScore += 500;
+    });
+    const multiplier = Math.min(comboCount, 5);
+    roundScore *= multiplier;
+    score += roundScore;
+
+    // Show animations
+    renderBoard();
+    const cells = document.getElementById('gameBoard').children;
+
+    // Animate matched cells
+    matches.forEach(idx => {
+      if (cells[idx]) {
+        cells[idx].classList.add('matched');
+      }
+    });
+
+    // Particles
+    if (matches.length > 0) {
+      const firstCell = cells[matches[0]];
+      if (firstCell) {
+        const rect = firstCell.getBoundingClientRect();
+        spawnParticles(rect.left + rect.width/2, rect.top + rect.height/2, matches.length);
+        showScoreFly(rect.left + rect.width/2, rect.top, '+' + roundScore);
+      }
+    }
+
+    // Combo popup
+    if (comboCount >= 2) {
+      showCombo(comboCount, multiplier);
+      setSifi('excited', comboCount >= 3 ? 'Muhteşem!' : 'Harika combo!');
+    } else if (matches.length >= 4) {
+      setSifi('happy', 'Güzel hamle!');
+    }
+
+    await sleep(400);
+
+    // Remove matched & handle ice
+    matches.forEach(idx => {
+      const r = Math.floor(idx / COLS);
+      const c = idx % COLS;
+      if (iceLayer[r][c] === 2) {
+        iceLayer[r][c] = 1; // crack ice, pill stays
+      } else if (iceLayer[r][c] === 1) {
+        iceLayer[r][c] = 0; // break ice, pill cleared
+        board[r][c] = null;
+      } else {
+        board[r][c] = null;
+      }
+    });
+
+    // Drop pills down
+    dropPills();
+    renderBoard();
+
+    // Add drop animation to cells that got new pills
+    const newCells = document.getElementById('gameBoard').children;
+    matches.forEach(idx => {
+      if (newCells[idx] && !newCells[idx].classList.contains('blocked')) {
+        newCells[idx].classList.add('dropping');
+      }
+    });
+
+    await sleep(300);
+    updateUI();
+    matches = findAllMatches();
+  }
+}
+
+function dropPills() {
+  const typeCount = LEVELS[currentLevel].types;
+  for (let c = 0; c < COLS; c++) {
+    // Process each segment between blocked cells
+    let segments = [];
+    let segStart = 0;
+    for (let r = 0; r <= ROWS; r++) {
+      if (r === ROWS || blockedCells.has(r * COLS + c)) {
+        if (r > segStart) segments.push([segStart, r - 1]);
+        segStart = r + 1;
+      }
+    }
+
+    segments.forEach(([top, bottom]) => {
+      // Collect existing pills in this segment (skip iced pills - they stay in place)
+      // First pass: identify fixed (iced) positions
+      const fixed = new Map(); // row -> pill
+      for (let r = top; r <= bottom; r++) {
+        if (iceLayer[r][c] > 0 && board[r][c] !== null) {
+          fixed.set(r, board[r][c]);
+        }
+      }
+
+      // Collect free (non-iced, non-null) pills
+      const freePills = [];
+      for (let r = bottom; r >= top; r--) {
+        if (fixed.has(r)) continue;
+        if (board[r][c] !== null) freePills.push(board[r][c]);
+      }
+
+      // Clear segment
+      for (let r = top; r <= bottom; r++) {
+        if (!fixed.has(r)) board[r][c] = null;
+      }
+
+      // Fill from bottom with free pills, skipping fixed positions
+      let pillIdx = 0;
+      for (let r = bottom; r >= top; r--) {
+        if (fixed.has(r)) continue;
+        if (pillIdx < freePills.length) {
+          board[r][c] = freePills[pillIdx++];
+        }
+      }
+
+      // Fill remaining empty cells from top with new pills
+      for (let r = top; r <= bottom; r++) {
+        if (fixed.has(r)) continue;
+        if (board[r][c] === null) {
+          board[r][c] = randomPill(typeCount);
+        }
+      }
+    });
+  }
+}
+
+// ===== HINT SYSTEM =====
+function showHint() {
+  if (isAnimating) return;
+  const move = findPossibleMove();
+  if (!move) return;
+
+  document.querySelectorAll('.cell.hint').forEach(c => c.classList.remove('hint'));
+  const cells = document.getElementById('gameBoard').children;
+  const idx1 = move[0] * COLS + move[1];
+  const idx2 = move[2] * COLS + move[3];
+  cells[idx1]?.classList.add('hint');
+  cells[idx2]?.classList.add('hint');
+  setSifi('thinking', 'Buraya bak!');
+
+  setTimeout(() => {
+    document.querySelectorAll('.cell.hint').forEach(c => c.classList.remove('hint'));
+  }, 2000);
+}
+
+function findPossibleMove() {
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      if (!board[r][c] || blockedCells.has(r * COLS + c)) continue;
+      // Try swap right
+      if (c + 1 < COLS && board[r][c+1] && !blockedCells.has(r * COLS + c + 1)) {
+        [board[r][c], board[r][c+1]] = [board[r][c+1], board[r][c]];
+        if (findAllMatches().length > 0) {
+          [board[r][c], board[r][c+1]] = [board[r][c+1], board[r][c]];
+          return [r, c, r, c+1];
+        }
+        [board[r][c], board[r][c+1]] = [board[r][c+1], board[r][c]];
+      }
+      // Try swap down
+      if (r + 1 < ROWS && board[r+1]?.[c] && !blockedCells.has((r+1) * COLS + c)) {
+        [board[r][c], board[r+1][c]] = [board[r+1][c], board[r][c]];
+        if (findAllMatches().length > 0) {
+          [board[r][c], board[r+1][c]] = [board[r+1][c], board[r][c]];
+          return [r, c, r+1, c];
+        }
+        [board[r][c], board[r+1][c]] = [board[r+1][c], board[r][c]];
+      }
+    }
+  }
+  return null;
+}
+
+function hasPossibleMoves() {
+  return findPossibleMove() !== null;
+}
+
+// ===== LEVEL END =====
+function endLevel() {
+  clearTimeout(hintTimeout);
+  const won = score >= targetScore;
+  const stars = won ? (score >= targetScore * 2 ? 3 : score >= targetScore * 1.5 ? 2 : 1) : 0;
+
+  if (won) {
+    // Save progress
+    const prev = levelStars[currentLevel] || 0;
+    if (stars > prev) levelStars[currentLevel] = stars;
+    if (currentLevel + 1 > highestUnlocked && currentLevel < LEVELS.length - 1) {
+      highestUnlocked = currentLevel + 1;
+    }
+    localStorage.setItem('sifaMatchStars', JSON.stringify(levelStars));
+    localStorage.setItem('sifaMatchUnlocked', highestUnlocked);
+  }
+
+  const modal = document.getElementById('modal');
+  if (won) {
+    setSifi('dancing', 'Tebrikler!');
+    const starEmoji = '⭐'.repeat(stars) + '☆'.repeat(3 - stars);
+    modal.innerHTML = `
+      <div class="modal-sifi">🎉🧑‍⚕️🎉</div>
+      <h2 style="color:#38ef7d">Seviye Tamamlandı!</h2>
+      <div class="modal-stars">${starEmoji}</div>
+      <div class="modal-score">Puan: ${score.toLocaleString()} / ${targetScore.toLocaleString()}</div>
+      <div class="modal-buttons">
+        ${currentLevel < LEVELS.length - 1 ? '<button class="btn btn-success btn-small" onclick="closeModal();startLevel('+(currentLevel+1)+')">Sonraki →</button>' : ''}
+        <button class="btn btn-primary btn-small" onclick="closeModal();startLevel(${currentLevel})">Tekrar</button>
+        <button class="btn btn-back btn-small" onclick="closeModal();showLevelSelect()">Seviyeler</button>
+        <button class="btn btn-danger btn-small" onclick="shareScore(${currentLevel+1},${score},${stars})">📤 Paylaş</button>
+      </div>
+    `;
+  } else {
+    setSifi('thinking', 'Tekrar dene!');
+    modal.innerHTML = `
+      <div class="modal-sifi">😔🧑‍⚕️</div>
+      <h2 style="color:#f87171">Hamle Bitti!</h2>
+      <div class="modal-score">Puan: ${score.toLocaleString()} / ${targetScore.toLocaleString()}</div>
+      <p style="color:#a78bfa;margin:10px 0;font-size:14px;">Hedef puana ulaşamadın. Tekrar dene!</p>
+      <div class="modal-buttons">
+        <button class="btn btn-primary btn-small" onclick="closeModal();startLevel(${currentLevel})">Tekrar Dene</button>
+        <button class="btn btn-back btn-small" onclick="closeModal();showLevelSelect()">Seviyeler</button>
+      </div>
+    `;
+  }
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+// ===== SHARE =====
+function shareScore(level, score, stars) {
+  const starEmoji = '⭐'.repeat(stars);
+  const text = `🧑‍⚕️ Şifa Match - Seviye ${level}\n${starEmoji} Puan: ${score.toLocaleString()}\n\nSen de oyna! 💊\nhttps://sifaasistanim.com/game-match.html`;
+  if (navigator.share) {
+    navigator.share({ title: 'Şifa Match', text });
+  } else {
+    navigator.clipboard?.writeText(text).then(() => {
+      alert('Skor kopyalandı! 📋');
+    }).catch(() => {
+      prompt('Skoru kopyala:', text);
+    });
+  }
+}
+
+// ===== VISUAL FX =====
+function spawnParticles(x, y, count) {
+  for (let i = 0; i < Math.min(count * 2, 12); i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.textContent = SPARKLES[Math.floor(Math.random() * SPARKLES.length)];
+    const angle = (Math.PI * 2 / count) * i + Math.random();
+    const dist = 40 + Math.random() * 60;
+    p.style.left = x + 'px';
+    p.style.top = y + 'px';
+    p.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+    p.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 800);
+  }
+}
+
+function showScoreFly(x, y, text) {
+  const el = document.createElement('div');
+  el.className = 'score-fly';
+  el.textContent = text;
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1000);
+}
+
+function showCombo(combo, multiplier) {
+  const el = document.createElement('div');
+  el.className = 'combo-popup';
+  const colors = ['#fbbf24', '#f093fb', '#38ef7d', '#f87171', '#60a5fa'];
+  el.style.color = colors[Math.min(combo - 1, colors.length - 1)];
+  el.textContent = combo >= 4 ? `🔥 ${combo}x COMBO!` : `${combo}x Combo!`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 800);
+}
+
+// ===== SIFI =====
+function setSifi(mood, text) {
+  const emoji = document.getElementById('sifiEmoji');
+  const bubble = document.getElementById('sifiBubble');
+
+  emoji.className = 'sifi-emoji';
+  void emoji.offsetWidth; // force reflow
+  emoji.classList.add(mood);
+
+  const faces = {
+    happy: '🧑‍⚕️',
+    excited: '🤩',
+    dancing: '🥳',
+    thinking: '🤔'
+  };
+  emoji.textContent = faces[mood] || '🧑‍⚕️';
+
+  if (text) {
+    bubble.textContent = text;
+    bubble.classList.add('visible');
+    setTimeout(() => {
+      bubble.classList.remove('visible');
+      emoji.textContent = '🧑‍⚕️';
+      emoji.className = 'sifi-emoji';
+    }, 2500);
+  }
+}
+
+// ===== UTIL =====
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  // Prevent context menu on long press
+  document.addEventListener('contextmenu', e => e.preventDefault());
+});
+</script>
+</body>
+</html>
