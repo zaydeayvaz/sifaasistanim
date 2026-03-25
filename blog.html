@@ -349,6 +349,75 @@
 
     .footer-copy { font-size: 13px; }
 
+    /* STORIES SECTION */
+    .stories-section {
+      background: linear-gradient(180deg, #FFF7ED, #FFFBEB);
+      padding: 60px 24px 70px;
+      margin-bottom: 0;
+    }
+
+    .stories-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .stories-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .stories-badge {
+      display: inline-block;
+      background: #FEF3C7;
+      color: #92400E;
+      padding: 5px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .stories-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .stories-accent {
+      background: linear-gradient(135deg, #D97706, #F59E0B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stories-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .story-card:hover {
+      border-color: rgba(217,119,6,0.3) !important;
+    }
+
+    .blog-card-thumb.thumb-amber {
+      background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+    }
+
+    .story-tag {
+      background: #FEF3C7 !important;
+      color: #92400E !important;
+    }
+
+    .story-read {
+      color: #D97706 !important;
+    }
+
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .blog-grid { grid-template-columns: 1fr; }
@@ -388,8 +457,68 @@
     <p data-tr="İlaç takibi, sağlık yönetimi ve daha fazlası hakkında bilgilendirici yazılar." data-en="Informative articles about medication tracking, health management and more.">İlaç takibi, sağlık yönetimi ve daha fazlası hakkında bilgilendirici yazılar.</p>
   </section>
 
+  <!-- STORIES SECTION -->
+  <section class="stories-section">
+    <div class="stories-inner">
+      <div class="stories-header">
+        <span class="stories-badge">🧡 Şifa Asistanım Hikayeleri</span>
+        <h2 data-tr="Gerçek Hikayeler, <span class='stories-accent'>Gerçek Hayatlar</span>" data-en="Real Stories, <span class='stories-accent'>Real Lives</span>">Gerçek Hikayeler, <span class="stories-accent">Gerçek Hayatlar</span></h2>
+        <p data-tr="Şifi ile hayatı değişen insanların duygusal hikayeleri. Belki sen de kendini burada bulacaksın." data-en="Emotional stories of people whose lives changed with Şifi. Maybe you'll find yourself here too.">Şifi ile hayatı değişen insanların duygusal hikayeleri. Belki sen de kendini burada bulacaksın.</p>
+      </div>
+      <div class="blog-grid">
+
+        <!-- Story 1 -->
+        <a href="blog/annenin-ilac-saati.html" class="blog-card story-card">
+          <div class="blog-card-thumb thumb-amber">👩‍👧</div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-tag story-tag" data-tr="Hikaye" data-en="Story">Hikaye</span>
+              <span>25 Mart 2026</span>
+              <span data-tr="7 dk okuma" data-en="7 min read">7 dk okuma</span>
+            </div>
+            <div class="blog-card-title" data-tr="Annenin İlaç Saati: Bir Kızın Hikayesi" data-en="Mom's Med Time: A Daughter's Story">Annenin İlaç Saati: Bir Kızın Hikayesi</div>
+            <div class="blog-card-excerpt" data-tr="67 yaşındaki annesinin 5 ilacını takip etmeye çalışan bir kızın duygusal hikayesi. 'Aldım herhalde kızım' cümlesi ve Şifa Asistanım ile gelen huzur." data-en="The emotional story of a daughter trying to track her 67-year-old mother's 5 medications. The peace that came with Şifa Asistanım.">67 yaşındaki annesinin 5 ilacını takip etmeye çalışan bir kızın duygusal hikayesi. "Aldım herhalde kızım" cümlesi ve Şifa Asistanım ile gelen huzur.</div>
+            <div class="blog-card-read story-read" data-tr="Hikayeyi Oku →" data-en="Read Story →">Hikayeyi Oku →</div>
+          </div>
+        </a>
+
+        <!-- Story 2 -->
+        <a href="blog/24-yasinda-kronik-hasta.html" class="blog-card story-card">
+          <div class="blog-card-thumb thumb-amber">💪</div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-tag story-tag" data-tr="Hikaye" data-en="Story">Hikaye</span>
+              <span>25 Mart 2026</span>
+              <span data-tr="7 dk okuma" data-en="7 min read">7 dk okuma</span>
+            </div>
+            <div class="blog-card-title" data-tr="24 Yaşında Kronik Hasta: Şifi ile Hayatım Değişti" data-en="Chronic at 24: How Şifi Changed My Life">24 Yaşında Kronik Hasta: Şifi ile Hayatım Değişti</div>
+            <div class="blog-card-excerpt" data-tr="8 ilaç, 3 farklı saat, umutsuzluk ve sonra Şifi. Oyunlaştırma ile ilaç almayı bir başarıya dönüştüren gencin motive edici hikayesi." data-en="8 medications, 3 different times, despair and then Şifi. The motivating story of a young man who turned medication into an achievement through gamification.">8 ilaç, 3 farklı saat, umutsuzluk ve sonra Şifi. Oyunlaştırma ile ilaç almayı bir başarıya dönüştüren gencin motive edici hikayesi.</div>
+            <div class="blog-card-read story-read" data-tr="Hikayeyi Oku →" data-en="Read Story →">Hikayeyi Oku →</div>
+          </div>
+        </a>
+
+        <!-- Story 3 -->
+        <a href="blog/uzaktaki-babam.html" class="blog-card story-card">
+          <div class="blog-card-thumb thumb-amber">🏔️</div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-tag story-tag" data-tr="Hikaye" data-en="Story">Hikaye</span>
+              <span>25 Mart 2026</span>
+              <span data-tr="7 dk okuma" data-en="7 min read">7 dk okuma</span>
+            </div>
+            <div class="blog-card-title" data-tr="Uzaktaki Babam: 800 Kilometre Öteden İlaç Takibi" data-en="My Distant Father: Medication Tracking from 800 km Away">Uzaktaki Babam: 800 Kilometre Öteden İlaç Takibi</div>
+            <div class="blog-card-excerpt" data-tr="İstanbul'da yaşayan bir oğlun Sivas'taki babasının ilaçlarını uzaktan takip etme hikayesi. 'Baba ilaçlarını aldın mı?' sorusunun yerini alan huzur." data-en="The story of a son in Istanbul tracking his father's medications in Sivas from afar. The peace that replaced 'Dad, did you take your meds?'">İstanbul'da yaşayan bir oğlun Sivas'taki babasının ilaçlarını uzaktan takip etme hikayesi. "Baba ilaçlarını aldın mı?" sorusunun yerini alan huzur.</div>
+            <div class="blog-card-read story-read" data-tr="Hikayeyi Oku →" data-en="Read Story →">Hikayeyi Oku →</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
   <!-- BLOG GRID -->
   <section class="blog-grid-section">
+    <h2 class="section-title" data-tr="📚 Bilgilendirici Yazılar" data-en="📚 Informative Articles" style="font-family: var(--font-display); font-size: 28px; font-weight: 900; text-align: center; margin-bottom: 32px;">📚 Bilgilendirici Yazılar</h2>
     <div class="blog-grid">
 
       <!-- Article 1 -->
