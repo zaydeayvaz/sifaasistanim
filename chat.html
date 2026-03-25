@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Şifi'ye Sor — Şifa Asistanım</title>
+  <meta name="description" content="Şifi'ye sağlık ve ilaç takibi hakkında sorular sor! Sevimli sağlık asistanın her soruya cevap verir.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #2563EB;
+      --blue-dark: #1D4ED8;
+      --blue-light: #EFF6FF;
+      --text: #0F172A;
+      --muted: #64748B;
+      --bg: #F8FAFF;
+      --border: #E2E8F0;
+    }
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-back {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      opacity: 0.8;
+      padding: 4px 8px;
+    }
+    .header-back:hover { opacity: 1; }
+    .header-info { flex: 1; }
+    .header-name {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: white;
+    }
+    .header-status {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+    }
+    .header-status::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ADE80;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    /* CHAT */
+    .chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 700px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .msg {
+      max-width: 85%;
+      animation: msgIn 0.3s ease;
+    }
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg-sifi {
+      align-self: flex-start;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .msg-sifi .avatar {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+    .msg-sifi .bubble {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px 20px 20px 6px;
+      padding: 14px 18px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .msg-sifi .bubble strong { color: var(--blue); }
+
+    .msg-user {
+      align-self: flex-end;
+    }
+    .msg-user .bubble {
+      background: var(--blue);
+      color: white;
+      border-radius: 20px 20px 6px 20px;
+      padding: 12px 18px;
+      font-size: 15px;
+      line-height: 1.6;
+      box-shadow: 0 2px 12px rgba(37,99,235,0.2);
+    }
+
+    /* SUGGESTIONS */
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      animation: msgIn 0.3s ease;
+    }
+    .suggestion {
+      padding: 8px 16px;
+      border-radius: 100px;
+      background: white;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .suggestion:hover {
+      background: var(--blue);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    /* TYPING */
+    .typing {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      align-self: flex-start;
+    }
+    .typing-dots {
+      display: flex;
+      gap: 4px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px 20px 20px 6px;
+      padding: 14px 18px;
+    }
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #94A3B8;
+      animation: bounce 1.2s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-5px); }
+    }
+
+    /* INPUT */
+    .input-area {
+      position: sticky;
+      bottom: 0;
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
+    .input-wrap {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .input-wrap input {
+      flex: 1;
+      padding: 12px 18px;
+      border-radius: 100px;
+      border: 2px solid var(--border);
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-wrap input:focus {
+      border-color: var(--blue);
+    }
+    .input-wrap input::placeholder {
+      color: #94A3B8;
+    }
+    .send-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .send-btn:hover {
+      background: var(--blue-dark);
+      transform: scale(1.05);
+    }
+    .send-btn:disabled {
+      background: #CBD5E1;
+      cursor: default;
+      transform: none;
+    }
+
+    /* DISCLAIMER */
+    .disclaimer {
+      text-align: center;
+      font-size: 11px;
+      color: #94A3B8;
+      padding: 4px 16px 8px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      .msg { max-width: 90%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="index.html" class="header-back">←</a>
+    <svg width="36" height="45" viewBox="0 0 300 380" fill="none">
+      <defs><clipPath id="av"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath></defs>
+      <g clip-path="url(#av)"><rect x="78" y="85" width="144" height="120" fill="white"/><rect x="78" y="205" width="144" height="100" fill="#E8EDF5"/></g>
+      <circle cx="124" cy="170" r="18" fill="#2563EB"/><circle cx="128" cy="167" r="4" fill="white"/>
+      <circle cx="176" cy="170" r="18" fill="#2563EB"/><circle cx="180" cy="167" r="4" fill="white"/>
+      <path d="M132 225 Q150 240 168 225" stroke="#2563EB" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <line x1="120" y1="95" x2="108" y2="50" stroke="white" stroke-width="3" stroke-linecap="round"/><circle cx="108" cy="47" r="7" fill="#FCA5A5"/>
+      <line x1="180" y1="95" x2="192" y2="50" stroke="white" stroke-width="3" stroke-linecap="round"/><circle cx="192" cy="47" r="7" fill="#FCA5A5"/>
+    </svg>
+    <div class="header-info">
+      <div class="header-name">Şifi 🤖</div>
+      <div class="header-status">Çevrimiçi</div>
+    </div>
+  </div>
+
+  <div class="chat" id="chat"></div>
+
+  <div class="disclaimer">
+    Şifi bir yapay zeka değildir, hazır cevaplar verir. Tıbbi tavsiye yerine geçmez.
+  </div>
+
+  <div class="input-area">
+    <div class="input-wrap">
+      <input type="text" id="userInput" placeholder="Şifi'ye bir şey sor..." autocomplete="off" />
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <script>
+  const chat = document.getElementById('chat');
+  const input = document.getElementById('userInput');
+  const sendBtn = document.getElementById('sendBtn');
+
+  const AVATAR_SVG = `<svg class="avatar" width="36" height="45" viewBox="0 0 300 380" fill="none"><defs><clipPath id="m"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath></defs><rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/><rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/><line x1="78" y1="195" x2="42" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/><line x1="222" y1="195" x2="258" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/><g clip-path="url(#m)"><rect x="78" y="85" width="144" height="120" fill="#2563EB"/><rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/><rect x="78" y="203" width="144" height="3" fill="#1D4ED8" opacity="0.15"/></g><circle cx="124" cy="170" r="22" fill="white"/><circle cx="128" cy="168" r="11" fill="#0F172A"/><circle cx="133" cy="163" r="5" fill="white"/><circle cx="176" cy="170" r="22" fill="white"/><circle cx="180" cy="168" r="11" fill="#0F172A"/><circle cx="185" cy="163" r="5" fill="white"/><path d="M132 225 Q150 245 168 225" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" fill="none"/><line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><circle cx="105" cy="38" r="10" fill="#EF4444"/><line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><circle cx="195" cy="38" r="10" fill="#EF4444"/></svg>`;
+
+  // Bilgi tabanı
+  const KB = [
+    { keywords: ['ilac', 'ilaç', 'takip', 'hatırlat', 'hatirla', 'unutma'], answer: '💊 Şifa Asistanım ile ilaç takibi çok kolay!\n\nBen Şifi, sana adım adım yardım ederim:\n1️⃣ İlacının adını yaz\n2️⃣ Dozunu belirle\n3️⃣ Saatini seç\n4️⃣ Ben hatırlatırım!\n\n18 farklı ilaç tipini destekliyorum — tablet, kapsül, şurup, damla, sprey, iğne ve daha fazlası.' },
+    { keywords: ['aile', 'anne', 'baba', 'yakın', 'takip et', 'paylaş', 'cocuk', 'çocuk'], answer: '👨‍👩‍👧 Aile takip özelliğimiz harika!\n\nAnnenin, babanın veya çocuğunun ilaçlarını uzaktan takip edebilirsin. Davet linki gönder, otomatik bağlanın.\n\nAyrıca kedi, köpek, tavşan gibi evcil hayvan profilleri de açabilirsin! 🐱🐶' },
+    { keywords: ['xp', 'seviye', 'level', 'puan', 'oyun', 'game', 'streak', 'seri'], answer: '🎮 İlaç almak artık bir oyun!\n\n⭐ Her dozda XP kazan\n🔥 Günlük seri (streak) oluştur\n🏆 9 seviye atla: Şifi → Efsanevi Şifi 👑\n\nSeviye atladıkça ben de değişiyorum! Aksesuar takabilir, tema seçebilirsin. 🎨' },
+    { keywords: ['stok', 'bitti', 'kalan', 'tablet', 'eczane'], answer: '📦 Stok takibi ile ilacın bitmeden uyarı alırsın!\n\nİlaç eklerken kaç tablet kaldığını gir. Her dozda otomatik azalır. Son 5 tablet kaldığında seni uyarırım.\n\nBöylece eczaneye zamanında gidebilirsin! 🏥' },
+    { keywords: ['takvim', 'plan', 'hafta', 'gün', 'dün', 'yarın', 'bugün'], answer: '📅 Takvim özelliği ile ilaç planını kolayca takip et!\n\n⬅️ Dün ne aldın?\n📍 Bugün ne alacaksın?\n➡️ Yarın ne var?\n\nHaftalık ve aylık görünüm de var. Geçmiş doz kayıtlarını takvimde görebilirsin.' },
+    { keywords: ['gizlilik', 'güvenlik', 'veri', 'reklam', 'paylaşım', 'gizli'], answer: '🔒 Gizliliğin bizim için çok önemli!\n\n✅ Sağlık verilerin cihazında kalır\n✅ Reklam yok — hiçbir zaman olmayacak\n✅ Veriler 3. taraflarla paylaşılmaz\n✅ İstediğin zaman tüm verilerini silebilirsin\n\nSağlık verileriniz en hassas bilgilerinizdir. Bunu biliyoruz. 💙' },
+    { keywords: ['fiyat', 'ücret', 'premium', 'para', 'abone', 'ücretsiz', 'bedava'], answer: '✨ Lansman döneminde tüm özellikler ÜCRETSİZ!\n\nTemel özellikler (ilaç ekleme, hatırlatıcı, takvim) sonsuza kadar ücretsiz.\n\nPremium özellikler (aile takibi, tüm aksesuarlar, istatistikler) şu an ücretsiz, ileride aylık ₺49,90 olacak.\n\nŞimdi indir, avantajlı ol! 🚀' },
+    { keywords: ['sifi', 'şifi', 'maskot', 'kim', 'sen', 'nedir'], answer: '🤖 Ben Şifi! Şifa Asistanım\'ın sevimli maskotuyum!\n\nSenin sağlık yolculuğunda arkadaşın oluyorum:\n💊 İlaç eklerken adım adım yardım ederim\n⭐ Her dozda XP kazandırırım\n🎨 Beni kişiselleştirebilirsin — 8 aksesuar, 12 tema, 8 renk\n💌 Sana haftalık kişisel mektup yazarım\n\nSeninle büyüyorum — 9 seviye atlarız birlikte! 💙' },
+    { keywords: ['indir', 'yükle', 'download', 'app store', 'play store', 'android', 'ios'], answer: '📱 Şifa Asistanım\'ı hemen indir!\n\n🍎 iPhone: App Store\'dan "Şifa Asistanım" ara\n▶️ Android: Google Play\'den "Şifa Asistanım" ara\n\nLansman döneminde tüm premium özellikler ücretsiz! Hemen indir, Şifi seni bekliyor! 🚀' },
+    { keywords: ['sağlık', 'tansiyon', 'nabız', 'kilo', 'şeker', 'ateş', 'ölçüm'], answer: '📊 Sağlık ölçümlerini takip edebilirsin!\n\n❤️ Tansiyon\n💓 Nabız\n🩸 Kan şekeri\n🌡️ Ateş\n⚖️ Kilo\n🫁 SpO2 (oksijen)\n😊 Ruh hali\n\nTüm veriler cihazında güvenle saklanır. Doktor randevularını da hatırlatırım! 🩺' },
+    { keywords: ['doktor', 'randevu', 'hastane', 'muayene'], answer: '🩺 Doktor randevularını takip et!\n\nRandevu tarihini gir, 1 gün ve 1 saat önce hatırlatırım.\n\nDoktor kartı özelliği ile doktorunun telefon numarasını kaydet — tek tıkla arayabilirsin.\n\nNot: Şifa Asistanım tıbbi tavsiye vermez, doktor muayenesinin yerini almaz.' },
+    { keywords: ['pet', 'kedi', 'köpek', 'tavşan', 'hayvan', 'evcil'], answer: '🐾 Evcil hayvanlarının da ilaçlarını takip et!\n\nAntiparaziter, vitamin, göz damlası...\n\n🐱 Kedi\n🐶 Köpek\n🐰 Tavşan\n🐹 Hamster\n🐦 Kuş\n\nHer biri için ayrı profil ve kendi Şifi\'si var! 🎨' },
+    { keywords: ['tema', 'renk', 'aksesuar', 'kişiselleştir', 'özelleştir', 'şapka', 'gözlük', 'taç'], answer: '🎨 Beni tamamen kişiselleştirebilirsin!\n\n🎨 12 profil teması: Okyanus, Mor Rüya, Orman, Ateş, Şeker...\n💊 8 kapsül rengi: Mavi, kırmızı, yeşil, mor, turuncu...\n🎩 8 aksesuar: Şapka, gözlük, taç, pelerin, kurdele, anten, hale\n\nBen sekmesinden düzenleyebilirsin! 😊' },
+    { keywords: ['nasıl', 'başla', 'kullan', 'yeni', 'ilk'], answer: '🚀 Başlamak çok kolay!\n\n1. Uygulamayı indir\n2. Hesap oluştur (veya hesapsız başla)\n3. + butonuna bas — ben Şifi, sana adım adım yardım edeceğim!\n4. İlacını ekle, saatini seç\n5. Ben hatırlatacağım! ⏰\n\nHer dozu aldığında XP kazanırsın. Birlikte seviye atlayacağız! 🎮' },
+    { keywords: ['merhaba', 'selam', 'hey', 'naber', 'nasıl'], answer: 'Merhabaa! 👋 Ben Şifi, senin sevimli sağlık arkadaşın!\n\nSana nasıl yardımcı olabilirim?\n\n💊 İlaç takibi\n👨‍👩‍👧 Aile paylaşımı\n🎮 XP & Oyun sistemi\n📊 Sağlık kayıtları\n\nBir şey sor, hemen cevaplayayım! 😊' },
+    { keywords: ['teşekkür', 'sağ ol', 'eyvallah', 'tşk'], answer: 'Rica ederim! 💙 Seni uygulamada bekliyorum!\n\nUnutma: Her ilaç dozunda XP kazanırsın, birlikte seviye atlayacağız! 🚀\n\nBaşka bir sorun olursa her zaman buradayım.\n\n— Şifi 🤖' },
+    { keywords: ['güle güle', 'bye', 'hoşça kal', 'görüşürüz'], answer: 'Görüşmek üzere! 👋💙\n\nİlaçlarını almayı unutma — ben hatırlatırım! ⏰\n\nKendine iyi bak, Şifi her zaman yanında! 🤖✨' },
+  ];
+
+  const FALLBACK = 'Hmm, bu konuda net bir bilgim yok 🤔\n\nAma şunlarda yardımcı olabilirim:\n💊 İlaç takibi\n👨‍👩‍👧 Aile paylaşımı\n🎮 XP sistemi\n📊 Sağlık kayıtları\n📅 Takvim\n🔒 Gizlilik\n\nBunlardan birini sor, hemen cevaplayayım!';
+
+  const INITIAL_SUGGESTIONS = [
+    '💊 İlaç takibi nasıl?',
+    '🤖 Şifi kimdir?',
+    '👨‍👩‍👧 Aile takibi',
+    '🎮 XP ve seviye',
+    '📱 Nasıl indirebilirim?',
+    '🔒 Verilerim güvende mi?',
+  ];
+
+  function scrollToBottom() {
+    setTimeout(() => chat.scrollTop = chat.scrollHeight, 50);
+  }
+
+  function addSifiMsg(text) {
+    const div = document.createElement('div');
+    div.className = 'msg msg-sifi';
+    div.innerHTML = `${AVATAR_SVG}<div class="bubble">${text.replace(/\n/g, '<br>')}</div>`;
+    chat.appendChild(div);
+    scrollToBottom();
+  }
+
+  function addUserMsg(text) {
+    const div = document.createElement('div');
+    div.className = 'msg msg-user';
+    div.innerHTML = `<div class="bubble">${text}</div>`;
+    chat.appendChild(div);
+    scrollToBottom();
+  }
+
+  function addSuggestions(items) {
+    const div = document.createElement('div');
+    div.className = 'suggestions';
+    div.id = 'suggestions';
+    items.forEach(item => {
+      const btn = document.createElement('button');
+      btn.className = 'suggestion';
+      btn.textContent = item;
+      btn.onclick = () => {
+        div.remove();
+        handleUserInput(item);
+      };
+      div.appendChild(btn);
+    });
+    chat.appendChild(div);
+    scrollToBottom();
+  }
+
+  function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'typing';
+    div.id = 'typing';
+    div.innerHTML = `${AVATAR_SVG}<div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+    chat.appendChild(div);
+    scrollToBottom();
+  }
+
+  function hideTyping() {
+    const t = document.getElementById('typing');
+    if (t) t.remove();
+  }
+
+  function findAnswer(q) {
+    const lower = q.toLowerCase()
+      .replace(/ş/g, 's').replace(/ç/g, 'c').replace(/ğ/g, 'g')
+      .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ü/g, 'u');
+
+    let bestMatch = null;
+    let bestScore = 0;
+
+    KB.forEach(entry => {
+      let score = 0;
+      entry.keywords.forEach(kw => {
+        const kwNorm = kw.replace(/ş/g, 's').replace(/ç/g, 'c').replace(/ğ/g, 'g')
+          .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ü/g, 'u');
+        if (lower.includes(kwNorm)) score += 2;
+        // Partial match
+        kwNorm.split(' ').forEach(part => {
+          if (part.length > 2 && lower.includes(part)) score += 1;
+        });
+      });
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = entry;
+      }
+    });
+
+    return bestScore >= 2 ? bestMatch.answer : FALLBACK;
+  }
+
+  function getFollowUpSuggestions(answer) {
+    const suggestions = [];
+    if (!answer.includes('İlaç takibi')) suggestions.push('💊 İlaç takibi');
+    if (!answer.includes('Aile')) suggestions.push('👨‍👩‍👧 Aile takibi');
+    if (!answer.includes('XP')) suggestions.push('🎮 XP sistemi');
+    if (!answer.includes('indir')) suggestions.push('📱 Nasıl indirebilirim?');
+    return suggestions.slice(0, 3);
+  }
+
+  function handleUserInput(text) {
+    addUserMsg(text);
+    // Remove old suggestions
+    const oldSug = document.getElementById('suggestions');
+    if (oldSug) oldSug.remove();
+
+    showTyping();
+    input.value = '';
+    sendBtn.disabled = true;
+
+    const delay = 600 + Math.random() * 800;
+    setTimeout(() => {
+      hideTyping();
+      const answer = findAnswer(text);
+      addSifiMsg(answer);
+      sendBtn.disabled = false;
+
+      // Follow-up suggestions
+      setTimeout(() => {
+        addSuggestions(getFollowUpSuggestions(answer));
+      }, 500);
+    }, delay);
+  }
+
+  function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+    handleUserInput(text);
+  }
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  // Initial greeting
+  setTimeout(() => {
+    addSifiMsg('Merhaba! Ben Şifi, senin sevimli sağlık asistanın! 👋\n\nBana ilaç takibi, aile paylaşımı, sağlık kayıtları veya uygulama hakkında her şeyi sorabilirsin.\n\nAşağıdaki konulardan birini seç veya doğrudan yaz! 💬');
+    setTimeout(() => addSuggestions(INITIAL_SUGGESTIONS), 500);
+  }, 400);
+  </script>
+</body>
+</html>
