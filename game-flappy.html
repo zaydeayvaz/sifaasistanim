@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Sifa Asistani - Sifi Ucuyor!</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a1628;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+canvas {
+  display: block;
+  max-width: 100vw;
+  max-height: 100vh;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(59,130,246,0.3);
+}
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+
+// Responsive sizing
+const BASE_W = 420, BASE_H = 700;
+function resize() {
+  const ratio = Math.min(window.innerWidth / BASE_W, window.innerHeight / BASE_H, 1.2);
+  canvas.width = BASE_W;
+  canvas.height = BASE_H;
+  canvas.style.width = (BASE_W * ratio) + 'px';
+  canvas.style.height = (BASE_H * ratio) + 'px';
+}
+resize();
+window.addEventListener('resize', resize);
+
+const W = BASE_W, H = BASE_H;
+
+// Game state
+const STATE = { MENU: 0, PLAYING: 1, DEAD: 2 };
+let state = STATE.MENU;
+let score = 0;
+let bestScore = parseInt(localStorage.getItem('sifi_flappy_best') || '0');
+let frameCount = 0;
+let shakeTimer = 0;
+let flashTimer = 0;
+let flashColor = '';
+let obstaclesPassed = 0;
+
+// Difficulty levels
+const LEVELS = [
+  { name: 'Stajyer', minScore: 0, gapSize: 175, speed: 2.2, pillChance: 0.7, moving: false, wind: false },
+  { name: 'Asistan', minScore: 11, gapSize: 155, speed: 2.8, pillChance: 0.5, moving: false, wind: false },
+  { name: 'Uzman', minScore: 26, gapSize: 135, speed: 3.4, pillChance: 0.4, moving: true, wind: false },
+  { name: 'Bashekim', minScore: 51, gapSize: 115, speed: 4.0, pillChance: 0.3, moving: true, wind: true },
+  { name: 'Efsane', minScore: 76, gapSize: 100, speed: 4.8, pillChance: 0.25, moving: true, wind: true }
+];
+
+function getLevel() {
+  for (let i = LEVELS.length - 1; i >= 0; i--) {
+    if (score >= LEVELS[i].minScore) return LEVELS[i];
+  }
+  return LEVELS[0];
+}
+
+// Sifi character
+const sifi = {
+  x: 80, y: H / 2, vy: 0, rotation: 0,
+  width: 36, height: 44,
+  flapFrame: 0, flapDir: 1,
+  dead: false, deathSpin: 0,
+  trail: [],
+  reset() {
+    this.x = 80; this.y = H / 2; this.vy = 0; this.rotation = 0;
+    this.flapFrame = 0; this.dead = false; this.deathSpin = 0;
+    this.trail = [];
+  }
+};
+
+// Physics
+const GRAVITY = 0.38;
+const FLAP_FORCE = -6.5;
+const MAX_FALL = 8;
+const TERMINAL_VEL = 10;
+
+// Obstacles (medicine cabinets)
+let obstacles = [];
+const OBSTACLE_WIDTH = 58;
+const OBSTACLE_SPACING = 200;
+
+// Pills
+let pills = [];
+
+// Particles
+let particles = [];
+
+// Clouds (parallax)
+let clouds = [];
+for (let i = 0; i < 8; i++) {
+  clouds.push({
+    x: Math.random() * W,
+    y: Math.random() * H * 0.5,
+    w: 40 + Math.random() * 60,
+    h: 15 + Math.random() * 20,
+    speed: 0.2 + Math.random() * 0.4,
+    alpha: 0.15 + Math.random() * 0.2
+  });
+}
+
+// Background shelves (parallax layer 2)
+let bgShelves = [];
+for (let i = 0; i < 5; i++) {
+  bgShelves.push({
+    x: i * 120,
+    y: H - 60 - Math.random() * 40,
+    w: 80 + Math.random() * 40,
+    h: 50 + Math.random() * 30,
+    speed: 0.6
+  });
+}
+
+// Stars / sparkles in background
+let sparkles = [];
+for (let i = 0; i < 20; i++) {
+  sparkles.push({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    size: 1 + Math.random() * 2,
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.02 + Math.random() * 0.03
+  });
+}
+
+// Menu animation
+let menuSifiY = H / 2;
+let menuSifiVY = 0;
+let menuBob = 0;
+
+// Input
+function flap() {
+  if (state === STATE.MENU) {
+    startGame();
+    return;
+  }
+  if (state === STATE.DEAD) return;
+  if (state === STATE.PLAYING && !sifi.dead) {
+    sifi.vy = FLAP_FORCE;
+    sifi.flapFrame = 8;
+    // Trail
+    sifi.trail.push({ x: sifi.x, y: sifi.y + sifi.height / 2, alpha: 1, size: 6 });
+  }
+}
+
+canvas.addEventListener('mousedown', (e) => { e.preventDefault(); flap(); });
+canvas.addEventListener('touchstart', (e) => { e.preventDefault(); flap(); });
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); flap(); }
+  if (e.code === 'Enter' && state === STATE.DEAD) restartGame();
+});
+
+// Click detection for buttons
+let deathButtons = [];
+canvas.addEventListener('click', (e) => {
+  if (state === STATE.DEAD) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = W / rect.width;
+    const scaleY = H / rect.height;
+    const mx = (e.clientX - rect.left) * scaleX;
+    const my = (e.clientY - rect.top) * scaleY;
+    for (const btn of deathButtons) {
+      if (mx >= btn.x && mx <= btn.x + btn.w && my >= btn.y && my <= btn.y + btn.h) {
+        btn.action();
+        return;
+      }
+    }
+  }
+});
+canvas.addEventListener('touchend', (e) => {
+  if (state === STATE.DEAD && e.changedTouches.length > 0) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = W / rect.width;
+    const scaleY = H / rect.height;
+    const t = e.changedTouches[0];
+    const mx = (t.clientX - rect.left) * scaleX;
+    const my = (t.clientY - rect.top) * scaleY;
+    for (const btn of deathButtons) {
+      if (mx >= btn.x && mx <= btn.x + btn.w && my >= btn.y && my <= btn.y + btn.h) {
+        btn.action();
+        return;
+      }
+    }
+  }
+});
+
+function startGame() {
+  state = STATE.PLAYING;
+  score = 0;
+  obstaclesPassed = 0;
+  obstacles = [];
+  pills = [];
+  particles = [];
+  sifi.reset();
+  sifi.vy = FLAP_FORCE;
+  sifi.flapFrame = 8;
+  frameCount = 0;
+  // Spawn first obstacle further away
+  spawnObstacle(W + 200);
+}
+
+function restartGame() {
+  startGame();
+}
+
+function die() {
+  if (sifi.dead) return;
+  sifi.dead = true;
+  shakeTimer = 20;
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem('sifi_flappy_best', bestScore);
+  }
+  setTimeout(() => { state = STATE.DEAD; }, 800);
+}
+
+function spawnObstacle(x) {
+  const level = getLevel();
+  const gapSize = level.gapSize;
+  const minTop = 70;
+  const maxTop = H - gapSize - 100;
+  const gapTop = minTop + Math.random() * (maxTop - minTop);
+  const moving = level.moving && Math.random() < 0.4;
+  const movingRange = moving ? 20 + Math.random() * 30 : 0;
+  const movingSpeed = 0.02 + Math.random() * 0.02;
+  const movingPhase = Math.random() * Math.PI * 2;
+
+  obstacles.push({
+    x, gapTop, gapSize, scored: false,
+    moving, movingRange, movingSpeed, movingPhase, movingOffset: 0,
+    shelfColor: `hsl(${180 + Math.random() * 60}, 50%, ${55 + Math.random() * 15}%)`
+  });
+
+  // Spawn pills
+  if (Math.random() < level.pillChance) {
+    const pillY = gapTop + gapSize / 2 + (Math.random() - 0.5) * (gapSize * 0.4);
+    const isGolden = obstaclesPassed > 0 && obstaclesPassed % 20 === 0;
+    pills.push({
+      x: x + OBSTACLE_WIDTH / 2,
+      y: pillY,
+      collected: false,
+      golden: isGolden,
+      phase: Math.random() * Math.PI * 2,
+      glowPhase: 0
+    });
+  }
+}
+
+function spawnParticles(x, y, color, count) {
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 1 + Math.random() * 3;
+    particles.push({
+      x, y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 1,
+      life: 1,
+      decay: 0.02 + Math.random() * 0.03,
+      size: 2 + Math.random() * 4,
+      color
+    });
+  }
+}
+
+// ============ DRAWING ============
+
+function drawBackground() {
+  // Gradient sky
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, '#b3d9ff');
+  grad.addColorStop(0.5, '#d6ecff');
+  grad.addColorStop(1, '#f0f8ff');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Sparkles
+  for (const s of sparkles) {
+    s.phase += s.speed;
+    const alpha = 0.3 + 0.3 * Math.sin(s.phase);
+    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawClouds() {
+  const level = getLevel();
+  const speed = state === STATE.PLAYING ? level.speed : 0.5;
+  for (const c of clouds) {
+    c.x -= c.speed * (speed / 2);
+    if (c.x + c.w < 0) { c.x = W + 20; c.y = Math.random() * H * 0.4; }
+    ctx.fillStyle = `rgba(255,255,255,${c.alpha})`;
+    ctx.beginPath();
+    ctx.ellipse(c.x, c.y, c.w / 2, c.h / 2, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(c.x - c.w * 0.25, c.y + 4, c.w * 0.35, c.h * 0.4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(c.x + c.w * 0.25, c.y + 3, c.w * 0.3, c.h * 0.35, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawBgShelves() {
+  const level = getLevel();
+  const speed = state === STATE.PLAYING ? level.speed : 0.5;
+  for (const s of bgShelves) {
+    s.x -= s.speed * speed;
+    if (s.x + s.w < 0) { s.x = W + 20 + Math.random() * 60; }
+    ctx.fillStyle = 'rgba(100,160,200,0.08)';
+    ctx.fillRect(s.x, s.y, s.w, s.h);
+    ctx.strokeStyle = 'rgba(100,160,200,0.12)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(s.x, s.y, s.w, s.h);
+    // Shelf lines
+    for (let i = 1; i < 3; i++) {
+      ctx.beginPath();
+      ctx.moveTo(s.x, s.y + (s.h / 3) * i);
+      ctx.lineTo(s.x + s.w, s.y + (s.h / 3) * i);
+      ctx.stroke();
+    }
+  }
+}
+
+function drawGround() {
+  // Floor with tile pattern
+  ctx.fillStyle = '#c8dce8';
+  ctx.fillRect(0, H - 40, W, 40);
+  ctx.fillStyle = '#b0c8d8';
+  for (let i = 0; i < W; i += 30) {
+    ctx.fillRect(i, H - 40, 1, 40);
+  }
+  ctx.fillStyle = '#a0bcc8';
+  ctx.fillRect(0, H - 40, W, 2);
+}
+
+function drawObstacle(obs) {
+  const level = getLevel();
+  const x = obs.x;
+  const gapTop = obs.gapTop + obs.movingOffset;
+  const gapBot = gapTop + obs.gapSize;
+
+  // Top cabinet
+  drawCabinet(x, 0, OBSTACLE_WIDTH, gapTop, obs.shelfColor, true);
+
+  // Bottom cabinet
+  drawCabinet(x, gapBot, OBSTACLE_WIDTH, H - gapBot - 40, obs.shelfColor, false);
+
+  // Gap decorations - small pill bottles on shelf edges
+  drawPillBottle(x - 5, gapTop - 18, 10, 16);
+  drawPillBottle(x + OBSTACLE_WIDTH - 7, gapBot + 2, 10, 16);
+}
+
+function drawCabinet(x, y, w, h, color, isTop) {
+  if (h <= 0) return;
+
+  // Main body
+  const grad = ctx.createLinearGradient(x, 0, x + w, 0);
+  grad.addColorStop(0, color);
+  grad.addColorStop(0.3, lightenColor(color, 20));
+  grad.addColorStop(1, darkenColor(color, 15));
+  ctx.fillStyle = grad;
+  ctx.fillRect(x, y, w, h);
+
+  // Edge highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.fillRect(x, y, 3, h);
+
+  // Edge shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.15)';
+  ctx.fillRect(x + w - 3, y, 3, h);
+
+  // Shelf lines
+  const shelfH = 35;
+  ctx.strokeStyle = 'rgba(0,0,0,0.12)';
+  ctx.lineWidth = 2;
+  const start = isTop ? h % shelfH : 0;
+  for (let sy = start; sy < h; sy += shelfH) {
+    ctx.beginPath();
+    ctx.moveTo(x, y + sy);
+    ctx.lineTo(x + w, y + sy);
+    ctx.stroke();
+
+    // Small items on shelves
+    if (Math.sin(sy * 3.7 + x * 0.1) > 0.2) {
+      drawTinyBottle(x + 8 + (sy % 20), y + sy + 5, 6, 14);
+    }
+    if (Math.cos(sy * 2.3 + x * 0.2) > 0.3) {
+      drawTinyBottle(x + w - 20 + (sy % 10), y + sy + 7, 5, 12);
+    }
+  }
+
+  // Lip/edge at gap
+  const lipY = isTop ? y + h - 6 : y;
+  ctx.fillStyle = darkenColor(color, 25);
+  ctx.fillRect(x - 4, lipY, w + 8, 6);
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.fillRect(x - 4, lipY, w + 8, 2);
+}
+
+function drawTinyBottle(x, y, w, h) {
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.fillRect(x, y, w, h);
+  ctx.fillStyle = 'rgba(200,80,80,0.3)';
+  ctx.fillRect(x, y, w, 3);
+}
+
+function drawPillBottle(x, y, w, h) {
+  ctx.fillStyle = 'rgba(255,140,50,0.5)';
+  ctx.fillRect(x, y + 3, w, h - 3);
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.fillRect(x, y, w, 4);
+}
+
+function drawPill(pill) {
+  const bobY = Math.sin(pill.phase) * 5;
+  const px = pill.x;
+  const py = pill.y + bobY;
+  pill.glowPhase += 0.05;
+
+  // Glow
+  const glowSize = pill.golden ? 22 : 14;
+  const glowAlpha = 0.2 + 0.1 * Math.sin(pill.glowPhase * 2);
+  const glowColor = pill.golden ? `rgba(255,215,0,${glowAlpha})` : `rgba(59,130,246,${glowAlpha})`;
+  ctx.beginPath();
+  ctx.arc(px, py, glowSize, 0, Math.PI * 2);
+  ctx.fillStyle = glowColor;
+  ctx.fill();
+
+  // Capsule
+  const cw = pill.golden ? 18 : 12;
+  const ch = pill.golden ? 10 : 7;
+  const rot = pill.phase * 0.5;
+
+  ctx.save();
+  ctx.translate(px, py);
+  ctx.rotate(rot);
+
+  // Left half
+  ctx.fillStyle = pill.golden ? '#ffd700' : '#3b82f6';
+  ctx.beginPath();
+  ctx.ellipse(-cw / 4, 0, cw / 2, ch / 2, 0, Math.PI / 2, -Math.PI / 2);
+  ctx.fill();
+
+  // Right half
+  ctx.fillStyle = pill.golden ? '#ffed4a' : '#ffffff';
+  ctx.beginPath();
+  ctx.ellipse(cw / 4, 0, cw / 2, ch / 2, 0, -Math.PI / 2, Math.PI / 2);
+  ctx.fill();
+
+  // Shine
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.beginPath();
+  ctx.ellipse(0, -ch / 4, cw / 4, ch / 6, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  if (pill.golden) {
+    // Star sparkle
+    ctx.fillStyle = '#fff';
+    const sparkSize = 3 + Math.sin(pill.glowPhase * 3) * 2;
+    drawStar(ctx, cw / 3, -ch / 3, sparkSize, 4);
+  }
+
+  ctx.restore();
+}
+
+function drawStar(ctx, x, y, size, points) {
+  ctx.beginPath();
+  for (let i = 0; i < points * 2; i++) {
+    const r = i % 2 === 0 ? size : size * 0.3;
+    const angle = (i * Math.PI) / points - Math.PI / 2;
+    if (i === 0) ctx.moveTo(x + r * Math.cos(angle), y + r * Math.sin(angle));
+    else ctx.lineTo(x + r * Math.cos(angle), y + r * Math.sin(angle));
+  }
+  ctx.closePath();
+  ctx.fill();
+}
+
+function drawSifi(x, y, rot, flapAmt, dead, deathSpin) {
+  ctx.save();
+  ctx.translate(x, y);
+
+  if (dead) {
+    ctx.rotate(deathSpin);
+  } else {
+    ctx.rotate(rot);
+  }
+
+  const bw = sifi.width;
+  const bh = sifi.height;
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.1)';
+  ctx.beginPath();
+  ctx.ellipse(3, bh / 2 + 3, bw / 2 - 2, 6, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Body - capsule shape
+  const capR = bw / 2;
+  const halfH = bh / 2;
+
+  // Blue top half
+  ctx.fillStyle = '#3b82f6';
+  ctx.beginPath();
+  ctx.arc(0, -halfH + capR, capR, Math.PI, 0);
+  ctx.lineTo(capR, 0);
+  ctx.lineTo(-capR, 0);
+  ctx.closePath();
+  ctx.fill();
+
+  // Blue gradient overlay
+  const blueGrad = ctx.createLinearGradient(-capR, -halfH, capR, 0);
+  blueGrad.addColorStop(0, 'rgba(96,165,250,0.4)');
+  blueGrad.addColorStop(1, 'rgba(29,78,216,0.2)');
+  ctx.fillStyle = blueGrad;
+  ctx.beginPath();
+  ctx.arc(0, -halfH + capR, capR, Math.PI, 0);
+  ctx.lineTo(capR, 0);
+  ctx.lineTo(-capR, 0);
+  ctx.closePath();
+  ctx.fill();
+
+  // White bottom half
+  ctx.fillStyle = '#f0f4f8';
+  ctx.beginPath();
+  ctx.moveTo(-capR, 0);
+  ctx.lineTo(capR, 0);
+  ctx.lineTo(capR, halfH - capR);
+  ctx.arc(0, halfH - capR, capR, 0, Math.PI);
+  ctx.closePath();
+  ctx.fill();
+
+  // White gradient
+  const whiteGrad = ctx.createLinearGradient(-capR, 0, capR, halfH);
+  whiteGrad.addColorStop(0, 'rgba(255,255,255,0.3)');
+  whiteGrad.addColorStop(1, 'rgba(200,210,220,0.2)');
+  ctx.fillStyle = whiteGrad;
+  ctx.beginPath();
+  ctx.moveTo(-capR, 0);
+  ctx.lineTo(capR, 0);
+  ctx.lineTo(capR, halfH - capR);
+  ctx.arc(0, halfH - capR, capR, 0, Math.PI);
+  ctx.closePath();
+  ctx.fill();
+
+  // Divider line
+  ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(-capR, 0);
+  ctx.lineTo(capR, 0);
+  ctx.stroke();
+
+  // Shine highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.beginPath();
+  ctx.ellipse(-capR * 0.35, -halfH * 0.4, capR * 0.25, halfH * 0.5, -0.2, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Eyes
+  const eyeY = -halfH * 0.3;
+  const eyeSpacing = capR * 0.45;
+
+  // Eye whites
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.ellipse(-eyeSpacing, eyeY, 7, 8, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(eyeSpacing, eyeY, 7, 8, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Pupils
+  const pupilOffX = dead ? 0 : 2;
+  const pupilOffY = dead ? 3 : 0;
+  ctx.fillStyle = dead ? '#999' : '#1e293b';
+  ctx.beginPath();
+  ctx.arc(-eyeSpacing + pupilOffX, eyeY + pupilOffY, 3.5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(eyeSpacing + pupilOffX, eyeY + pupilOffY, 3.5, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Eye shine
+  if (!dead) {
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(-eyeSpacing + 1, eyeY - 2, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(eyeSpacing + 1, eyeY - 2, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Dead X eyes
+  if (dead) {
+    ctx.strokeStyle = '#ef4444';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    [-eyeSpacing, eyeSpacing].forEach(ex => {
+      ctx.beginPath(); ctx.moveTo(ex - 3, eyeY - 3); ctx.lineTo(ex + 3, eyeY + 3); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ex + 3, eyeY - 3); ctx.lineTo(ex - 3, eyeY + 3); ctx.stroke();
+    });
+  }
+
+  // Mouth
+  if (!dead) {
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth = 1.5;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.arc(0, eyeY + 10, 4, 0.1 * Math.PI, 0.9 * Math.PI);
+    ctx.stroke();
+  } else {
+    // Sad mouth
+    ctx.strokeStyle = '#ef4444';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(0, eyeY + 15, 4, 1.1 * Math.PI, 1.9 * Math.PI);
+    ctx.stroke();
+  }
+
+  // Antennas
+  const antLen = 10;
+  ctx.strokeStyle = '#60a5fa';
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+
+  // Left antenna
+  const antWave = Math.sin(frameCount * 0.15) * 3;
+  ctx.beginPath();
+  ctx.moveTo(-capR * 0.3, -halfH + 2);
+  ctx.quadraticCurveTo(-capR * 0.5 + antWave, -halfH - antLen, -capR * 0.2 + antWave, -halfH - antLen - 3);
+  ctx.stroke();
+  ctx.fillStyle = '#93c5fd';
+  ctx.beginPath();
+  ctx.arc(-capR * 0.2 + antWave, -halfH - antLen - 3, 3, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Right antenna
+  ctx.beginPath();
+  ctx.moveTo(capR * 0.3, -halfH + 2);
+  ctx.quadraticCurveTo(capR * 0.5 - antWave, -halfH - antLen, capR * 0.2 - antWave, -halfH - antLen - 3);
+  ctx.stroke();
+  ctx.fillStyle = '#93c5fd';
+  ctx.beginPath();
+  ctx.arc(capR * 0.2 - antWave, -halfH - antLen - 3, 3, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Arms
+  const armY = halfH * 0.1;
+  const flapAngle = flapAmt * 0.8;
+
+  ctx.strokeStyle = '#60a5fa';
+  ctx.lineWidth = 3;
+  ctx.lineCap = 'round';
+
+  // Left arm
+  ctx.save();
+  ctx.translate(-capR, armY);
+  ctx.rotate(-0.3 - flapAngle);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-10, -5);
+  ctx.lineTo(-14, 0);
+  ctx.stroke();
+  ctx.restore();
+
+  // Right arm
+  ctx.save();
+  ctx.translate(capR, armY);
+  ctx.rotate(0.3 + flapAngle);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(10, -5);
+  ctx.lineTo(14, 0);
+  ctx.stroke();
+  ctx.restore();
+
+  ctx.restore();
+}
+
+function drawParticles() {
+  for (const p of particles) {
+    ctx.globalAlpha = p.life;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+
+function drawTrail() {
+  for (const t of sifi.trail) {
+    ctx.globalAlpha = t.alpha * 0.4;
+    ctx.fillStyle = '#93c5fd';
+    ctx.beginPath();
+    ctx.arc(t.x, t.y, t.size * t.alpha, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+
+function drawUI() {
+  const level = getLevel();
+
+  // Level name (top left)
+  ctx.fillStyle = 'rgba(0,0,0,0.4)';
+  roundRect(ctx, 10, 10, 100, 28, 8);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 13px Segoe UI, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText(level.name, 20, 29);
+
+  // Score (top center)
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 36px Segoe UI, sans-serif';
+  ctx.fillStyle = 'rgba(0,0,0,0.15)';
+  ctx.fillText(score, W / 2 + 2, 50 + 2);
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+  ctx.lineWidth = 3;
+  ctx.strokeText(score, W / 2, 50);
+  ctx.fillText(score, W / 2, 50);
+
+  // Speed indicator (top right)
+  ctx.fillStyle = 'rgba(0,0,0,0.25)';
+  roundRect(ctx, W - 70, 10, 60, 22, 6);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.font = '10px Segoe UI, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText('Hiz: ' + level.speed.toFixed(1) + 'x', W - 16, 25);
+}
+
+function drawMenu() {
+  drawBackground();
+  drawClouds();
+  drawBgShelves();
+  drawGround();
+
+  menuBob += 0.03;
+  const bobY = Math.sin(menuBob) * 12;
+
+  // Draw Sifi in center
+  drawSifi(W / 2, H / 2 - 60 + bobY, Math.sin(menuBob * 1.5) * 0.1, Math.sin(menuBob * 2) * 0.3, false, 0);
+
+  // Title
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 34px Segoe UI, sans-serif';
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.15)';
+  ctx.fillText('Sifi Ucuyor!', W / 2 + 2, 120 + 2);
+
+  // Title gradient
+  const titleGrad = ctx.createLinearGradient(W / 2 - 100, 100, W / 2 + 100, 130);
+  titleGrad.addColorStop(0, '#3b82f6');
+  titleGrad.addColorStop(1, '#1d4ed8');
+  ctx.fillStyle = titleGrad;
+  ctx.fillText('Sifi Ucuyor!', W / 2, 120);
+
+  // Subtitle
+  ctx.font = '14px Segoe UI, sans-serif';
+  ctx.fillStyle = '#64748b';
+  ctx.fillText('Sifa Asistani Oyunu', W / 2, 145);
+
+  // Tap to play
+  const tapAlpha = 0.5 + 0.5 * Math.sin(frameCount * 0.08);
+  ctx.globalAlpha = tapAlpha;
+  ctx.fillStyle = '#3b82f6';
+  ctx.font = 'bold 20px Segoe UI, sans-serif';
+  ctx.fillText('Oynamak icin tikla!', W / 2, H / 2 + 50);
+  ctx.globalAlpha = 1;
+
+  // Controls hint
+  ctx.font = '12px Segoe UI, sans-serif';
+  ctx.fillStyle = '#94a3b8';
+  ctx.fillText('Tikla / Dokun / Bosluk', W / 2, H / 2 + 75);
+
+  // Best score
+  if (bestScore > 0) {
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
+    roundRect(ctx, W / 2 - 70, H / 2 + 95, 140, 30, 10);
+    ctx.fill();
+    ctx.fillStyle = '#fbbf24';
+    ctx.font = 'bold 14px Segoe UI, sans-serif';
+    ctx.fillText('En iyi: ' + bestScore, W / 2, H / 2 + 115);
+  }
+
+  // Levels explanation
+  const levelY = H / 2 + 150;
+  ctx.font = 'bold 12px Segoe UI, sans-serif';
+  ctx.fillStyle = '#475569';
+  ctx.fillText('Seviyeler', W / 2, levelY);
+
+  ctx.font = '11px Segoe UI, sans-serif';
+  const levelInfo = [
+    { name: 'Stajyer', range: '0-10', color: '#22c55e' },
+    { name: 'Asistan', range: '11-25', color: '#3b82f6' },
+    { name: 'Uzman', range: '26-50', color: '#a855f7' },
+    { name: 'Bashekim', range: '51-75', color: '#f97316' },
+    { name: 'Efsane', range: '76+', color: '#ef4444' }
+  ];
+  levelInfo.forEach((l, i) => {
+    ctx.fillStyle = l.color;
+    ctx.fillText(`${l.name} (${l.range})`, W / 2, levelY + 18 + i * 16);
+  });
+}
+
+function drawGameOver() {
+  // Dim overlay
+  ctx.fillStyle = 'rgba(0,0,0,0.5)';
+  ctx.fillRect(0, 0, W, H);
+
+  const panelX = W / 2 - 140;
+  const panelY = H / 2 - 150;
+  const panelW = 280;
+  const panelH = 300;
+
+  // Panel
+  ctx.fillStyle = '#fff';
+  roundRect(ctx, panelX, panelY, panelW, panelH, 20);
+  ctx.fill();
+  ctx.strokeStyle = '#e2e8f0';
+  ctx.lineWidth = 2;
+  roundRect(ctx, panelX, panelY, panelW, panelH, 20);
+  ctx.stroke();
+
+  // Title
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 26px Segoe UI, sans-serif';
+  ctx.fillStyle = '#ef4444';
+  ctx.fillText('Oyun Bitti!', W / 2, panelY + 45);
+
+  // Score
+  ctx.font = 'bold 42px Segoe UI, sans-serif';
+  ctx.fillStyle = '#1e293b';
+  ctx.fillText(score, W / 2, panelY + 100);
+
+  ctx.font = '14px Segoe UI, sans-serif';
+  ctx.fillStyle = '#64748b';
+  ctx.fillText('Puan', W / 2, panelY + 118);
+
+  // Best
+  const isNewBest = score >= bestScore && score > 0;
+  if (isNewBest) {
+    ctx.font = 'bold 14px Segoe UI, sans-serif';
+    ctx.fillStyle = '#f59e0b';
+    ctx.fillText('YENI REKOR!', W / 2, panelY + 145);
+  } else {
+    ctx.font = '13px Segoe UI, sans-serif';
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillText('En iyi: ' + bestScore, W / 2, panelY + 145);
+  }
+
+  // Level reached
+  const level = getLevel();
+  ctx.font = 'bold 16px Segoe UI, sans-serif';
+  ctx.fillStyle = '#3b82f6';
+  ctx.fillText('Seviye: ' + level.name, W / 2, panelY + 175);
+
+  // Buttons
+  deathButtons = [];
+
+  // Restart button
+  const btnW = 200, btnH = 42;
+  const btn1X = W / 2 - btnW / 2;
+  const btn1Y = panelY + 195;
+
+  ctx.fillStyle = '#3b82f6';
+  roundRect(ctx, btn1X, btn1Y, btnW, btnH, 12);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 16px Segoe UI, sans-serif';
+  ctx.fillText('Tekrar Oyna', W / 2, btn1Y + 27);
+
+  deathButtons.push({ x: btn1X, y: btn1Y, w: btnW, h: btnH, action: restartGame });
+
+  // Share button
+  const btn2Y = btn1Y + 52;
+  ctx.fillStyle = '#10b981';
+  roundRect(ctx, btn1X, btn2Y, btnW, btnH, 12);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.fillText('Paylas', W / 2, btn2Y + 27);
+
+  deathButtons.push({ x: btn1X, y: btn2Y, w: btnW, h: btnH, action: shareScore });
+}
+
+function shareScore() {
+  const level = getLevel();
+  const text = `Sifi Ucuyor'da ${score} puan aldim! Seviye: ${level.name} | Sifa Asistani`;
+  if (navigator.share) {
+    navigator.share({ title: 'Sifi Ucuyor!', text }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      flashTimer = 15;
+      flashColor = 'rgba(16,185,129,0.3)';
+    }).catch(() => {});
+  }
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function lightenColor(color, amount) {
+  // Simple lighten for hsl strings
+  const match = color.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+  if (match) {
+    return `hsl(${match[1]}, ${match[2]}%, ${Math.min(100, parseInt(match[3]) + amount)}%)`;
+  }
+  return color;
+}
+
+function darkenColor(color, amount) {
+  const match = color.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+  if (match) {
+    return `hsl(${match[1]}, ${match[2]}%, ${Math.max(0, parseInt(match[3]) - amount)}%)`;
+  }
+  return color;
+}
+
+// ============ UPDATE ============
+
+function update() {
+  frameCount++;
+
+  if (state === STATE.PLAYING) {
+    const level = getLevel();
+    const speed = level.speed;
+
+    // Wind effect
+    if (level.wind) {
+      const windForce = Math.sin(frameCount * 0.02) * 0.08;
+      sifi.vy += windForce;
+    }
+
+    if (!sifi.dead) {
+      // Gravity
+      sifi.vy += GRAVITY;
+      sifi.vy = Math.min(sifi.vy, TERMINAL_VEL);
+      sifi.y += sifi.vy;
+
+      // Rotation based on velocity
+      const targetRot = sifi.vy * 0.06;
+      sifi.rotation += (Math.max(-0.5, Math.min(0.8, targetRot)) - sifi.rotation) * 0.15;
+
+      // Flap animation decay
+      if (sifi.flapFrame > 0) sifi.flapFrame -= 0.5;
+
+      // Trail update
+      if (frameCount % 3 === 0) {
+        sifi.trail.push({ x: sifi.x - 10, y: sifi.y, alpha: 0.6, size: 4 });
+      }
+
+      // Ceiling
+      if (sifi.y - sifi.height / 2 < 0) {
+        sifi.y = sifi.height / 2;
+        sifi.vy = 1;
+      }
+
+      // Floor
+      if (sifi.y + sifi.height / 2 > H - 40) {
+        die();
+        sifi.y = H - 40 - sifi.height / 2;
+      }
+    } else {
+      // Death animation
+      sifi.vy += GRAVITY * 0.7;
+      sifi.y += sifi.vy;
+      sifi.deathSpin += 0.15;
+      if (sifi.y > H + 50) sifi.y = H + 50;
+    }
+
+    // Trail decay
+    sifi.trail = sifi.trail.filter(t => { t.alpha -= 0.03; return t.alpha > 0; });
+
+    // Move obstacles
+    for (const obs of obstacles) {
+      obs.x -= speed;
+
+      // Moving obstacles
+      if (obs.moving) {
+        obs.movingOffset = Math.sin(frameCount * obs.movingSpeed + obs.movingPhase) * obs.movingRange;
+      }
+
+      // Scoring
+      if (!obs.scored && obs.x + OBSTACLE_WIDTH < sifi.x) {
+        obs.scored = true;
+        score++;
+        obstaclesPassed++;
+      }
+    }
+
+    // Move pills
+    for (const pill of pills) {
+      pill.x -= speed;
+      pill.phase += 0.05;
+    }
+
+    // Collision detection
+    if (!sifi.dead) {
+      const sx = sifi.x;
+      const sy = sifi.y;
+      const sr = sifi.width / 2 - 4; // collision radius
+
+      for (const obs of obstacles) {
+        const gapTop = obs.gapTop + obs.movingOffset;
+        const gapBot = gapTop + obs.gapSize;
+
+        if (sx + sr > obs.x && sx - sr < obs.x + OBSTACLE_WIDTH) {
+          if (sy - sr < gapTop || sy + sr > gapBot) {
+            die();
+            break;
+          }
+        }
+      }
+
+      // Pill collection
+      for (const pill of pills) {
+        if (!pill.collected) {
+          const dx = sx - pill.x;
+          const dy = sy - pill.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const collectR = pill.golden ? 25 : 18;
+          if (dist < collectR) {
+            pill.collected = true;
+            const pts = pill.golden ? 25 : 5;
+            score += pts;
+            flashTimer = 8;
+            flashColor = pill.golden ? 'rgba(255,215,0,0.25)' : 'rgba(59,130,246,0.15)';
+            spawnParticles(pill.x, pill.y, pill.golden ? '#ffd700' : '#3b82f6', pill.golden ? 20 : 10);
+          }
+        }
+      }
+    }
+
+    // Cleanup passed obstacles
+    obstacles = obstacles.filter(o => o.x + OBSTACLE_WIDTH > -20);
+    pills = pills.filter(p => p.x > -30 && !p.collected);
+
+    // Spawn new obstacles
+    if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < W - OBSTACLE_SPACING) {
+      spawnObstacle(W + 30);
+    }
+
+    // Particles
+    particles = particles.filter(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.05;
+      p.life -= p.decay;
+      return p.life > 0;
+    });
+  }
+}
+
+// ============ RENDER ============
+
+function render() {
+  ctx.save();
+
+  // Screen shake
+  if (shakeTimer > 0) {
+    shakeTimer--;
+    const shakeX = (Math.random() - 0.5) * shakeTimer * 0.8;
+    const shakeY = (Math.random() - 0.5) * shakeTimer * 0.8;
+    ctx.translate(shakeX, shakeY);
+  }
+
+  if (state === STATE.MENU) {
+    drawMenu();
+  } else {
+    drawBackground();
+    drawClouds();
+    drawBgShelves();
+
+    // Draw obstacles
+    for (const obs of obstacles) {
+      drawObstacle(obs);
+    }
+
+    drawGround();
+
+    // Draw pills
+    for (const pill of pills) {
+      if (!pill.collected) drawPill(pill);
+    }
+
+    // Draw trail
+    drawTrail();
+
+    // Draw particles
+    drawParticles();
+
+    // Draw Sifi
+    drawSifi(sifi.x, sifi.y, sifi.rotation, sifi.flapFrame / 8, sifi.dead, sifi.deathSpin);
+
+    // UI
+    if (state === STATE.PLAYING) drawUI();
+
+    // Flash effect
+    if (flashTimer > 0) {
+      flashTimer--;
+      ctx.fillStyle = flashColor;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    // Game over overlay
+    if (state === STATE.DEAD) drawGameOver();
+  }
+
+  ctx.restore();
+}
+
+// ============ GAME LOOP ============
+
+function loop() {
+  update();
+  render();
+  requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+</body>
+</html>
