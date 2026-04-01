@@ -1,1971 +1,1117 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Şifa Asistanım — İlaç Takip Uygulaması</title>
-  <meta name="description" content="Şifi ile ilaçlarını takip et, sevdiklerinle güvenle paylaş. Türkçe ilaç takip uygulaması.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sifi Care — Bakım ve Sağlık Rutinlerim</title>
+<meta name="description" content="İlaç takibi, bakım rutini, suplement ve sağlık rutinlerini tek uygulamada yönet. Şifi asistanınla kolay, eğlenceli ve güvenli.">
+<meta name="theme-color" content="#0F172A">
+<link rel="icon" href="./icon.png" type="image/png">
+<link rel="apple-touch-icon" href="./icon.png">
+<meta property="og:title" content="Sifi Care — Bakım ve Sağlık Rutinlerim">
+<meta property="og:description" content="İlaç, bakım, suplement ve sağlık rutinlerini tek uygulamada yönet.">
+<meta property="og:image" content="./icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://www.sifaasistanim.com/">
-
-  <!-- Sitemap -->
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Şifa Asistanım — İlaç Takip Uygulaması">
-  <meta property="og:description" content="Şifi ile ilaçlarını takip et, sevdiklerinle güvenle paylaş. Türkçe ilaç takip uygulaması.">
-  <meta property="og:url" content="https://www.sifaasistanim.com/">
-  <meta property="og:image" content="https://www.sifaasistanim.com/1.jpg">
-  <meta property="og:site_name" content="Şifa Asistanım">
-  <meta property="og:locale" content="tr_TR">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Şifa Asistanım — İlaç Takip Uygulaması">
-  <meta name="twitter:description" content="Şifi ile ilaçlarını takip et, sevdiklerinle güvenle paylaş. Türkçe ilaç takip uygulaması.">
-  <meta name="twitter:image" content="https://www.sifaasistanim.com/1.jpg">
-
-  <!-- Schema.org Organization -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Şifa Asistanım",
-    "url": "https://www.sifaasistanim.com",
-    "logo": "https://www.sifaasistanim.com/1.jpg",
-    "description": "Şifi ile ilaçlarını takip et, sevdiklerinle güvenle paylaş. Türkçe ilaç takip uygulaması.",
-    "sameAs": []
+  :root {
+    --bg-start: #E8FFF3;
+    --bg-mid: #FFF0F6;
+    --bg-end: #EFF6FF;
+    --card: rgba(255,255,255,0.72);
+    --card-solid: #FFFFFF;
+    --nav-bg: rgba(15, 23, 42, 0.88);
+    --text: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --border: rgba(148, 163, 184, 0.18);
+    --blue: #2563EB;
+    --pink: #EC4899;
+    --green: #059669;
+    --cyan: #06B6D4;
+    --blue-soft: #EFF6FF;
+    --pink-soft: #FDF2F8;
+    --green-soft: #ECFDF5;
+    --cyan-soft: #ECFEFF;
+    --radius: 20px;
+    --radius-sm: 14px;
+    --radius-xs: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,0.10);
   }
-  </script>
 
-  <!-- Schema.org SoftwareApplication -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Şifa Asistanım",
-    "operatingSystem": "Android",
-    "applicationCategory": "HealthApplication",
-    "description": "Şifi ile ilaçlarını takip et, sevdiklerinle güvenle paylaş. Türkçe ilaç takip uygulaması.",
-    "url": "https://www.sifaasistanim.com",
-    "image": "https://www.sifaasistanim.com/1.jpg",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "TRY"
-    },
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(160deg, var(--bg-start) 0%, var(--bg-mid) 50%, var(--bg-end) 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --blue: #2563EB;
-      --blue-dark: #1D4ED8;
-      --blue-light: #EFF6FF;
-      --blue-mid: #DBEAFE;
-      --green: #10B981;
-      --orange: #F59E0B;
-      --orange-dark: #B45309;
-      --red: #EF4444;
-      --purple: #8B5CF6;
-      --text: #0F172A;
-      --text-muted: #64748B;
-      --border: #E2E8F0;
-      --bg: #F8FAFF;
-      --white: #FFFFFF;
-      --font-display: 'Nunito', sans-serif;
-      --font: 'Figtree', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(248,250,255,0.88);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(226,232,240,0.7);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 900;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .nav-logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #2563EB, #60A5FA);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      box-shadow: 0 4px 12px rgba(37,99,235,0.3);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--blue); }
-
-    /* DROPDOWN — click ile acilir */
-    .nav-dropdown {
-      position: relative;
-    }
-    .nav-dropdown > a {
-      cursor: pointer;
-    }
-    .nav-dropdown-menu {
-      display: none;
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      border-radius: 16px;
-      padding: 8px;
-      box-shadow: 0 12px 40px rgba(15,23,42,0.12);
-      border: 1px solid var(--border);
-      min-width: 200px;
-      z-index: 200;
-      animation: dropIn 0.2s ease;
-    }
-    .nav-dropdown-menu.open {
-      display: block;
-    }
-    @keyframes dropIn {
-      from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-    .nav-dropdown-menu a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      color: var(--text) !important;
-      font-size: 14px !important;
-      font-weight: 600 !important;
-      border-radius: 10px;
-      transition: background 0.15s;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .nav-dropdown-menu a:hover {
-      background: var(--blue-light);
-      color: var(--blue) !important;
-    }
-
-    /* LANG SWITCHER */
-    .lang-switcher {
-      display: flex;
-      align-items: center;
-      background: var(--blue-light);
-      border-radius: 100px;
-      padding: 3px;
-      gap: 2px;
-      border: 1px solid var(--border);
-    }
-
-    .lang-btn {
-      padding: 5px 12px;
-      border-radius: 100px;
-      border: none;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      background: transparent;
-      color: var(--text-muted);
-      font-family: var(--font);
-    }
-
-    .lang-btn.active {
-      background: var(--blue);
-      color: white;
-      box-shadow: 0 2px 8px rgba(37,99,235,0.3);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: 14px;
-      font-family: var(--font);
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-      transition: all 0.25s;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #2563EB, #3B82F6);
-      color: white;
-      box-shadow: 0 4px 16px rgba(37,99,235,0.3);
-    }
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #1D4ED8, #2563EB);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(37,99,235,0.4);
-    }
-
-    .btn-secondary {
-      background: var(--blue-light);
-      color: var(--blue);
-    }
-    .btn-secondary:hover { background: var(--blue-mid); }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 24px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-blob-1 {
-      position: absolute;
-      top: -150px; right: -150px;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(37,99,235,0.09) 0%, transparent 65%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    .hero-blob-2 {
-      position: absolute;
-      bottom: -100px; left: -100px;
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(139,92,246,0.07) 0%, transparent 65%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      max-width: 1140px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #EFF6FF, #E0EEFF);
-      color: var(--blue);
-      padding: 6px 14px 6px 8px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      border: 1px solid rgba(37,99,235,0.15);
-    }
-
-    .hero-badge-dot {
-      width: 20px; height: 20px;
-      background: var(--blue);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px;
-    }
-
-    h1 {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 5vw, 58px);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -1.5px;
-      color: var(--text);
-      margin-bottom: 20px;
-    }
-
-    h1 .accent {
-      background: linear-gradient(135deg, #2563EB, #8B5CF6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-desc {
-      font-size: 18px;
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-bottom: 36px;
-      max-width: 500px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 48px;
-    }
-
-    .hero-trust {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .hero-trust-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .hero-trust-item span { font-size: 15px; }
-
-    /* PHONE SHOWCASE */
-    .phone-showcase {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 600px;
-    }
-
-    .phone-main {
-      width: 220px;
-      height: 470px;
-      background: #1a1a2e;
-      border-radius: 38px;
-      padding: 10px;
-      box-shadow: 0 40px 80px rgba(15,23,42,0.3), 0 0 0 1px rgba(255,255,255,0.08) inset;
-      position: relative;
-      z-index: 3;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .phone-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 30px;
-    }
-
-    .phone-side {
-      position: absolute;
-      width: 185px;
-      height: 390px;
-      background: #1a1a2e;
-      border-radius: 32px;
-      padding: 8px;
-      box-shadow: 0 24px 48px rgba(15,23,42,0.2);
-      overflow: hidden;
-    }
-
-    .phone-side img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 26px;
-    }
-
-    .phone-left {
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%) rotate(-6deg) translateX(20px);
-      z-index: 2;
-      animation: float 5s ease-in-out infinite 0.5s;
-    }
-
-    .phone-right {
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%) rotate(6deg) translateX(-20px);
-      z-index: 2;
-      animation: float 4.5s ease-in-out infinite 1s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)) translateX(var(--tx, 0px)); }
-      50% { transform: translateY(-12px) rotate(var(--rot, 0deg)) translateX(var(--tx, 0px)); }
-    }
-
-    .phone-left { --rot: -6deg; --tx: 20px; }
-    .phone-right { --rot: 6deg; --tx: -20px; }
-
-    .float-badge {
-      position: absolute;
-      background: white;
-      border-radius: 16px;
-      padding: 10px 14px;
-      box-shadow: 0 8px 32px rgba(15,23,42,0.12);
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      z-index: 10;
-    }
-
-    .float-badge-1 { top: 40px; right: 10px; animation: float2 3.5s ease-in-out infinite; }
-    .float-badge-2 { bottom: 100px; left: 0px; animation: float2 4s ease-in-out infinite 1s; }
-    .float-badge-3 { bottom: 180px; right: 5px; animation: float2 3s ease-in-out infinite 0.5s; }
-
-    @keyframes float2 {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-7px); }
-    }
-
-    .badge-icon {
-      width: 30px; height: 30px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px;
-    }
-
-    /* SECTIONS */
-    section { padding: 100px 24px; }
-
-    .section-inner { max-width: 1140px; margin: 0 auto; }
-
-    .section-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--blue-light);
-      color: var(--blue);
-      padding: 5px 14px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    h2 {
-      font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -0.8px;
-      margin-bottom: 16px;
-    }
-
-    .section-desc {
-      font-size: 17px;
-      color: var(--text-muted);
-      max-width: 560px;
-      line-height: 1.75;
-      margin-bottom: 60px;
-    }
-
-    /* SCREENSHOTS SECTION */
-    .screenshots-section {
-      background: white;
-      padding: 100px 24px;
-    }
-
-    .screenshots-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .screenshots-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      align-items: start;
-    }
-
-    .screenshot-item {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .screenshot-phone {
-      background: #1a1a2e;
-      border-radius: 28px;
-      padding: 8px;
-      box-shadow: 0 16px 48px rgba(15,23,42,0.15);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .screenshot-phone:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 32px 64px rgba(15,23,42,0.2);
-    }
-
-    .screenshot-phone img {
-      width: 100%;
-      border-radius: 22px;
-      display: block;
-    }
-
-    .screenshot-label {
-      text-align: center;
-    }
-
-    .screenshot-label h4 {
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .screenshot-label p {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* SHIFI SECTION */
-    .shifi-section {
-      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #2563EB 100%);
-      padding: 100px 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .shifi-section::before {
-      content: '';
-      position: absolute;
-      top: -200px; right: -200px;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-
-    .shifi-inner {
-      max-width: 1140px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .shifi-content .section-tag {
-      background: rgba(255,255,255,0.12);
-      color: #93C5FD;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .shifi-content h2 { color: white; }
-
-    .shifi-desc {
-      font-size: 17px;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.75;
-      margin-bottom: 40px;
-    }
-
-    .shifi-features {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .shifi-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 16px 20px;
-      backdrop-filter: blur(10px);
-      transition: background 0.3s;
-    }
-
-    .shifi-feature:hover { background: rgba(255,255,255,0.11); }
-
-    .shifi-feature-icon {
-      width: 38px; height: 38px;
-      background: rgba(255,255,255,0.12);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    .shifi-feature-text h4 {
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 800;
-      color: white;
-      margin-bottom: 3px;
-    }
-
-    .shifi-feature-text p {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.5;
-    }
-
-    .shifi-visual {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .shifi-phone-wrap {
-      background: #1a1a2e;
-      border-radius: 36px;
-      padding: 10px;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1) inset;
-      width: 240px;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .shifi-phone-wrap img {
-      width: 100%;
-      border-radius: 28px;
-      display: block;
-    }
-
-    /* FEATURES */
-    .features-section { background: var(--bg); }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .feature-card {
-      background: white;
-      border-radius: 24px;
-      padding: 32px 28px;
-      border: 1px solid var(--border);
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feature-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--blue), #8B5CF6);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .feature-card:hover {
-      border-color: #BFDBFE;
-      box-shadow: 0 12px 40px rgba(37,99,235,0.08);
-      transform: translateY(-3px);
-    }
-
-    .feature-card:hover::after { opacity: 1; }
-
-    .feature-icon {
-      width: 52px; height: 52px;
-      border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
-      margin-bottom: 18px;
-    }
-
-    .feature-title {
-      font-family: var(--font-display);
-      font-size: 17px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .feature-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    /* PRICING */
-    .pricing-section {
-      background: white;
-      padding: 100px 24px;
-    }
-
-    .pricing-header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .pricing-launch-banner {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #FEF3C7, #FDE68A);
-      color: #92400E;
-      border: 1px solid #FCD34D;
-      padding: 8px 18px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .pricing-card {
-      border-radius: 28px;
-      padding: 40px 36px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pricing-card-free {
-      background: var(--bg);
-      border: 2px solid var(--border);
-    }
-
-    .pricing-card-premium {
-      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #2563EB 100%);
-      border: 2px solid transparent;
-      box-shadow: 0 20px 60px rgba(37,99,235,0.3);
-    }
-
-    .pricing-card-premium::before {
-      content: '';
-      position: absolute;
-      top: -100px; right: -100px;
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-
-    .pricing-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #F59E0B, #EF4444);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 16px;
-    }
-
-    .pricing-name {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .pricing-card-premium .pricing-name { color: white; }
-
-    .pricing-price {
-      margin-bottom: 8px;
-    }
-
-    .pricing-price .amount {
-      font-family: var(--font-display);
-      font-size: 48px;
-      font-weight: 900;
-      color: var(--text);
-      letter-spacing: -2px;
-    }
-
-    .pricing-card-premium .pricing-price .amount { color: white; }
-
-    .pricing-price .currency {
-      font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--text);
-    }
-
-    .pricing-card-premium .pricing-price .currency { color: white; }
-
-    .pricing-price .period {
-      font-size: 15px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .pricing-card-premium .pricing-price .period { color: rgba(255,255,255,0.6); }
-
-    .pricing-launch-note {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-    }
-
-    .pricing-free-now {
-      background: rgba(255,255,255,0.12);
-      color: #FDE68A;
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    .pricing-divider {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 20px;
-    }
-
-    .pricing-card-premium .pricing-divider { background: rgba(255,255,255,0.15); }
-
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 28px;
-    }
-
-    .pricing-features li {
-      font-size: 14px;
-      padding: 6px 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text);
-    }
-
-    .pricing-card-premium .pricing-features li { color: rgba(255,255,255,0.85); }
-
-    .check { color: var(--green); font-weight: 700; }
-
-    .btn-pricing-free {
-      width: 100%;
-      justify-content: center;
-      background: var(--blue-light);
-      color: var(--blue);
-      font-family: var(--font-display);
-      font-weight: 800;
-    }
-
-    .btn-pricing-free:hover {
-      background: var(--blue-light);
-    }
-
-    .btn-pricing-premium {
-      width: 100%;
-      justify-content: center;
-      background: white;
-      color: #1E3A8A;
-      font-family: var(--font-display);
-      font-weight: 800;
-      position: relative;
-      z-index: 1;
-    }
-
-    .btn-pricing-premium:hover {
-      background: #F0F9FF;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-    }
-
-    /* TRUST */
-    .trust-section { background: var(--bg); }
-
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .trust-card {
-      background: white;
-      border-radius: 20px;
-      padding: 28px 20px;
-      text-align: center;
-      border: 1px solid var(--border);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .trust-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(37,99,235,0.06);
-    }
-
-    .trust-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .trust-title {
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .trust-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* FAQ */
-    .faq-section { background: white; }
-
-    .faq-list {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: 20px 0;
-    }
-
-    .faq-question {
-      font-family: var(--font-display);
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      user-select: none;
-      color: var(--text);
-    }
-
-    .faq-question::after {
-      content: '+';
-      width: 28px; height: 28px;
-      background: var(--blue-light);
-      color: var(--blue);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      font-weight: 400;
-      flex-shrink: 0;
-      transition: transform 0.25s, background 0.25s;
-    }
-
-    .faq-item.open .faq-question::after {
-      transform: rotate(45deg);
-      background: var(--blue);
-      color: white;
-    }
-
-    .faq-answer {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.75;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s;
-    }
-
-    .faq-item.open .faq-answer {
-      max-height: 250px;
-      padding-top: 14px;
-    }
-
-    /* CTA */
-    .cta-section {
-      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #2563EB 100%);
-      padding: 100px 24px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: -150px; left: 50%;
-      transform: translateX(-50%);
-      width: 900px; height: 400px;
-      background: radial-gradient(ellipse, rgba(255,255,255,0.05) 0%, transparent 70%);
-    }
-
-    .cta-section h2 { color: white; position: relative; z-index: 1; }
-
-    .cta-desc {
-      color: rgba(255,255,255,0.75);
-      font-size: 18px;
-      max-width: 500px;
-      margin: 16px auto 40px;
-      line-height: 1.75;
-      position: relative; z-index: 1;
-    }
-
-    .btn-white {
-      background: white;
-      color: var(--blue);
-      font-family: var(--font-display);
-      font-weight: 800;
-      position: relative; z-index: 1;
-    }
-
-    .btn-white:hover {
-      background: #F0F9FF;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-    }
-
-    .cta-note {
-      color: rgba(255,255,255,0.45);
-      font-size: 13px;
-      margin-top: 16px;
-      position: relative; z-index: 1;
-    }
-
-    /* FOOTER */
-    footer {
-      background: #0F172A;
-      color: rgba(255,255,255,0.5);
-      padding: 48px 24px;
-    }
-
-    .footer-inner {
-      max-width: 1140px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: white;
-      font-family: var(--font-display);
-      font-size: 16px;
-      font-weight: 900;
-      text-decoration: none;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
-    .footer-links a {
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: white; }
-
-    .footer-copy { font-size: 13px; }
-
-    /* ANIMATIONS */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 960px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 48px; text-align: center; }
-      .hero-desc { max-width: 100%; }
-      .hero-actions { justify-content: center; }
-      .hero-trust { justify-content: center; }
-      .phone-showcase { height: 400px; }
-      .phone-left, .phone-right { display: none; }
-      .phone-main { width: 200px; height: 420px; }
-
-      .shifi-inner { grid-template-columns: 1fr; gap: 48px; }
-      .shifi-visual { order: -1; }
-
-      .features-grid { grid-template-columns: 1fr; }
-      .trust-grid { grid-template-columns: repeat(2, 1fr); }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .screenshots-grid { grid-template-columns: repeat(2, 1fr); }
-
-      .footer-inner { flex-direction: column; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; }
-      #navLinks > a:not(:last-child), #navLinks > #gamesDd, #navLinks > .lang-switcher { display: none !important; }
-    }
-
-    @media (max-width: 600px) {
-      .screenshots-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .trust-grid { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
+  /* ── Utility ── */
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .section { padding: 96px 0; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 900; line-height: 1.2;
+    margin-bottom: 16px; letter-spacing: -0.5px;
+  }
+  .section-desc {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text-secondary);
+    max-width: 560px; line-height: 1.7;
+  }
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .section-header .section-desc { margin: 0 auto; }
+
+  /* ── Language Toggle ── */
+  [data-lang="en"] { display: none; }
+  html[lang="en"] [data-lang="en"] { display: revert; }
+  html[lang="en"] [data-lang="tr"] { display: none; }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-brand img {
+    width: 34px; height: 34px; border-radius: 8px;
+  }
+  .nav-brand span {
+    font-size: 18px; font-weight: 900; color: #FFFFFF;
+    letter-spacing: -0.3px;
+  }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-links { display: flex; gap: 6px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 14px; font-weight: 600; padding: 8px 14px;
+    border-radius: var(--radius-xs); transition: all 0.2s;
+  }
+  .nav-links a:hover { color: #FFF; background: rgba(255,255,255,0.08); }
+  .nav-lang {
+    font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; padding: 6px 12px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-lang:hover { background: rgba(255,255,255,0.15); color: #FFF; }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--blue), #7C3AED);
+    color: white; padding: 8px 18px; border-radius: var(--radius-xs);
+    font-size: 13px; font-weight: 800; text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,99,235,0.35); }
+  .nav-menu-btn {
+    display: none; background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.8); padding: 8px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 140px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(167,243,208,0.3) 0%, rgba(251,207,232,0.2) 40%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+  .hero-icon {
+    width: 100px; height: 100px;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    margin-bottom: 28px;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 999px; padding: 8px 18px;
+    font-size: 13px; font-weight: 700; color: var(--text-secondary);
+    margin-bottom: 24px; box-shadow: var(--shadow);
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 68px);
+    font-weight: 900; line-height: 1.08;
+    letter-spacing: -1.5px; margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--blue) 0%, #7C3AED 50%, var(--pink) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle {
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 600; color: var(--text-secondary);
+    margin-bottom: 28px; letter-spacing: -0.3px;
+  }
+  .hero-desc {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text-muted); max-width: 500px;
+    margin: 0 auto 40px; line-height: 1.7;
+  }
+  .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue), #4F46E5);
+    color: white; padding: 16px 32px; border-radius: 16px;
+    font-size: 16px; font-weight: 800; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.2s; box-shadow: 0 4px 20px rgba(37,99,235,0.3);
+    border: none; cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,99,235,0.4); }
+  .btn-secondary {
+    background: var(--card); color: var(--text);
+    padding: 16px 32px; border-radius: 16px;
+    font-size: 16px; font-weight: 700; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid var(--border); transition: all 0.2s;
+    box-shadow: var(--shadow);
+  }
+  .btn-secondary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .hero-stats {
+    display: flex; gap: 32px; justify-content: center;
+    margin-top: 56px; flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat strong {
+    display: block; font-size: 28px; font-weight: 900;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-stat span { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+
+  /* ── Categories ── */
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .cat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.3s;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .cat-card:nth-child(1)::before { background: var(--blue); }
+  .cat-card:nth-child(2)::before { background: var(--pink); }
+  .cat-card:nth-child(3)::before { background: var(--green); }
+  .cat-card:nth-child(4)::before { background: var(--cyan); }
+  .cat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+  .cat-icon {
+    width: 64px; height: 64px; border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; margin: 0 auto 18px;
+  }
+  .cat-card:nth-child(1) .cat-icon { background: var(--blue-soft); }
+  .cat-card:nth-child(2) .cat-icon { background: var(--pink-soft); }
+  .cat-card:nth-child(3) .cat-icon { background: var(--green-soft); }
+  .cat-card:nth-child(4) .cat-icon { background: var(--cyan-soft); }
+  .cat-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+  .cat-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .cat-accent {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; margin-right: 6px; vertical-align: middle;
+  }
+
+  /* ── Şifi Section ── */
+  .sifi-section { position: relative; }
+  .sifi-card {
+    background: linear-gradient(135deg, #1E293B, #0F172A);
+    border-radius: 28px;
+    padding: 60px 48px;
+    display: flex; align-items: center; gap: 48px;
+    color: white;
+    position: relative; overflow: hidden;
+  }
+  .sifi-card::after {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(37,99,235,0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .sifi-visual {
+    flex-shrink: 0; width: 180px; height: 180px;
+    background: linear-gradient(135deg, #A7F3D0, #FBCFE8);
+    border-radius: 40px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 72px;
+    box-shadow: 0 8px 40px rgba(167,243,208,0.2);
+  }
+  .sifi-info { position: relative; z-index: 1; }
+  .sifi-info .section-label { color: #A7F3D0; }
+  .sifi-info h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 900; margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .sifi-info p {
+    font-size: 16px; color: rgba(255,255,255,0.7);
+    line-height: 1.7; margin-bottom: 24px;
+    max-width: 420px;
+  }
+  .sifi-steps {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .sifi-step {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-xs);
+    padding: 8px 16px;
+    font-size: 13px; font-weight: 700;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── Features Grid ── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: all 0.3s;
+    backdrop-filter: blur(12px);
+  }
+  .feat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .feat-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 18px;
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-mid));
+  }
+  .feat-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+  .feat-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+
+  /* ── Games ── */
+  .games-section {
+    background: linear-gradient(135deg, #1E1B4B, #312E81);
+    border-radius: 28px;
+    padding: 64px 48px;
+    color: white;
+    position: relative; overflow: hidden;
+  }
+  .games-section::before {
+    content: '';
+    position: absolute; bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(236,72,153,0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .games-section .section-label { color: #C4B5FD; }
+  .games-section .section-title { color: white; }
+  .games-section .section-desc { color: rgba(255,255,255,0.7); }
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px; margin-top: 40px;
+  }
+  .game-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .game-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+  .game-emoji { font-size: 40px; margin-bottom: 14px; display: block; }
+  .game-card h4 { font-size: 15px; font-weight: 800; margin-bottom: 6px; color: white; }
+  .game-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+  .game-badge {
+    display: inline-block; margin-top: 10px;
+    font-size: 11px; font-weight: 800;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(167,243,208,0.15); color: #A7F3D0;
+  }
+
+  /* ── Premium ── */
+  .premium-card {
+    background: linear-gradient(135deg, #FFF7ED, #FEF3C7, #FFF1F2);
+    border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 28px;
+    padding: 56px 48px;
+    display: flex; align-items: center; gap: 48px;
+  }
+  .premium-info { flex: 1; }
+  .premium-info .section-label { color: #D97706; }
+  .premium-info h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 900; margin-bottom: 16px; line-height: 1.2;
+  }
+  .premium-info p {
+    font-size: 16px; color: var(--text-secondary);
+    line-height: 1.7; margin-bottom: 24px;
+  }
+  .premium-features {
+    list-style: none; display: flex;
+    flex-direction: column; gap: 12px;
+  }
+  .premium-features li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 15px; font-weight: 600;
+  }
+  .premium-features li::before {
+    content: '✦';
+    color: #D97706; font-size: 14px;
+  }
+  .premium-visual {
+    flex-shrink: 0; width: 200px; height: 200px;
+    background: linear-gradient(135deg, #FDE68A, #FBBF24);
+    border-radius: 40px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px;
+    box-shadow: 0 12px 40px rgba(251,191,36,0.2);
+  }
+
+  /* ── Privacy ── */
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .priv-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+  }
+  .priv-icon {
+    font-size: 36px; margin-bottom: 16px; display: block;
+  }
+  .priv-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+  .priv-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+
+  /* ── FAQ ── */
+  .faq-list {
+    max-width: 700px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .faq-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+  }
+  .faq-q {
+    padding: 20px 24px;
+    font-size: 16px; font-weight: 700;
+    cursor: pointer; display: flex;
+    align-items: center; justify-content: space-between;
+    user-select: none; transition: background 0.2s;
+  }
+  .faq-q:hover { background: rgba(0,0,0,0.02); }
+  .faq-q::after {
+    content: '+'; font-size: 22px; font-weight: 300;
+    color: var(--text-muted); transition: transform 0.3s;
+    flex-shrink: 0; margin-left: 16px;
+  }
+  .faq-item.open .faq-q::after { content: '\2212'; }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+  }
+  .faq-item.open .faq-a {
+    max-height: 300px;
+  }
+  .faq-a-inner {
+    padding: 0 24px 20px;
+    font-size: 15px; color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center;
+    padding: 96px 24px 80px;
+  }
+  .cta-section h2 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 900; margin-bottom: 16px;
+    line-height: 1.15; letter-spacing: -0.5px;
+  }
+  .cta-section p {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text-secondary);
+    margin-bottom: 36px; max-width: 480px;
+    margin-left: auto; margin-right: auto; line-height: 1.7;
+  }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    padding: 48px 24px 32px;
+    color: rgba(255,255,255,0.6);
+  }
+  .footer-inner {
+    max-width: 1120px; margin: 0 auto;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  .footer-brand {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .footer-brand img { width: 28px; height: 28px; border-radius: 6px; }
+  .footer-brand span { font-size: 15px; font-weight: 800; color: white; }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-links a {
+    color: rgba(255,255,255,0.5); text-decoration: none;
+    font-size: 13px; font-weight: 600;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(255,255,255,0.9); }
+  .footer-copy {
+    width: 100%; text-align: center;
+    margin-top: 24px; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px; color: rgba(255,255,255,0.35);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .categories-grid { grid-template-columns: repeat(2, 1fr); }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .games-grid { grid-template-columns: repeat(2, 1fr); }
+    .privacy-grid { grid-template-columns: 1fr; }
+    .sifi-card { flex-direction: column; text-align: center; padding: 48px 32px; }
+    .sifi-info { display: flex; flex-direction: column; align-items: center; }
+    .sifi-info p { max-width: 100%; }
+    .sifi-steps { justify-content: center; }
+    .premium-card { flex-direction: column; text-align: center; padding: 48px 32px; }
+    .premium-info { display: flex; flex-direction: column; align-items: center; }
+    .premium-features { align-items: center; }
+    .games-section { padding: 48px 28px; }
+  }
+  @media (max-width: 640px) {
+    .categories-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .games-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .nav-menu-btn { display: block; }
+    .hero { padding: 120px 20px 60px; }
+    .hero-icon { width: 80px; height: 80px; border-radius: 20px; }
+    .hero-stats { gap: 24px; }
+    .hero-stat strong { font-size: 24px; }
+    .section { padding: 64px 0; }
+    .sifi-card { padding: 36px 24px; }
+    .sifi-visual { width: 120px; height: 120px; border-radius: 28px; font-size: 48px; }
+    .premium-card { padding: 36px 24px; }
+    .premium-visual { width: 140px; height: 140px; font-size: 48px; border-radius: 28px; }
+    .games-section { padding: 36px 20px; border-radius: 20px; }
+  }
+
+  /* ── Mobile Nav Menu ── */
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    padding: 16px 24px;
+    z-index: 999;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .mobile-menu.show { display: flex; flex-direction: column; gap: 4px; }
+  .mobile-menu a {
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 15px; font-weight: 600;
+    padding: 12px 16px; border-radius: var(--radius-xs);
+    transition: all 0.2s;
+  }
+  .mobile-menu a:hover { background: rgba(255,255,255,0.08); color: white; }
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-icon">💊</div>
-      <span data-tr="Şifa Asistanım" data-en="Şifa Assistant">Şifa Asistanım</span>
-    </a>
-    <div id="navLinks" style="display:flex;align-items:center;gap:20px;font-size:14px;font-weight:600;">
-      <a href="blog.html" style="color:#64748B;text-decoration:none;" data-tr="Blog" data-en="Blog">Blog</a>
-      <a href="chat.html" style="color:#64748B;text-decoration:none;" data-tr="Şifi'ye Sor" data-en="Ask Şifi">Şifi'ye Sor</a>
-      <a href="guide.html" style="color:#64748B;text-decoration:none;" data-tr="Rehber" data-en="Guide">Rehber</a>
-      <a href="press.html" style="color:#64748B;text-decoration:none;" data-tr="Basın" data-en="Press">Basın</a>
-      <div style="position:relative;display:inline-block;" id="gamesDd">
-        <a href="#" onclick="event.preventDefault();var m=document.getElementById('gamesDropdown');m.style.display=m.style.display==='block'?'none':'block';" style="color:#64748B;text-decoration:none;cursor:pointer;" data-tr="🎮 Oyunlar ▾" data-en="🎮 Games ▾">🎮 Oyunlar ▾</a>
-        <div id="gamesDropdown" style="display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:white;border-radius:16px;padding:8px;box-shadow:0 12px 40px rgba(15,23,42,0.12);border:1px solid #E2E8F0;min-width:200px;z-index:200;">
-          <a href="game-match.html" style="display:block;padding:12px 16px;color:#0F172A;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">🧩 İlaç Eşleştir</a>
-          <a href="game-memory.html" style="display:block;padding:12px 16px;color:#0F172A;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">🃏 Hafıza Oyunu</a>
-          <a href="game-flappy.html" style="display:block;padding:12px 16px;color:#0F172A;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">🐦 Flappy Şifi</a>
-          <a href="game.html" style="display:block;padding:12px 16px;color:#0F172A;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">💊 İlaç Yakala</a>
-        </div>
-      </div>
-      <div class="lang-switcher" style="display:inline-flex;">
-        <button class="lang-btn active" onclick="setLang('tr')">TR</button>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-      </div>
-      <a href="https://apps.apple.com/app/sifa-asistanim/id6759059248" class="btn btn-primary" style="padding:10px 20px;font-size:14px;" data-tr="🍎 İndir" data-en="🍎 Download">🍎 İndir</a>
+<!-- ── Nav ── -->
+<nav>
+  <a href="#" class="nav-brand">
+    <img src="./icon.png" alt="Sifi Care" width="34" height="34">
+    <span>Sifi Care</span>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#categories" data-lang="tr">Kategoriler</a>
+      <a href="#categories" data-lang="en">Categories</a>
+      <a href="#features" data-lang="tr">Özellikler</a>
+      <a href="#features" data-lang="en">Features</a>
+      <a href="#games" data-lang="tr">Oyunlar</a>
+      <a href="#games" data-lang="en">Games</a>
+      <a href="#faq" data-lang="tr">SSS</a>
+      <a href="#faq" data-lang="en">FAQ</a>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-blob-1"></div>
-    <div class="hero-blob-2"></div>
-    <div class="hero-inner">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <div class="hero-badge-dot">🤖</div>
-          <span data-tr="Şifi ile ilaç takibi artık eğlenceli!" data-en="Med tracking is now fun with Şifi!">Şifi ile ilaç takibi artık eğlenceli!</span>
-        </div>
-        <h1 data-tr="İlaçlarını takip et,<br><span class='accent'>Şifi yanında!</span>" data-en="Track your meds,<br><span class='accent'>Şifi is with you!</span>">İlaçlarını takip et,<br><span class="accent">Şifi yanında!</span></h1>
-        <p class="hero-desc" data-tr="Sevimli sağlık asistanın Şifi ile hiçbir dozu kaçırma. Ailen ile güvenle paylaş, sağlık ölçümlerini kaydet." data-en="Never miss a dose with your cute health assistant Şifi. Share safely with your family and track health metrics.">
-          Sevimli sağlık asistanın Şifi ile hiçbir dozu kaçırma.
-          Ailen ile güvenle paylaş, sağlık ölçümlerini kaydet.
-        </p>
-        <div class="hero-actions">
-          <a href="https://apps.apple.com/app/sifa-asistanim/id6759059248" class="btn btn-primary" data-tr="🍎 App Store'dan İndir" data-en="🍎 Download on App Store">
-            🍎 App Store'dan İndir
-          </a>
-          <a href="#" class="btn btn-primary" style="background: linear-gradient(135deg, #34A853, #0F9D58); opacity: 0.7; pointer-events: none;" data-tr="▶️ Google Play (Yakında)" data-en="▶️ Google Play (Coming Soon)">
-            ▶️ Google Play (Yakında)
-          </a>
-        </div>
-        <div class="hero-trust">
-          <div class="hero-trust-item"><span>🇹🇷</span> <span data-tr="Tam Türkçe" data-en="Full Turkish">Tam Türkçe</span></div>
-          <div class="hero-trust-item"><span>🚫</span> <span data-tr="Reklam yok" data-en="No ads">Reklam yok</span></div>
-          <div class="hero-trust-item"><span>🔒</span> <span data-tr="Veriler cihazında" data-en="Data on device">Veriler cihazında</span></div>
-          <div class="hero-trust-item"><span>✨</span> <span data-tr="Şimdi ücretsiz" data-en="Free now">Şimdi ücretsiz</span></div>
-        </div>
-      </div>
-
-      <div class="phone-showcase">
-        <div class="phone-side phone-left">
-          <img src="6.jpg" alt="Takvim ekranı">
-        </div>
-
-        <div class="phone-main">
-          <img src="7.jpg" alt="Ana ekran">
-        </div>
-
-        <div class="phone-side phone-right">
-          <img src="8.jpg" alt="Şifi ilaç ekleme">
-        </div>
-
-        <div class="float-badge float-badge-1">
-          <div class="badge-icon" style="background:#DCFCE7;">🔥</div>
-          <div>
-            <div style="font-size:10px; color:#64748B;" data-tr="Günlük Seri" data-en="Daily Streak">Günlük Seri</div>
-            <div style="color:#16A34A; font-size:13px;" data-tr="2 günlük seri!" data-en="2-day streak!">2 günlük seri!</div>
-          </div>
-        </div>
-
-        <div class="float-badge float-badge-2">
-          <div class="badge-icon" style="background:#EFF6FF;">⬆️</div>
-          <div>
-            <div style="font-size:10px; color:#64748B;" data-tr="XP Kazandın" data-en="XP Earned">XP Kazandın</div>
-            <div style="color:#2563EB; font-size:13px;">+10 XP</div>
-          </div>
-        </div>
-
-        <div class="float-badge float-badge-3">
-          <div class="badge-icon" style="background:#FFF7ED;">🔔</div>
-          <div>
-            <div style="font-size:10px; color:#64748B;" data-tr="Hatırlatıcı" data-en="Reminder">Hatırlatıcı</div>
-            <div style="color:#EA580C; font-size:13px;" data-tr="7s 59dk sonra" data-en="In 7h 59m">7s 59dk sonra</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCREENSHOTS -->
-  <section class="screenshots-section" id="screenshots">
-    <div class="section-inner">
-      <div class="screenshots-header fade-in">
-        <div class="section-tag" data-tr="📱 Uygulama Ekranları" data-en="📱 App Screenshots">📱 Uygulama Ekranları</div>
-        <h2 data-tr="Her detay düşünülmüş" data-en="Every detail thought through">Her detay düşünülmüş</h2>
-        <p class="section-desc" style="margin: 0 auto;" data-tr="Sade, Türkçe ve her yaşa uygun tasarım." data-en="Clean, intuitive design for all ages.">Sade, Türkçe ve her yaşa uygun tasarım.</p>
-      </div>
-
-      <div class="screenshots-grid">
-        <div class="screenshot-item fade-in">
-          <div class="screenshot-phone">
-            <img src="7.jpg" alt="Ana Ekran">
-          </div>
-          <div class="screenshot-label">
-            <h4 data-tr="Ana Ekran" data-en="Home Screen">Ana Ekran</h4>
-            <p data-tr="Şifi kartı, günlük ilaçların ve XP seviyeni tek bakışta gör" data-en="See Şifi card, daily meds and XP level at a glance">Şifi kartı, günlük ilaçların ve XP seviyeni tek bakışta gör</p>
-          </div>
-        </div>
-
-        <div class="screenshot-item fade-in">
-          <div class="screenshot-phone">
-            <img src="8.jpg" alt="Şifi İlaç Ekleme">
-          </div>
-          <div class="screenshot-label">
-            <h4 data-tr="Şifi Yardımı" data-en="Şifi Helper">Şifi Yardımı</h4>
-            <p data-tr="Şifi adım adım rehberliğiyle ilaç eklemek çok kolay" data-en="Adding meds is easy with Şifi's step-by-step guidance">Şifi adım adım rehberliğiyle ilaç eklemek çok kolay</p>
-          </div>
-        </div>
-
-        <div class="screenshot-item fade-in">
-          <div class="screenshot-phone">
-            <img src="6.jpg" alt="Takvim">
-          </div>
-          <div class="screenshot-label">
-            <h4 data-tr="Takvim" data-en="Calendar">Takvim</h4>
-            <p data-tr="Dün, bugün, yarın — ilaç planını takvimde takip et" data-en="Yesterday, today, tomorrow — track your med plan on calendar">Dün, bugün, yarın — ilaç planını takvimde takip et</p>
-          </div>
-        </div>
-
-        <div class="screenshot-item fade-in">
-          <div class="screenshot-phone">
-            <img src="5.jpg" alt="Bağlantılar">
-          </div>
-          <div class="screenshot-label">
-            <h4 data-tr="Aile Bağlantısı" data-en="Family Connection">Aile Bağlantısı</h4>
-            <p data-tr="Yakınının ilaçlarını takip et veya onlarla planını paylaş" data-en="Track a loved one's meds or share your plan with them">Yakınının ilaçlarını takip et veya onlarla planını paylaş</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SHIFI SECTION -->
-  <section class="shifi-section" id="shifi">
-    <div class="shifi-inner">
-      <div class="shifi-content">
-        <div class="section-tag">🤖 Şifi</div>
-        <h2 data-tr="Sağlık arkadaşın<br>Şifi seni bekliyor!" data-en="Your health buddy<br>Şifi awaits you!">Sağlık arkadaşın<br>Şifi seni bekliyor!</h2>
-        <p class="shifi-desc" data-tr="Sadece bir hatırlatıcı değil — Şifi senin sağlık yolculuğunda gerçek bir arkadaş. Sevilere atlıyor, aksesuar takıyor, mektup yazıyor!" data-en="Not just a reminder — Şifi is a real companion on your health journey. It levels up, wears accessories, and writes you letters!">
-          Sadece bir hatırlatıcı değil — Şifi senin sağlık yolculuğunda
-          gerçek bir arkadaş. Sevilere atlıyor, aksesuar takıyor, mektup yazıyor!
-        </p>
-        <div class="shifi-features">
-          <div class="shifi-feature">
-            <div class="shifi-feature-icon">🎮</div>
-            <div class="shifi-feature-text">
-              <h4 data-tr="XP Kazan, Seviye Atla" data-en="Earn XP, Level Up">XP Kazan, Seviye Atla</h4>
-              <p data-tr="Her ilaç dozunda XP kazan. Şifi → Efsanevi Şifi'ye doğru ilerle" data-en="Earn XP with every dose. Progress from Şifi → Legendary Şifi">Her ilaç dozunda XP kazan. Şifi → Efsanevi Şifi'ye doğru ilerle</p>
-            </div>
-          </div>
-          <div class="shifi-feature">
-            <div class="shifi-feature-icon">🎨</div>
-            <div class="shifi-feature-text">
-              <h4 data-tr="Tamamen Kişiselleştir" data-en="Fully Customizable">Tamamen Kişiselleştir</h4>
-              <p data-tr="12 tema, 8 kapsül rengi, şapka/taç/gözlük gibi 8 aksesuar" data-en="12 themes, 8 capsule colors, 8 accessories like hat/crown/glasses">12 tema, 8 kapsül rengi, şapka/taç/gözlük gibi 8 aksesuar</p>
-            </div>
-          </div>
-          <div class="shifi-feature">
-            <div class="shifi-feature-icon">👨‍👩‍👧</div>
-            <div class="shifi-feature-text">
-              <h4 data-tr="Aile & Pet Profili" data-en="Family & Pet Profiles">Aile & Pet Profili</h4>
-              <p data-tr="Çocuk, kedi, köpek, tavşan için ayrı profil ve Şifi görünümü" data-en="Separate profiles and Şifi look for kids, cats, dogs, rabbits">Çocuk, kedi, köpek, tavşan için ayrı profil ve Şifi görünümü</p>
-            </div>
-          </div>
-          <div class="shifi-feature">
-            <div class="shifi-feature-icon">📊</div>
-            <div class="shifi-feature-text">
-              <h4 data-tr="Şifi'den Kişisel Mektup" data-en="Personal Letter from Şifi">Şifi'den Kişisel Mektup</h4>
-              <p data-tr="Haftalık sağlık skorun ve Şifi'nin sana özel raporu" data-en="Weekly health score and Şifi's personalized report for you">Haftalık sağlık skorun ve Şifi'nin sana özel raporu</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="shifi-visual">
-        <div class="shifi-phone-wrap">
-          <img src="4.jpg" alt="Şifi Kişiselleştirme">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="features-section" id="features">
-    <div class="section-inner">
-      <div class="fade-in">
-        <div class="section-tag" data-tr="✨ Özellikler" data-en="✨ Features">✨ Özellikler</div>
-        <h2 data-tr="Her ihtiyaç için<br>düşünülmüş" data-en="Designed for<br>every need">Her ihtiyaç için<br>düşünülmüş</h2>
-        <p class="section-desc" data-tr="Kronik hastalıktan günlük vitamine, tek kullanımdan uzun tedavilere kadar." data-en="From chronic conditions to daily vitamins, single use to long-term treatments.">Kronik hastalıktan günlük vitamine, tek kullanımdan uzun tedavilere kadar.</p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background:#EFF6FF;">🔔</div>
-          <div class="feature-title" data-tr="Akıllı Hatırlatıcılar" data-en="Smart Reminders">Akıllı Hatırlatıcılar</div>
-          <div class="feature-desc" data-tr="İlaç saatinde bildirim al. Erteleyebilir, kaçırılan doz uyarısı alırsın. Hiçbir dozu kaçırma." data-en="Get notified at med time. Snooze or get missed dose alerts. Never miss a dose.">İlaç saatinde bildirim al. Erteleyebilir, kaçırılan doz uyarısı alırsın. Hiçbir dozu kaçırma.</div>
-        </div>
-
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background:#F0FDF4;">👨‍👩‍👧</div>
-          <div class="feature-title" data-tr="Aile ile Paylaşım" data-en="Family Sharing">Aile ile Paylaşım</div>
-          <div class="feature-desc" data-tr="Davet linki ile annen, eşin veya çocuğunun ilaç planını güvenle takip et." data-en="Safely track your parent's, spouse's or child's med plan via invite link.">Davet linki ile annen, eşin veya çocuğunun ilaç planını güvenle takip et.</div>
-        </div>
-
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background:#FFF7ED;">📦</div>
-          <div class="feature-title" data-tr="Stok Takibi" data-en="Stock Tracking">Stok Takibi</div>
-          <div class="feature-desc" data-tr="İlaç miktarını kaydet. Son 5 tablet veya 20 puf kaldığında otomatik uyarı al." data-en="Log your med quantity. Get automatic alerts when down to 5 tablets or 20 puffs.">İlaç miktarını kaydet. Son 5 tablet veya 20 puf kaldığında otomatik uyarı al.</div>
-        </div>
-
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background:#FDF4FF;">📅</div>
-          <div class="feature-title" data-tr="Uyum Takvimi" data-en="Adherence Calendar">Uyum Takvimi</div>
-          <div class="feature-desc" data-tr="Geçmiş doz kayıtlarını takvimde gör. Haftalık ve aylık uyum yüzdenizi takip et." data-en="View past dose records on calendar. Track your weekly and monthly adherence rate.">Geçmiş doz kayıtlarını takvimde gör. Haftalık ve aylık uyum yüzdenizi takip et.</div>
-        </div>
-
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background:#F0FDF4;">❤️</div>
-          <div class="feature-title" data-tr="Sağlık Takibi" data-en="Health Tracking">Sağlık Takibi</div>
-          <div class="feature-desc" data-tr="Tansiyon, nabız, kan şekeri, SpO2, ateş ve kilo ölçümlerini kaydet. Doktor randevusu hatırlatıcı." data-en="Log blood pressure, pulse, blood sugar, SpO2, temperature and weight. Doctor appointment reminders.">Tansiyon, nabız, kan şekeri, SpO2, ateş ve kilo ölçümlerini kaydet. Doktor randevusu hatırlatıcı.</div>
-        </div>
-
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background:#EFF6FF;">💊</div>
-          <div class="feature-title" data-tr="Her İlaç Tipi" data-en="Every Med Type">Her İlaç Tipi</div>
-          <div class="feature-desc" data-tr="Tablet, kapsül, şurup, damla, sprey, iğne — 18 farklı ilaç tipi ile her tedavi desteklenir." data-en="Tablet, capsule, syrup, drops, spray, injection — 18 different med types support every treatment.">Tablet, kapsül, şurup, damla, sprey, iğne — 18 farklı ilaç tipi ile her tedavi desteklenir.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section class="pricing-section" id="pricing">
-    <div class="section-inner">
-      <div class="pricing-header fade-in">
-        <div class="pricing-launch-banner" data-tr="🎉 Lansman Dönemi — Şimdi Tüm Özellikler Ücretsiz!" data-en="🎉 Launch Period — All Features Free Now!">🎉 Lansman Dönemi — Şimdi Tüm Özellikler Ücretsiz!</div>
-        <h2 data-tr="Basit ve şeffaf fiyatlandırma" data-en="Simple and transparent pricing">Basit ve şeffaf fiyatlandırma</h2>
-        <p class="section-desc" style="margin: 0 auto;" data-tr="Lansman döneminde tüm premium özellikler ücretsiz. Fiyat değişmeden önce hemen indir!" data-en="All premium features are free during launch. Download before prices change!">Lansman döneminde tüm premium özellikler ücretsiz. Fiyat değişmeden önce hemen indir!</p>
-      </div>
-
-      <div class="pricing-grid">
-        <!-- Free -->
-        <div class="pricing-card pricing-card-free fade-in">
-          <div class="pricing-name" data-tr="Ücretsiz" data-en="Free">Ücretsiz</div>
-          <div class="pricing-price">
-            <span class="amount">₺0</span>
-            <span class="period" data-tr=" / sonsuza kadar" data-en=" / forever"> / sonsuza kadar</span>
-          </div>
-          <p class="pricing-launch-note" data-tr="Temel özellikler her zaman ücretsiz." data-en="Basic features are always free.">Temel özellikler her zaman ücretsiz.</p>
-          <div class="pricing-divider"></div>
-          <ul class="pricing-features">
-            <li><span class="check">✓</span> <span data-tr="İlaç ekleme ve takibi" data-en="Add and track medications">İlaç ekleme ve takibi</span></li>
-            <li><span class="check">✓</span> <span data-tr="Akıllı hatırlatıcılar" data-en="Smart reminders">Akıllı hatırlatıcılar</span></li>
-            <li><span class="check">✓</span> <span data-tr="Günlük takvim görünümü" data-en="Daily calendar view">Günlük takvim görünümü</span></li>
-            <li><span class="check">✓</span> <span data-tr="Şifi maskot (temel)" data-en="Şifi mascot (basic)">Şifi maskot (temel)</span></li>
-            <li><span class="check">✓</span> <span data-tr="1 profil" data-en="1 profile">1 profil</span></li>
-          </ul>
-          <a href="https://apps.apple.com/app/sifa-asistanim/id6759059248" class="btn btn-pricing-free" data-tr="Ücretsiz Başla" data-en="Start Free">Ücretsiz Başla</a>
-        </div>
-
-        <!-- Premium -->
-        <div class="pricing-card pricing-card-premium fade-in">
-          <div class="pricing-badge">✨ Premium</div>
-          <div class="pricing-name">Premium</div>
-          <div class="pricing-price">
-            <span class="currency">₺</span><span class="amount">49</span><span style="font-size:32px; font-weight:900; color:white;">,90</span>
-            <span class="period" data-tr=" / aylık" data-en=" / month"> / aylık</span>
-          </div>
-          <div class="pricing-free-now" data-tr="🎉 Lansman döneminde tamamen ücretsiz!" data-en="🎉 Completely free during launch period!">🎉 Lansman döneminde tamamen ücretsiz!</div>
-          <div class="pricing-divider"></div>
-          <ul class="pricing-features">
-            <li><span class="check">✓</span> <span data-tr="Ücretsiz'deki her şey" data-en="Everything in Free">Ücretsiz'deki her şey</span></li>
-            <li><span class="check">✓</span> <span data-tr="Aile & yakın takibi" data-en="Family & caregiver tracking">Aile & yakın takibi</span></li>
-            <li><span class="check">✓</span> <span data-tr="Sınırsız aile/pet profili" data-en="Unlimited family/pet profiles">Sınırsız aile/pet profili</span></li>
-            <li><span class="check">✓</span> <span data-tr="Tüm Şifi aksesuarları" data-en="All Şifi accessories">Tüm Şifi aksesuarları</span></li>
-            <li><span class="check">✓</span> <span data-tr="12 tema + 8 kapsül rengi" data-en="12 themes + 8 capsule colors">12 tema + 8 kapsül rengi</span></li>
-            <li><span class="check">✓</span> <span data-tr="Sağlık ölçümleri & istatistik" data-en="Health metrics & statistics">Sağlık ölçümleri & istatistik</span></li>
-            <li><span class="check">✓</span> <span data-tr="Haftalık uyum raporu" data-en="Weekly adherence report">Haftalık uyum raporu</span></li>
-            <li><span class="check">✓</span> <span data-tr="Doktor randevusu hatırlatıcı" data-en="Doctor appointment reminders">Doktor randevusu hatırlatıcı</span></li>
-            <li><span class="check">✓</span> <span data-tr="XP & seviye sistemi" data-en="XP & level system">XP & seviye sistemi</span></li>
-            <li><span class="check">✓</span> <span data-tr="Stok takibi & uyarılar" data-en="Stock tracking & alerts">Stok takibi & uyarılar</span></li>
-          </ul>
-          <a href="https://apps.apple.com/app/sifa-asistanim/id6759059248" class="btn btn-pricing-premium" data-tr="🍎 Şimdi Ücretsiz İndir" data-en="🍎 Download Free Now">🍎 Şimdi Ücretsiz İndir</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TRUST -->
-  <section class="trust-section" id="trust">
-    <div class="section-inner">
-      <div class="fade-in" style="text-align:center; margin-bottom:60px;">
-        <div class="section-tag" style="display:inline-flex;" data-tr="🔒 Güvenlik" data-en="🔒 Security">🔒 Güvenlik</div>
-        <h2 style="margin-top:16px;" data-tr="Verileriniz size ait" data-en="Your data belongs to you">Verileriniz size ait</h2>
-        <p class="section-desc" style="margin:16px auto 0;" data-tr="Sağlık verileriniz en hassas bilgilerinizdir. Bunu biliyoruz." data-en="Your health data is your most sensitive information. We know that.">Sağlık verileriniz en hassas bilgilerinizdir. Bunu biliyoruz.</p>
-      </div>
-
-      <div class="trust-grid">
-        <div class="trust-card fade-in">
-          <span class="trust-icon">🚫</span>
-          <div class="trust-title" data-tr="Reklam Yok" data-en="No Ads">Reklam Yok</div>
-          <div class="trust-desc" data-tr="Hiçbir reklam içermez. Verileriniz asla satılmaz." data-en="Contains no ads. Your data is never sold.">Hiçbir reklam içermez. Verileriniz asla satılmaz.</div>
-        </div>
-        <div class="trust-card fade-in">
-          <span class="trust-icon">📱</span>
-          <div class="trust-title" data-tr="Yerel Depolama" data-en="Local Storage">Yerel Depolama</div>
-          <div class="trust-desc" data-tr="Sağlık ölçümleri sunucuya gönderilmez, cihazınızda kalır." data-en="Health metrics are not sent to servers, they stay on your device.">Sağlık ölçümleri sunucuya gönderilmez, cihazınızda kalır.</div>
-        </div>
-        <div class="trust-card fade-in">
-          <span class="trust-icon">✋</span>
-          <div class="trust-title" data-tr="Açık Rıza" data-en="Explicit Consent">Açık Rıza</div>
-          <div class="trust-desc" data-tr="Paylaşım özelliği yalnızca açık onayınızla çalışır." data-en="Sharing feature only works with your explicit consent.">Paylaşım özelliği yalnızca açık onayınızla çalışır.</div>
-        </div>
-        <div class="trust-card fade-in">
-          <span class="trust-icon">🗑️</span>
-          <div class="trust-title" data-tr="Veri Silme" data-en="Data Deletion">Veri Silme</div>
-          <div class="trust-desc" data-tr="Tüm verilerinizi uygulama içinden silebilirsiniz." data-en="You can delete all your data from within the app.">Tüm verilerinizi uygulama içinden silebilirsiniz.</div>
-        </div>
-      </div>
-
-      <div style="text-align:center; margin-top:40px;" class="fade-in">
-        <a href="privacy.html" class="btn btn-secondary" data-tr="📄 Gizlilik Politikasını Oku" data-en="📄 Read Privacy Policy">📄 Gizlilik Politikasını Oku</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="faq-section" id="faq">
-    <div class="section-inner">
-      <div class="fade-in" style="text-align:center; margin-bottom:60px;">
-        <div class="section-tag" style="display:inline-flex;" data-tr="❓ SSS" data-en="❓ FAQ">❓ SSS</div>
-        <h2 style="margin-top:16px;" data-tr="Merak ettikleriniz" data-en="Frequently asked questions">Merak ettikleriniz</h2>
-      </div>
-
-      <div class="faq-list">
-        <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Lansman döneminde premium ne kadar süre ücretsiz?" data-en="How long are premium features free during launch?">Lansman döneminde premium ne kadar süre ücretsiz?</div>
-          <div class="faq-answer" data-tr="Uygulama şu an App Store inceleme sürecindedir. Lansman döneminde tüm premium özellikler ücretsiz sunulmaktadır. İlerleyen dönemde aylık ₺49,90 olarak fiyatlandırılacaktır. Şimdi indirenler avantajlı koşullardan yararlanabilir." data-en="The app is currently under App Store review. All premium features are free during the launch period. It will be priced at ₺49.90/month later. Early downloaders will benefit from special conditions.">Uygulama şu an App Store inceleme sürecindedir. Lansman döneminde tüm premium özellikler ücretsiz sunulmaktadır. İlerleyen dönemde aylık ₺49,90 olarak fiyatlandırılacaktır. Şimdi indirenler avantajlı koşullardan yararlanabilir.</div>
-        </div>
-
-        <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Uygulama ücretsiz mi?" data-en="Is the app free?">Uygulama ücretsiz mi?</div>
-          <div class="faq-answer" data-tr="Temel özellikler (ilaç ekleme, hatırlatıcı, takvim) sonsuza kadar ücretsizdir. Aile paylaşımı, tüm Şifi aksesuarları ve sağlık istatistikleri gibi premium özellikler lansman döneminde ücretsiz, sonrasında aylık ₺49,90 olacaktır." data-en="Basic features (adding meds, reminders, calendar) are free forever. Premium features like family sharing, all Şifi accessories and health statistics are free during launch, then ₺49.90/month.">Temel özellikler (ilaç ekleme, hatırlatıcı, takvim) sonsuza kadar ücretsizdir. Aile paylaşımı, tüm Şifi aksesuarları ve sağlık istatistikleri gibi premium özellikler lansman döneminde ücretsiz, sonrasında aylık ₺49,90 olacaktır.</div>
-        </div>
-
-        <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Şifi nedir?" data-en="What is Şifi?">Şifi nedir?</div>
-          <div class="faq-answer" data-tr="Şifi, Şifa Asistanım'ın sevimli maskotudur! İlaç eklerken adım adım yardım eder, her aldığın dozda XP kazandırır, 9 seviyeye kadar seninle büyür. Renk, aksesuar ve tema seçerek onu tamamen kişiselleştirebilirsin." data-en="Şifi is Şifa Assistant's cute mascot! It helps you step by step when adding meds, earns you XP with every dose, and grows with you through 9 levels. Customize it with colors, accessories and themes.">Şifi, Şifa Asistanım'ın sevimli maskotudur! İlaç eklerken adım adım yardım eder, her aldığın dozda XP kazandırır, 9 seviyeye kadar seninle büyür. Renk, aksesuar ve tema seçerek onu tamamen kişiselleştirebilirsin.</div>
-        </div>
-
-        <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Verilerim güvende mi?" data-en="Is my data safe?">Verilerim güvende mi?</div>
-          <div class="faq-answer" data-tr="Evet. Sağlık ölçüm verileriniz yalnızca cihazınızda tutulur. İlaç planı ve doz bilgisi yalnızca siz izin verdiğinizde bulutta güvenli şekilde senkronlanır. Şifreli bağlantı kullanılır ve verileriniz asla üçüncü taraflarla paylaşılmaz." data-en="Yes. Health metric data is stored only on your device. Med plan and dose info is synced securely to the cloud only with your permission. Encrypted connections are used and your data is never shared with third parties.">Evet. Sağlık ölçüm verileriniz yalnızca cihazınızda tutulur. İlaç planı ve doz bilgisi yalnızca siz izin verdiğinizde bulutta güvenli şekilde senkronlanır. Şifreli bağlantı kullanılır ve verileriniz asla üçüncü taraflarla paylaşılmaz.</div>
-        </div>
-
-        <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Yakınımı nasıl takip ederim?" data-en="How do I track a family member?">Yakınımı nasıl takip ederim?</div>
-          <div class="faq-answer" data-tr="İki cihazda da Şifa Asistanım yüklü olmalı. Bağlantılar sekmesinden &quot;Yakınımı Takip Edeyim&quot; veya &quot;Yakınım Beni Takip Etsin&quot; seçeneğini kullanarak davet linki gönderin. Onay verildiğinde bağlantı tamamlanır." data-en="Şifa Assistant must be installed on both devices. From the Connections tab, use &quot;Track My Family Member&quot; or &quot;Let Them Track Me&quot; to send an invite link. The connection is completed once approved.">İki cihazda da Şifa Asistanım yüklü olmalı. Bağlantılar sekmesinden "Yakınımı Takip Edeyim" veya "Yakınım Beni Takip Etsin" seçeneğini kullanarak davet linki gönderin. Onay verildiğinde bağlantı tamamlanır.</div>
-        </div>
-
-        <div class="faq-item fade-in">
-          <div class="faq-question" onclick="toggleFaq(this)" data-tr="Hangi cihazlarda çalışır?" data-en="Which devices are supported?">Hangi cihazlarda çalışır?</div>
-          <div class="faq-answer" data-tr="iPhone (iOS 15 ve üzeri) ve Android cihazlarda çalışmaktadır." data-en="Works on iPhone (iOS 15+) and Android devices.">iPhone (iOS 15 ve üzeri) ve Android cihazlarda çalışmaktadır.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section" id="download">
-    <h2 data-tr="Bugün başlayın" data-en="Get started today">Bugün başlayın</h2>
-    <p class="cta-desc" data-tr="Şifi sizi bekliyor! Lansman döneminde tüm özellikler ücretsiz — hemen indirin." data-en="Şifi is waiting for you! All features are free during launch — download now.">
-      Şifi sizi bekliyor! Lansman döneminde tüm özellikler ücretsiz — hemen indirin.
-    </p>
-    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1;">
-      <a href="https://apps.apple.com/app/sifa-asistanim/id6759059248" class="btn btn-white" style="font-size: 16px; padding: 16px 32px;" data-tr="🍎 App Store" data-en="🍎 App Store">
-        🍎 App Store
-      </a>
-      <a href="#" class="btn btn-white" style="font-size: 16px; padding: 16px 32px; opacity: 0.7; pointer-events: none;" data-tr="▶️ Google Play (Yakında)" data-en="▶️ Google Play (Coming Soon)">
-        ▶️ Google Play (Yakında)
-      </a>
-    </div>
-    <p class="cta-note" data-tr="iOS 15+ · Android · Türkçe · Reklam Yok" data-en="iOS 15+ · Android · Turkish · No Ads">iOS 15+ · Android · Türkçe · Reklam Yok</p>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <a href="index.html" class="footer-logo">
-        <div class="nav-logo-icon">💊</div>
-        <span data-tr="Şifa Asistanım" data-en="Şifa Assistant">Şifa Asistanım</span>
-      </a>
-      <div style="display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <ul class="footer-links">
-          <li><a href="blog.html" data-tr="Blog" data-en="Blog">Blog</a></li>
-          <li><a href="chat.html" data-tr="Şifi'ye Sor" data-en="Ask Şifi">Şifi'ye Sor</a></li>
-          <li><a href="guide.html" data-tr="Rehber" data-en="Guide">Rehber</a></li>
-          <li><a href="press.html" data-tr="Basın" data-en="Press">Basın</a></li>
-        </ul>
-        <ul class="footer-links">
-          <li><a href="game-match.html">🧩 Eşleştir</a></li>
-          <li><a href="game-memory.html">🃏 Hafıza</a></li>
-          <li><a href="game-flappy.html">🐦 Flappy</a></li>
-          <li><a href="game.html">💊 Yakala</a></li>
-          <li><a href="burc.html">🔮 Burç</a></li>
-          <li><a href="stickers.html">Sticker</a></li>
-        </ul>
-        <ul class="footer-links">
-          <li><a href="privacy.html" data-tr="Gizlilik" data-en="Privacy">Gizlilik</a></li>
-          <li><a href="terms.html" data-tr="Koşullar" data-en="Terms">Koşullar</a></li>
-          <li><a href="mailto:zaydeayvaz@icloud.com" data-tr="İletişim" data-en="Contact">İletişim</a></li>
-        </ul>
-      </div>
-      <div class="footer-copy">© 2026 Şifa Asistanım · Made with ❤️ in Turkey</div>
-    </div>
-  </footer>
-
-  <script>
-    // LANGUAGE SWITCHER
-    let currentLang = localStorage.getItem('sifa-lang') || 'tr';
-
-    function setLang(lang) {
-      currentLang = lang;
-      localStorage.setItem('sifa-lang', lang);
-      document.documentElement.lang = lang;
-
-      // Update all translatable elements
-      document.querySelectorAll('[data-' + lang + ']').forEach(el => {
-        const text = el.getAttribute('data-' + lang);
-        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-          el.placeholder = text;
-        } else {
-          el.innerHTML = text;
-        }
-      });
-
-      // Update page title
-      document.title = lang === 'tr'
-        ? 'Şifa Asistanım — İlaç Takip Uygulaması'
-        : 'Şifa Assistant — Medication Tracking App';
-
-      // Update lang buttons
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
-      });
-
-      // Update Sifi messages
-      if (window.updateSifiLang) window.updateSifiLang(lang);
-    }
-
-    // Apply saved language on load
-    if (currentLang !== 'tr') {
-      setLang(currentLang);
-    }
-
-    function toggleFaq(el) {
-      const item = el.parentElement;
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 90);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // Smooth nav highlight
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      if (window.scrollY > 50) {
-        nav.style.boxShadow = '0 4px 24px rgba(15,23,42,0.08)';
-      } else {
-        nav.style.boxShadow = 'none';
-      }
-    });
-
-    // Dropdown disina tiklaninca kapat
-    document.addEventListener('click', (e) => {
-      const dd = document.getElementById('gamesDropdown');
-      if (dd && !e.target.closest('#gamesDd')) {
-        dd.style.display = 'none';
-      }
-    });
-  </script>
-
-  <!-- ŞİFİ - İnteraktif Maskot -->
-  <style>
-    #sifi-container {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9999;
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-select: none;
-      transition: bottom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  right 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  top 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-      filter: drop-shadow(0 6px 20px rgba(37,99,235,0.25));
-    }
-
-    #sifi-container:hover {
-      filter: drop-shadow(0 8px 28px rgba(37,99,235,0.4));
-    }
-
-    #sifi-container.sifi-jump {
-      animation: sifiJump 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    #sifi-container.sifi-giggle {
-      animation: sifiGiggle 0.6s ease-in-out;
-    }
-
-    @keyframes sifiJump {
-      0% { transform: translateY(0) scale(1); }
-      30% { transform: translateY(-40px) scale(1.05, 0.95); }
-      50% { transform: translateY(-50px) scale(0.95, 1.1); }
-      70% { transform: translateY(-20px) scale(1.02); }
-      100% { transform: translateY(0) scale(1); }
-    }
-
-    @keyframes sifiGiggle {
-      0% { transform: rotate(0deg) scale(1); }
-      15% { transform: rotate(-12deg) scale(1.1); }
-      30% { transform: rotate(10deg) scale(1.12); }
-      45% { transform: rotate(-8deg) scale(1.08); }
-      60% { transform: rotate(6deg) scale(1.05); }
-      75% { transform: rotate(-3deg) scale(1.02); }
-      100% { transform: rotate(0deg) scale(1); }
-    }
-
-    #sifi-bubble {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      color: #0F172A;
-      font-family: 'Nunito', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 8px 14px;
-      border-radius: 14px;
-      white-space: nowrap;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-      opacity: 0;
-      transition: opacity 0.3s, transform 0.3s;
-      transform: translateX(-50%) translateY(8px);
-      pointer-events: none;
-      margin-bottom: 8px;
-    }
-
-    #sifi-bubble.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    #sifi-bubble::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-top-color: white;
-    }
-
-    .sifi-body { transition: transform 0.2s; }
-    #sifi-container:hover .sifi-body { transform: scale(1.05); }
-
-    /* Goz kirpma */
-    .sifi-eye-open { animation: sifiBlink 4s infinite; }
-    @keyframes sifiBlink {
-      0%, 90%, 100% { opacity: 1; }
-      95% { opacity: 0; }
-    }
-    .sifi-eye-closed { animation: sifiBlinkClosed 4s infinite; }
-    @keyframes sifiBlinkClosed {
-      0%, 90%, 100% { opacity: 0; }
-      95% { opacity: 1; }
-    }
-
-    @media (max-width: 600px) {
-      #sifi-container { transform: scale(0.8); transform-origin: bottom right; }
-    }
-  </style>
-
-  <div id="sifi-container" onclick="sifiTapped()">
-    <div id="sifi-bubble">Merhaba! Ben Şifi 👋</div>
-    <svg class="sifi-body" width="90" height="110" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Gölge -->
-      <ellipse cx="150" cy="355" rx="55" ry="10" fill="#94A3B8" opacity="0.15"/>
-      <!-- Bacaklar -->
-      <rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
-      <rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/>
-      <!-- Kollar yatay -->
-      <line x1="78" y1="195" x2="42" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/>
-      <line x1="222" y1="195" x2="258" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/>
-      <!-- Kapsül gövde -->
-      <defs>
-        <clipPath id="sifi-cap"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath>
-      </defs>
-      <g clip-path="url(#sifi-cap)">
-        <rect x="78" y="85" width="144" height="120" fill="#2563EB"/>
-        <rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/>
-        <rect x="78" y="203" width="144" height="3" fill="#1D4ED8" opacity="0.15"/>
-      </g>
-      <rect x="78" y="85" width="144" height="220" rx="72" stroke="#1D4ED8" stroke-width="2" fill="none" opacity="0.15"/>
-      <!-- Gözler -->
-      <g class="sifi-eye-open">
-        <circle cx="124" cy="170" r="22" fill="white"/>
-        <circle cx="128" cy="168" r="11" fill="#0F172A"/>
-        <circle cx="133" cy="163" r="5" fill="white"/>
-        <circle cx="129" cy="173" r="2.5" fill="white" opacity="0.7"/>
-        <circle cx="176" cy="170" r="22" fill="white"/>
-        <circle cx="180" cy="168" r="11" fill="#0F172A"/>
-        <circle cx="185" cy="163" r="5" fill="white"/>
-        <circle cx="181" cy="173" r="2.5" fill="white" opacity="0.7"/>
-      </g>
-      <g class="sifi-eye-closed">
-        <path d="M108 172 Q124 180 140 172" stroke="#0F172A" stroke-width="4" stroke-linecap="round" fill="none"/>
-        <path d="M160 172 Q176 180 192 172" stroke="#0F172A" stroke-width="4" stroke-linecap="round" fill="none"/>
-      </g>
-      <!-- Ağız -->
-      <path id="sifi-mouth" d="M132 225 Q150 245 168 225" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-      <!-- Antenler -->
-      <line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
-      <circle cx="105" cy="38" r="10" fill="#EF4444"/>
-      <line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
-      <circle cx="195" cy="38" r="10" fill="#EF4444"/>
-    </svg>
+    <button class="nav-lang" onclick="toggleLang()" aria-label="Toggle language">TR / EN</button>
+    <a href="https://apps.apple.com/us/app/%C5%9Fifa-asistan%C4%B1m/id6759059248" class="nav-cta" data-lang="tr">İndir</a>
+    <a href="https://apps.apple.com/us/app/%C5%9Fifa-asistan%C4%B1m/id6759059248" class="nav-cta" data-lang="en">Download</a>
+    <button class="nav-menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#categories" onclick="closeMenu()" data-lang="tr">Kategoriler</a>
+  <a href="#categories" onclick="closeMenu()" data-lang="en">Categories</a>
+  <a href="#features" onclick="closeMenu()" data-lang="tr">Özellikler</a>
+  <a href="#features" onclick="closeMenu()" data-lang="en">Features</a>
+  <a href="#games" onclick="closeMenu()" data-lang="tr">Oyunlar</a>
+  <a href="#games" onclick="closeMenu()" data-lang="en">Games</a>
+  <a href="#faq" onclick="closeMenu()" data-lang="tr">SSS</a>
+  <a href="#faq" onclick="closeMenu()" data-lang="en">FAQ</a>
+</div>
 
-  <script>
-  (function() {
-    const sifi = document.getElementById('sifi-container');
-    const bubble = document.getElementById('sifi-bubble');
-    const mouth = document.getElementById('sifi-mouth');
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-content">
+    <img src="./icon.png" alt="Sifi Care icon" class="hero-icon" width="100" height="100">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      <span data-lang="tr">App Store'da yayında</span>
+      <span data-lang="en">Live on the App Store</span>
+    </div>
+    <h1>Sifi Care</h1>
+    <p class="hero-subtitle" data-lang="tr">bakım ve sağlık rutinlerim</p>
+    <p class="hero-subtitle" data-lang="en">my care &amp; health routines</p>
+    <p class="hero-desc" data-lang="tr">
+      İlaç, cilt bakımı, suplement ve sağlık rutinlerini tek uygulamada takip et.
+      Şifi asistanınla her şey çok kolay.
+    </p>
+    <p class="hero-desc" data-lang="en">
+      Track medications, skincare, supplements and health routines in one app.
+      Everything is easy with your Şifi assistant.
+    </p>
+    <div class="hero-buttons">
+      <a href="https://apps.apple.com/us/app/%C5%9Fifa-asistan%C4%B1m/id6759059248" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/></svg>
+        <span data-lang="tr">App Store'dan İndir</span>
+        <span data-lang="en">Download on App Store</span>
+      </a>
+      <a href="#categories" class="btn-secondary">
+        <span data-lang="tr">Keşfet</span>
+        <span data-lang="en">Explore</span>
+        <span>↓</span>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <strong>4</strong>
+        <span data-lang="tr">Kategori</span>
+        <span data-lang="en">Categories</span>
+      </div>
+      <div class="hero-stat">
+        <strong>10</strong>
+        <span data-lang="tr">Adımlı Asistan</span>
+        <span data-lang="en">Step Wizard</span>
+      </div>
+      <div class="hero-stat">
+        <strong>4</strong>
+        <span data-lang="tr">Mini Oyun</span>
+        <span data-lang="en">Mini Games</span>
+      </div>
+      <div class="hero-stat">
+        <strong>%100</strong>
+        <span data-lang="tr">Türkçe</span>
+        <span data-lang="en">Turkish</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    const messagesByLang = {
-      tr: [
-        'Merhaba! Ben Şifi 👋',
-        'İlaçlarını takip edeyim mi? 💊',
-        'Sağlık arkadaşın burada! 💙',
-        'Bana dokun, kıkırdarım 😄',
-        'Şifa Asistanım\'ı dene! ✨',
-        'Aileni de ekleyebilirsin 👨‍👩‍👧',
-        'Bugün ilaçlarını aldın mı? 🤔',
-        'Seni takip ediyorum! 🔔'
-      ],
-      en: [
-        'Hi! I\'m Şifi 👋',
-        'Shall I track your meds? 💊',
-        'Your health buddy is here! 💙',
-        'Tap me, I\'ll giggle 😄',
-        'Try Şifa Assistant! ✨',
-        'Add your family too 👨‍👩‍👧',
-        'Did you take your meds today? 🤔',
-        'I\'m keeping an eye on you! 🔔'
-      ]
-    };
+<!-- ── Categories ── -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">KATEGORİLER</div>
+      <div class="section-label" data-lang="en">CATEGORIES</div>
+      <h2 class="section-title" data-lang="tr">Sağlığın her alanı tek yerde</h2>
+      <h2 class="section-title" data-lang="en">Every area of health in one place</h2>
+      <p class="section-desc" data-lang="tr">Sadece ilaç değil — cilt bakımından suplemente, sağlık rutinlerine kadar her şeyi takip edin.</p>
+      <p class="section-desc" data-lang="en">Not just medication — track everything from skincare to supplements and health routines.</p>
+    </div>
+    <div class="categories-grid">
+      <div class="cat-card">
+        <div class="cat-icon">💊</div>
+        <h3 data-lang="tr">İlaç Takibi</h3>
+        <h3 data-lang="en">Medication</h3>
+        <p data-lang="tr">Reçeteli ve reçetesiz ilaçlarınızı saatinde hatırlayın, stok takibi yapın.</p>
+        <p data-lang="en">Remember your prescriptions on time, track your stock levels.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🧴</div>
+        <h3 data-lang="tr">Bakım Rutini</h3>
+        <h3 data-lang="en">Skincare</h3>
+        <p data-lang="tr">Sabah ve akşam cilt bakım rutinlerinizi adım adım takip edin.</p>
+        <p data-lang="en">Follow your morning and evening skincare routines step by step.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">💪</div>
+        <h3 data-lang="tr">Suplement & Vitamin</h3>
+        <h3 data-lang="en">Supplements</h3>
+        <p data-lang="tr">Vitamin ve takviyelerinizi düzenli almayı asla unutmayın.</p>
+        <p data-lang="en">Never forget to take your vitamins and supplements regularly.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🩺</div>
+        <h3 data-lang="tr">Sağlık Rutini</h3>
+        <h3 data-lang="en">Health Routines</h3>
+        <p data-lang="tr">Tansiyon ölçümü, egzersiz, meditasyon gibi sağlık alışkanlıklarınızı izleyin.</p>
+        <p data-lang="en">Track health habits like blood pressure, exercise, and meditation.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    const giggleMsgsByLang = {
-      tr: ['Hihihi! 🤭', 'Kıkır kıkır! 😆', 'Gıdıklanıyorum! 😂', 'Hahaha dur! 🤣', 'Çok gıdık! 😄'],
-      en: ['Hehehe! 🤭', 'Tee-hee! 😆', 'That tickles! 😂', 'Hahaha stop! 🤣', 'So ticklish! 😄']
-    };
+<!-- ── Şifi Asistan ── -->
+<section class="section sifi-section" id="sifi">
+  <div class="container">
+    <div class="sifi-card">
+      <div class="sifi-visual">🤖</div>
+      <div class="sifi-info">
+        <div class="section-label" data-lang="tr">AKILLI ASİSTAN</div>
+        <div class="section-label" data-lang="en">SMART ASSISTANT</div>
+        <h2 data-lang="tr">Şifi seninle adım adım</h2>
+        <h2 data-lang="en">Şifi guides you step by step</h2>
+        <p data-lang="tr">
+          İki renkli kapsül robotumuz Şifi, 10 adımlık sihirbazıyla yeni kayıt eklemeyi çocuk oyuncağı yapar. İsim, doz, sıklık, saat, stok — her şeyi sırayla sorar.
+        </p>
+        <p data-lang="en">
+          Our two-toned capsule robot Şifi makes adding new entries a breeze with its 10-step wizard. Name, dose, frequency, time, stock — it asks everything in order.
+        </p>
+        <div class="sifi-steps">
+          <span class="sifi-step" data-lang="tr">1. Kategori</span>
+          <span class="sifi-step" data-lang="en">1. Category</span>
+          <span class="sifi-step" data-lang="tr">2. İsim</span>
+          <span class="sifi-step" data-lang="en">2. Name</span>
+          <span class="sifi-step" data-lang="tr">3. Doz</span>
+          <span class="sifi-step" data-lang="en">3. Dose</span>
+          <span class="sifi-step" data-lang="tr">4. Sıklık</span>
+          <span class="sifi-step" data-lang="en">4. Frequency</span>
+          <span class="sifi-step" data-lang="tr">5. Saatler</span>
+          <span class="sifi-step" data-lang="en">5. Times</span>
+          <span class="sifi-step" data-lang="tr">6. Süre</span>
+          <span class="sifi-step" data-lang="en">6. Duration</span>
+          <span class="sifi-step" data-lang="tr">7. Yemek</span>
+          <span class="sifi-step" data-lang="en">7. Meals</span>
+          <span class="sifi-step" data-lang="tr">8. Not</span>
+          <span class="sifi-step" data-lang="en">8. Notes</span>
+          <span class="sifi-step" data-lang="tr">9. Stok</span>
+          <span class="sifi-step" data-lang="en">9. Stock</span>
+          <span class="sifi-step" data-lang="tr">10. Fotoğraf</span>
+          <span class="sifi-step" data-lang="en">10. Photo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    let messages = messagesByLang[currentLang] || messagesByLang.tr;
-    let giggleMsgs = giggleMsgsByLang[currentLang] || giggleMsgsByLang.tr;
+<!-- ── Features ── -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">ÖZELLİKLER</div>
+      <div class="section-label" data-lang="en">FEATURES</div>
+      <h2 class="section-title" data-lang="tr">Her ihtiyacını karşılayan özellikler</h2>
+      <h2 class="section-title" data-lang="en">Features that cover every need</h2>
+      <p class="section-desc" data-lang="tr">Sağlığınızı yönetmek hiç bu kadar kolay ve eğlenceli olmamıştı.</p>
+      <p class="section-desc" data-lang="en">Managing your health has never been this easy and fun.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🔔</div>
+        <h3 data-lang="tr">Akıllı Hatırlatmalar</h3>
+        <h3 data-lang="en">Smart Reminders</h3>
+        <p data-lang="tr">Özelleştirilebilir bildirimlerle hiçbir dozu kaçırmayın. Esnek zamanlama seçenekleri.</p>
+        <p data-lang="en">Never miss a dose with customizable notifications. Flexible scheduling options.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📊</div>
+        <h3 data-lang="tr">Uyum Takvimi</h3>
+        <h3 data-lang="en">Compliance Calendar</h3>
+        <p data-lang="tr">Haftalık ve aylık görünümde kullanım geçmişinizi izleyin. Renkli uyum haritası.</p>
+        <p data-lang="en">View your usage history in weekly and monthly views. Color-coded compliance map.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">❤️</div>
+        <h3 data-lang="tr">Sağlık Takibi</h3>
+        <h3 data-lang="en">Health Tracking</h3>
+        <p data-lang="tr">Tansiyon, şeker, kilo ve ruh halini kaydedin. Trend grafikleriyle gelişiminizi görün.</p>
+        <p data-lang="en">Log blood pressure, blood sugar, weight and mood. See trends with charts.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🏆</div>
+        <h3 data-lang="tr">XP & Seviyeler</h3>
+        <h3 data-lang="en">XP & Levels</h3>
+        <p data-lang="tr">Her kullanımda XP kazanın, seviye atlayın, seri rekorları kırın. Sağlık eğlenceli!</p>
+        <p data-lang="en">Earn XP with every use, level up, break streak records. Health is fun!</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📦</div>
+        <h3 data-lang="tr">Akıllı Stok</h3>
+        <h3 data-lang="en">Smart Stock</h3>
+        <p data-lang="tr">İlaç ve ürün stokunuzu otomatik takip edin. Azaldığında uyarı alın.</p>
+        <p data-lang="en">Automatically track your medication and product stock. Get alerts when low.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">👨‍👩‍👧</div>
+        <h3 data-lang="tr">Aile Profilleri</h3>
+        <h3 data-lang="en">Family Profiles</h3>
+        <p data-lang="tr">Aileniz ve evcil hayvanlarınız için ayrı profiller oluşturun ve yönetin.</p>
+        <p data-lang="en">Create and manage separate profiles for family members and pets.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔒</div>
+        <h3 data-lang="tr">Gizlilik Öncelikli</h3>
+        <h3 data-lang="en">Privacy First</h3>
+        <p data-lang="tr">Verileriniz cihazınızda kalır. Bulut senkronizasyonu tamamen isteğe bağlı.</p>
+        <p data-lang="en">Your data stays on your device. Cloud sync is completely optional.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🌙</div>
+        <h3 data-lang="tr">Günlük Sağlık Burcu</h3>
+        <h3 data-lang="en">Daily Health Horoscope</h3>
+        <p data-lang="tr">Her gün burcunuza özel sağlık ve wellness ipuçları alın. Eğlenceli motivasyon.</p>
+        <p data-lang="en">Get daily health and wellness tips based on your zodiac sign. Fun motivation.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    window.updateSifiLang = function(lang) {
-      messages = messagesByLang[lang] || messagesByLang.tr;
-      giggleMsgs = giggleMsgsByLang[lang] || giggleMsgsByLang.tr;
-    };
+<!-- ── Games ── -->
+<section class="section" id="games">
+  <div class="container">
+    <div class="games-section">
+      <div class="section-header" style="margin-bottom:40px;">
+        <div class="section-label" data-lang="tr">BEYİN SAĞLIĞI</div>
+        <div class="section-label" data-lang="en">BRAIN HEALTH</div>
+        <h2 class="section-title" data-lang="tr">Mini oyunlarla beynini taze tut</h2>
+        <h2 class="section-title" data-lang="en">Keep your brain sharp with mini games</h2>
+        <p class="section-desc" style="margin:0 auto;" data-lang="tr">
+          4 farklı mini oyunla hem eğlen hem beyin sağlığını koru. XP kazan, seviye atla!
+        </p>
+        <p class="section-desc" style="margin:0 auto;" data-lang="en">
+          Have fun and protect your brain health with 4 mini games. Earn XP, level up!
+        </p>
+      </div>
+      <div class="games-grid">
+        <div class="game-card">
+          <span class="game-emoji">🧠</span>
+          <h4 data-lang="tr">Hafıza Oyunu</h4>
+          <h4 data-lang="en">Memory Game</h4>
+          <p data-lang="tr">Kart çevirme ile hafızanı test et</p>
+          <p data-lang="en">Test your memory with card flipping</p>
+          <span class="game-badge" data-lang="tr">15 Seviye</span>
+          <span class="game-badge" data-lang="en">15 Levels</span>
+        </div>
+        <div class="game-card">
+          <span class="game-emoji">💊</span>
+          <h4 data-lang="tr">İlaç Eşleştir</h4>
+          <h4 data-lang="en">Medicine Match</h4>
+          <p data-lang="tr">Match-3 tarzı eşleştirme oyunu</p>
+          <p data-lang="en">Match-3 style puzzle game</p>
+          <span class="game-badge" data-lang="tr">20 Seviye</span>
+          <span class="game-badge" data-lang="en">20 Levels</span>
+        </div>
+        <div class="game-card">
+          <span class="game-emoji">🎯</span>
+          <h4 data-lang="tr">İlaç Yakala</h4>
+          <h4 data-lang="en">Catch Medicine</h4>
+          <p data-lang="tr">Düşen ilaçları yakala, puanla!</p>
+          <p data-lang="en">Catch falling medicine, score!</p>
+          <span class="game-badge" data-lang="tr">10 Seviye</span>
+          <span class="game-badge" data-lang="en">10 Levels</span>
+        </div>
+        <div class="game-card">
+          <span class="game-emoji">🚀</span>
+          <h4 data-lang="tr">Flappy Şifi</h4>
+          <h4 data-lang="en">Flappy Şifi</h4>
+          <p data-lang="tr">Şifi'yi uçur, engelleri aş!</p>
+          <p data-lang="en">Fly Şifi, dodge obstacles!</p>
+          <span class="game-badge" data-lang="tr">Sonsuz Mod</span>
+          <span class="game-badge" data-lang="en">Endless Mode</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Kikirdama sesi - Web Audio API
-    function playGiggle() {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const notes = [523, 659, 784, 880, 784, 659];
-        notes.forEach((freq, i) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.08);
-          gain.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.08);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.15);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(ctx.currentTime + i * 0.08);
-          osc.stop(ctx.currentTime + i * 0.08 + 0.15);
-        });
-      } catch(e) {}
-    }
+<!-- ── Premium ── -->
+<section class="section" id="premium">
+  <div class="container">
+    <div class="premium-card">
+      <div class="premium-info">
+        <div class="section-label" data-lang="tr">PREMİUM</div>
+        <div class="section-label" data-lang="en">PREMIUM</div>
+        <h2 data-lang="tr">Sevdiklerini de koru</h2>
+        <h2 data-lang="en">Protect your loved ones too</h2>
+        <p data-lang="tr">Premium ile aile paylaşımı açılır. Sevdiklerinizin ilaçlarını uzaktan takip edin, hatırlatma gönderin.</p>
+        <p data-lang="en">Unlock family sharing with Premium. Remotely monitor loved ones' medications and send reminders.</p>
+        <ul class="premium-features">
+          <li data-lang="tr">Yakın takibi — 5 kişiye kadar izleme</li>
+          <li data-lang="en">Family monitoring — up to 5 people</li>
+          <li data-lang="tr">Anlık bildirimler — ilaç alındığında haber alın</li>
+          <li data-lang="en">Instant notifications — know when meds are taken</li>
+          <li data-lang="tr">Bulut senkronizasyonu — cihaz değişse bile veriler güvende</li>
+          <li data-lang="en">Cloud sync — data safe even if you switch devices</li>
+          <li data-lang="tr">İzleyici ilaç ekleme — sevdikleriniz adına ilaç ekleyin</li>
+          <li data-lang="en">Add meds for others — manage on their behalf</li>
+          <li data-lang="tr">Reklamsız deneyim</li>
+          <li data-lang="en">Ad-free experience</li>
+        </ul>
+      </div>
+      <div class="premium-visual">👨‍👩‍👧‍👦</div>
+    </div>
+  </div>
+</section>
 
-    // Baslangicta merhaba de
-    setTimeout(() => {
-      const helloMsg = (currentLang === 'en') ? 'Hi! I\'m Şifi 👋' : 'Merhaba! Ben Şifi 👋';
-      bubble.textContent = helloMsg;
-      bubble.classList.add('show');
-      sifi.classList.add('sifi-jump');
-      setTimeout(() => {
-        sifi.classList.remove('sifi-jump');
-      }, 500);
-      setTimeout(() => { bubble.classList.remove('show'); }, 3500);
-    }, 2000);
+<!-- ── Privacy ── -->
+<section class="section" id="privacy">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">GÜVENLİK</div>
+      <div class="section-label" data-lang="en">SECURITY</div>
+      <h2 class="section-title" data-lang="tr">Gizliliğin bizim için öncelik</h2>
+      <h2 class="section-title" data-lang="en">Your privacy is our priority</h2>
+    </div>
+    <div class="privacy-grid">
+      <div class="priv-card">
+        <span class="priv-icon">📱</span>
+        <h3 data-lang="tr">Cihazda Kalır</h3>
+        <h3 data-lang="en">Stays on Device</h3>
+        <p data-lang="tr">Tüm verileriniz varsayılan olarak cihazınızda saklanır. Sizin kontrolünüzde.</p>
+        <p data-lang="en">All your data is stored on your device by default. Under your control.</p>
+      </div>
+      <div class="priv-card">
+        <span class="priv-icon">☁️</span>
+        <h3 data-lang="tr">İsteğe Bağlı Bulut</h3>
+        <h3 data-lang="en">Optional Cloud</h3>
+        <p data-lang="tr">Bulut senkronizasyonu tamamen isteğe bağlı. İstediğiniz zaman silebilirsiniz.</p>
+        <p data-lang="en">Cloud sync is entirely optional. You can delete your data anytime.</p>
+      </div>
+      <div class="priv-card">
+        <span class="priv-icon">🗑️</span>
+        <h3 data-lang="tr">Tam Silme Hakkı</h3>
+        <h3 data-lang="en">Right to Delete</h3>
+        <p data-lang="tr">Hesabınızı ve tüm verilerinizi tek tuşla kalıcı olarak silebilirsiniz.</p>
+        <p data-lang="en">Permanently delete your account and all data with a single tap.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Rastgele mesaj goster ve zipla
-    let jumpInterval;
-    function startRandomJumps() {
-      jumpInterval = setInterval(() => {
-        const positions = getRandomPosition();
-        sifi.style.bottom = positions.bottom + 'px';
-        sifi.style.right = positions.right + 'px';
-        sifi.style.left = 'auto';
-        sifi.style.top = 'auto';
+<!-- ── FAQ ── -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">SIKÇA SORULAN SORULAR</div>
+      <div class="section-label" data-lang="en">FAQ</div>
+      <h2 class="section-title" data-lang="tr">Merak ettikleriniz</h2>
+      <h2 class="section-title" data-lang="en">Frequently asked questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="tr">Sifi Care ücretsiz mi?</span>
+          <span data-lang="en">Is Sifi Care free?</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span data-lang="tr">Evet! Tüm temel özellikler tamamen ücretsiz. İlaç takibi, hatırlatmalar, takvim, sağlık takibi ve mini oyunlar ücretsiz kullanılabilir. Premium abonelik sadece aile paylaşımı ve bulut senkronizasyonu gibi ek özellikler içerir.</span>
+          <span data-lang="en">Yes! All core features are completely free. Medication tracking, reminders, calendar, health tracking and mini games are free to use. Premium subscription only includes extras like family sharing and cloud sync.</span>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="tr">Verilerim güvende mi?</span>
+          <span data-lang="en">Is my data safe?</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span data-lang="tr">Kesinlikle. Verileriniz varsayılan olarak cihazınızda saklanır ve hiçbir yere gönderilmez. Bulut senkronizasyonu tamamen isteğe bağlıdır ve istediğiniz zaman tüm verilerinizi silebilirsiniz.</span>
+          <span data-lang="en">Absolutely. Your data is stored on your device by default and is not sent anywhere. Cloud sync is completely optional and you can delete all your data at any time.</span>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="tr">Kayıt olmadan kullanabilir miyim?</span>
+          <span data-lang="en">Can I use it without signing up?</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span data-lang="tr">Evet! Hesap oluşturmadan tüm temel özellikleri kullanabilirsiniz. Kayıt sadece bulut senkronizasyonu ve aile paylaşımı için gereklidir.</span>
+          <span data-lang="en">Yes! You can use all core features without creating an account. Registration is only required for cloud sync and family sharing.</span>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="tr">Hangi kategorileri takip edebilirim?</span>
+          <span data-lang="en">What categories can I track?</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span data-lang="tr">Dört kategori mevcut: İlaç Takibi (reçeteli/reçetesiz ilaçlar), Bakım Rutini (cilt bakımı, saç bakımı), Suplement & Vitamin (takviyeler), ve Sağlık Rutini (egzersiz, meditasyon, ölçümler).</span>
+          <span data-lang="en">Four categories available: Medication (prescription/OTC), Skincare Routine (skincare, haircare), Supplements & Vitamins (dietary supplements), and Health Routines (exercise, meditation, measurements).</span>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="tr">Android'de kullanılabilir mi?</span>
+          <span data-lang="en">Is it available on Android?</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span data-lang="tr">Şu anda sadece iOS (iPhone) için App Store'da yayındayız. Android sürümü yakında gelecek!</span>
+          <span data-lang="en">Currently available only on iOS (iPhone) via the App Store. Android version coming soon!</span>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-lang="tr">Şifi kim?</span>
+          <span data-lang="en">Who is Şifi?</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">
+          <span data-lang="tr">Şifi, iki renkli kapsül şeklinde bir robot maskotumuz. Uygulama içinde sizi adım adım yönlendirir, kayıt eklemeyi kolaylaştırır ve mini oyunlarda size eşlik eder. Görünümünü özelleştirebilirsiniz!</span>
+          <span data-lang="en">Şifi is our two-toned capsule-shaped robot mascot. It guides you step by step in the app, makes adding entries easy, and accompanies you in mini games. You can customize its appearance!</span>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        setTimeout(() => {
-          sifi.classList.add('sifi-jump');
-          setTimeout(() => sifi.classList.remove('sifi-jump'), 500);
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <h2 data-lang="tr">Sağlığını yönetmeye<br>bugün başla</h2>
+  <h2 data-lang="en">Start managing<br>your health today</h2>
+  <p data-lang="tr">Sifi Care ile ilaçlarını, bakım rutinlerini ve sağlık alışkanlıklarını tek yerden takip et.</p>
+  <p data-lang="en">Track your medications, care routines and health habits all in one place with Sifi Care.</p>
+  <a href="https://apps.apple.com/us/app/%C5%9Fifa-asistan%C4%B1m/id6759059248" class="btn-primary" style="margin:0 auto;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/></svg>
+    <span data-lang="tr">Ücretsiz İndir</span>
+    <span data-lang="en">Download Free</span>
+  </a>
+</section>
 
-          if (Math.random() < 0.3) {
-            const msg = messages[Math.floor(Math.random() * messages.length)];
-            bubble.textContent = msg;
-            bubble.classList.add('show');
-            setTimeout(() => bubble.classList.remove('show'), 3000);
-          }
-        }, 650);
-      }, 8000 + Math.random() * 7000);
-    }
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="./icon.png" alt="Sifi Care" width="28" height="28">
+      <span>Sifi Care</span>
+    </div>
+    <div class="footer-links">
+      <a href="./privacy.html" data-lang="tr">Gizlilik Politikası</a>
+      <a href="./privacy.html" data-lang="en">Privacy Policy</a>
+      <a href="./terms.html" data-lang="tr">Kullanım Koşulları</a>
+      <a href="./terms.html" data-lang="en">Terms of Use</a>
+      <a href="mailto:sificare@gmail.com" data-lang="tr">İletişim</a>
+      <a href="mailto:sificare@gmail.com" data-lang="en">Contact</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2025 Sifi Care. <span data-lang="tr">Tüm hakları saklıdır.</span><span data-lang="en">All rights reserved.</span>
+    </div>
+  </div>
+</footer>
 
-    function getRandomPosition() {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const corners = [
-        { bottom: 24, right: 24 },
-        { bottom: 24, right: w - 120 },
-        { bottom: h * 0.3, right: 24 },
-        { bottom: h * 0.3, right: w - 120 },
-        { bottom: h * 0.5, right: w / 2 - 45 },
-        { bottom: 24, right: w / 2 - 45 },
-      ];
-      return corners[Math.floor(Math.random() * corners.length)];
-    }
+<script>
+  // Language toggle
+  function toggleLang() {
+    const html = document.documentElement;
+    html.lang = html.lang === 'tr' ? 'en' : 'tr';
+  }
 
-    startRandomJumps();
+  // FAQ toggle
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    // Close all first
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
 
-    // Tiklaninca kikirdama
-    window.sifiTapped = function() {
-      sifi.classList.remove('sifi-giggle');
-      void sifi.offsetWidth;
-      sifi.classList.add('sifi-giggle');
-      setTimeout(() => sifi.classList.remove('sifi-giggle'), 600);
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('show');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('show');
+  }
 
-      playGiggle();
+  // Close mobile menu on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 640) closeMenu();
+  });
 
-      mouth.setAttribute('d', 'M125 222 Q150 255 175 222');
-      setTimeout(() => {
-        mouth.setAttribute('d', 'M132 225 Q150 245 168 225');
-      }, 600);
-
-      const msg = giggleMsgs[Math.floor(Math.random() * giggleMsgs.length)];
-      bubble.textContent = msg;
-      bubble.classList.add('show');
-      setTimeout(() => bubble.classList.remove('show'), 2500);
-    };
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        clearInterval(jumpInterval);
-      } else {
-        startRandomJumps();
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
       }
     });
-  })();
-  </script>
+  }, { threshold: 0.1 });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.cat-card, .feat-card, .game-card, .priv-card, .faq-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  });
+</script>
 </body>
 </html>
