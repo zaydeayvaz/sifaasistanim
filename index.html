@@ -1168,6 +1168,26 @@
 
     const giggles = ['Kıkır kıkır! 😄', 'Hihihi! 🤭', 'Buradayım! 💊', 'Beni buldun! ✨', 'Şifi seninle! 💪', 'İlaç saati mi? ⏰', 'Sağlıklı kal! 🩺', 'Hop hop! 🐰'];
     let jumpTimer;
+    let audioCtx;
+
+    function playGiggle() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const notes = [800, 1000, 1200, 900, 1100];
+        notes.forEach((freq, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq + Math.random() * 100;
+          gain.gain.setValueAtTime(0.12, audioCtx.currentTime + i * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + i * 0.08 + 0.12);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(audioCtx.currentTime + i * 0.08);
+          osc.stop(audioCtx.currentTime + i * 0.08 + 0.15);
+        });
+      } catch(e) {}
+    }
 
     function randomPos() {
       const pad = 80;
@@ -1194,11 +1214,12 @@
     sifi.style.bottom = '24px';
     sifi.style.right = '24px';
 
-    // Tıklayınca kıkırda + rastgele zıpla
+    // Tıklayınca kıkırda + ses + rastgele zıpla
     sifi.addEventListener('click', function(e) {
       e.preventDefault();
+      playGiggle();
       sifi.classList.remove('giggle');
-      void sifi.offsetWidth; // reflow
+      void sifi.offsetWidth;
       sifi.classList.add('giggle');
       showBubble(giggles[Math.floor(Math.random() * giggles.length)]);
       setTimeout(() => {
