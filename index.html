@@ -230,6 +230,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
+  .cat-card { cursor: pointer; }
   .cat-card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -261,6 +262,26 @@
   .cat-card:nth-child(3) .cat-icon { background: var(--green-soft); }
   .cat-card:nth-child(4) .cat-icon { background: var(--cyan-soft); }
   .cat-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+  .cat-detail {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease, margin 0.3s, padding 0.3s;
+    margin-top: 0; padding: 0;
+  }
+  .cat-card.open .cat-detail {
+    max-height: 400px; margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .cat-detail-items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cat-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: rgba(0,0,0,0.04); border-radius: 8px;
+    padding: 5px 10px; font-size: 12px; font-weight: 600; color: var(--text-secondary);
+  }
+  .cat-card.open { border-color: var(--blue); box-shadow: var(--shadow-lg); }
+  .cat-card:nth-child(2).open { border-color: var(--pink); }
+  .cat-card:nth-child(3).open { border-color: var(--green); }
+  .cat-card:nth-child(4).open { border-color: var(--cyan); }
+  .cat-expand { font-size: 11px; font-weight: 700; margin-top: 10px; opacity: 0.5; transition: opacity 0.2s; }
+  .cat-card:hover .cat-expand { opacity: 1; }
   .cat-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
   .cat-accent {
     display: inline-block; width: 8px; height: 8px;
@@ -729,33 +750,100 @@
       <p class="section-desc" data-lang="en">Not just medication — track everything from skincare to supplements and health routines.</p>
     </div>
     <div class="categories-grid">
-      <div class="cat-card">
+      <div class="cat-card" onclick="this.classList.toggle('open')">
         <div class="cat-icon">💊</div>
         <h3 data-lang="tr">İlaç Takibi</h3>
         <h3 data-lang="en">Medication</h3>
         <p data-lang="tr">Reçeteli ve reçetesiz ilaçlarınızı saatinde hatırlayın, stok takibi yapın.</p>
         <p data-lang="en">Remember your prescriptions on time, track your stock levels.</p>
+        <div class="cat-expand" data-lang="tr">detaylar için dokun ↓</div>
+        <div class="cat-expand" data-lang="en">tap for details ↓</div>
+        <div class="cat-detail">
+          <div class="cat-detail-items">
+            <span class="cat-chip">💊 Tablet/Hap</span>
+            <span class="cat-chip">🔴 Kapsül</span>
+            <span class="cat-chip">🧴 Şurup</span>
+            <span class="cat-chip">💧 Göz Damlası</span>
+            <span class="cat-chip">👃 Burun Spreyi</span>
+            <span class="cat-chip">🫁 İnhaler</span>
+            <span class="cat-chip">💉 İğne</span>
+            <span class="cat-chip">🫧 Efervesan</span>
+            <span class="cat-chip">🩹 Bant/Yama</span>
+            <span class="cat-chip">🫙 Krem/Merhem</span>
+            <span class="cat-chip">📦 Stok Takibi</span>
+            <span class="cat-chip">⏰ Akıllı Hatırlatma</span>
+          </div>
+        </div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="this.classList.toggle('open')">
         <div class="cat-icon">🧴</div>
         <h3 data-lang="tr">Bakım Rutini</h3>
         <h3 data-lang="en">Skincare</h3>
         <p data-lang="tr">Sabah ve akşam cilt bakım rutinlerinizi adım adım takip edin.</p>
         <p data-lang="en">Follow your morning and evening skincare routines step by step.</p>
+        <div class="cat-expand" data-lang="tr">detaylar için dokun ↓</div>
+        <div class="cat-expand" data-lang="en">tap for details ↓</div>
+        <div class="cat-detail">
+          <div class="cat-detail-items">
+            <span class="cat-chip">🫧 Temizleyici</span>
+            <span class="cat-chip">🌸 Tonik</span>
+            <span class="cat-chip">💧 Serum</span>
+            <span class="cat-chip">🧴 Nemlendirici</span>
+            <span class="cat-chip">☀️ Güneş Kremi</span>
+            <span class="cat-chip">👁️ Göz Bakımı</span>
+            <span class="cat-chip">🎭 Maske</span>
+            <span class="cat-chip">✨ Peeling</span>
+            <span class="cat-chip">💆 Saç Bakımı</span>
+            <span class="cat-chip">🌅 Sabah Rutini</span>
+            <span class="cat-chip">🌙 Akşam Rutini</span>
+          </div>
+        </div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="this.classList.toggle('open')">
         <div class="cat-icon">💪</div>
         <h3 data-lang="tr">Suplement & Vitamin</h3>
         <h3 data-lang="en">Supplements</h3>
         <p data-lang="tr">Vitamin ve takviyelerinizi düzenli almayı asla unutmayın.</p>
         <p data-lang="en">Never forget to take your vitamins and supplements regularly.</p>
+        <div class="cat-expand" data-lang="tr">detaylar için dokun ↓</div>
+        <div class="cat-expand" data-lang="en">tap for details ↓</div>
+        <div class="cat-detail">
+          <div class="cat-detail-items">
+            <span class="cat-chip">🦴 Vitamin & Mineral</span>
+            <span class="cat-chip">🐟 Omega & Yağlar</span>
+            <span class="cat-chip">🦠 Probiyotik</span>
+            <span class="cat-chip">🌿 Bitkisel</span>
+            <span class="cat-chip">💪 Spor & Performans</span>
+            <span class="cat-chip">✨ Güzellik</span>
+            <span class="cat-chip">🧠 Beyin & Odak</span>
+            <span class="cat-chip">🛡️ Bağışıklık Paketi</span>
+            <span class="cat-chip">😴 Uyku Paketi</span>
+            <span class="cat-chip">⚡ Enerji Paketi</span>
+          </div>
+        </div>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="this.classList.toggle('open')">
         <div class="cat-icon">🩺</div>
         <h3 data-lang="tr">Sağlık Rutini</h3>
         <h3 data-lang="en">Health Routines</h3>
         <p data-lang="tr">Tansiyon ölçümü, egzersiz, meditasyon gibi sağlık alışkanlıklarınızı izleyin.</p>
         <p data-lang="en">Track health habits like blood pressure, exercise, and meditation.</p>
+        <div class="cat-expand" data-lang="tr">detaylar için dokun ↓</div>
+        <div class="cat-expand" data-lang="en">tap for details ↓</div>
+        <div class="cat-detail">
+          <div class="cat-detail-items">
+            <span class="cat-chip">📏 Tansiyon Ölçümü</span>
+            <span class="cat-chip">🩸 Şeker Ölçümü</span>
+            <span class="cat-chip">⚖️ Kilo Takibi</span>
+            <span class="cat-chip">🏃 Koşu/Yürüyüş</span>
+            <span class="cat-chip">🧘 Yoga/Pilates</span>
+            <span class="cat-chip">🌬️ Nefes Egzersizi</span>
+            <span class="cat-chip">🧘 Meditasyon</span>
+            <span class="cat-chip">💧 Su İçme</span>
+            <span class="cat-chip">🩹 Pansuman</span>
+            <span class="cat-chip">😴 Uyku Takibi</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
