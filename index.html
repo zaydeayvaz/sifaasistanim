@@ -293,20 +293,44 @@
   }
   .sifi-visual img { width: 100%; height: 100%; object-fit: cover; border-radius: 40px; }
 
-  /* Floating Şifi mascot */
+  /* Floating Şifi mascot — zıplayan interaktif */
   .floating-sifi {
-    position: fixed; z-index: 90; bottom: 24px; right: 24px;
+    position: fixed; z-index: 90;
     width: 64px; height: 64px; border-radius: 20px;
-    overflow: hidden; cursor: pointer;
+    overflow: visible; cursor: pointer;
     box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    animation: sifi-bounce 3s ease-in-out infinite;
-    transition: transform 0.2s;
+    transition: left 1.2s cubic-bezier(.34,1.56,.64,1), top 1.2s cubic-bezier(.34,1.56,.64,1), transform 0.15s;
+    user-select: none; -webkit-user-select: none;
   }
-  .floating-sifi:hover { transform: scale(1.1); }
-  .floating-sifi img { width: 100%; height: 100%; object-fit: cover; }
-  @keyframes sifi-bounce {
+  .floating-sifi img {
+    width: 100%; height: 100%; object-fit: cover; border-radius: 20px;
+    animation: sifi-float 3s ease-in-out infinite;
+  }
+  .floating-sifi:hover { transform: scale(1.15) rotate(-5deg); }
+  .floating-sifi.giggle { animation: sifi-giggle 0.5s ease-in-out; }
+  .sifi-bubble {
+    position: absolute; bottom: 72px; left: 50%; transform: translateX(-50%);
+    background: white; color: #0F172A; font-size: 13px; font-weight: 700;
+    padding: 8px 14px; border-radius: 12px; white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .sifi-bubble.show { opacity: 1; }
+  .sifi-bubble::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: white;
+  }
+  @keyframes sifi-float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes sifi-giggle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    15% { transform: rotate(-12deg) scale(1.1); }
+    30% { transform: rotate(10deg) scale(1.15); }
+    45% { transform: rotate(-8deg) scale(1.1); }
+    60% { transform: rotate(6deg) scale(1.05); }
+    75% { transform: rotate(-3deg) scale(1.02); }
   }
   .sifi-info { position: relative; z-index: 1; }
   .sifi-info .section-label { color: #A7F3D0; }
@@ -1062,9 +1086,10 @@
 </section>
 
 <!-- ── Floating Şifi ── -->
-<a href="#sifi" class="floating-sifi" title="Şifi ile tanış!">
+<div class="floating-sifi" id="floatingSifi" title="Şifi'ye dokun!" style="bottom:24px;right:24px;">
   <img src="./icon.png" alt="Şifi">
-</a>
+  <div class="sifi-bubble" id="sifiBubble"></div>
+</div>
 
 <!-- ── Footer ── -->
 <footer>
@@ -1134,6 +1159,67 @@
       observer.observe(el);
     });
   });
+
+  // ── Floating Şifi: kıkırdama + rastgele zıplama ──
+  (function() {
+    const sifi = document.getElementById('floatingSifi');
+    const bubble = document.getElementById('sifiBubble');
+    if (!sifi) return;
+
+    const giggles = ['Kıkır kıkır! 😄', 'Hihihi! 🤭', 'Buradayım! 💊', 'Beni buldun! ✨', 'Şifi seninle! 💪', 'İlaç saati mi? ⏰', 'Sağlıklı kal! 🩺', 'Hop hop! 🐰'];
+    let jumpTimer;
+
+    function randomPos() {
+      const pad = 80;
+      const x = pad + Math.random() * (window.innerWidth - pad * 2 - 64);
+      const y = pad + Math.random() * (window.innerHeight - pad * 2 - 64);
+      return { x, y };
+    }
+
+    function jumpToRandom() {
+      const pos = randomPos();
+      sifi.style.left = pos.x + 'px';
+      sifi.style.top = pos.y + 'px';
+      sifi.style.right = 'auto';
+      sifi.style.bottom = 'auto';
+    }
+
+    function showBubble(text) {
+      bubble.textContent = text;
+      bubble.classList.add('show');
+      setTimeout(() => bubble.classList.remove('show'), 2000);
+    }
+
+    // İlk pozisyon
+    sifi.style.bottom = '24px';
+    sifi.style.right = '24px';
+
+    // Tıklayınca kıkırda + rastgele zıpla
+    sifi.addEventListener('click', function(e) {
+      e.preventDefault();
+      sifi.classList.remove('giggle');
+      void sifi.offsetWidth; // reflow
+      sifi.classList.add('giggle');
+      showBubble(giggles[Math.floor(Math.random() * giggles.length)]);
+      setTimeout(() => {
+        jumpToRandom();
+        sifi.classList.remove('giggle');
+      }, 500);
+    });
+
+    // Her 8-15 saniyede rastgele zıpla
+    function scheduleJump() {
+      const delay = 8000 + Math.random() * 7000;
+      jumpTimer = setTimeout(() => {
+        jumpToRandom();
+        scheduleJump();
+      }, delay);
+    }
+    scheduleJump();
+
+    // 5 saniye sonra ilk zıplama
+    setTimeout(jumpToRandom, 5000);
+  })();
 </script>
 </body>
 </html>

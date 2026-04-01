@@ -1,905 +1,1142 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Şifa Asistanım — Basın Kiti</title>
-  <meta name="description" content="Şifa Asistanım basın kiti. Logo, ekran görüntüleri, marka varlıkları ve basın bülteni.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --blue: #2563EB;
-      --blue-dark: #1D4ED8;
-      --blue-light: #EFF6FF;
-      --blue-mid: #DBEAFE;
-      --green: #10B981;
-      --orange: #F59E0B;
-      --red: #EF4444;
-      --purple: #8B5CF6;
-      --text: #0F172A;
-      --text-muted: #64748B;
-      --border: #E2E8F0;
-      --bg: #F8FAFF;
-      --white: #FFFFFF;
-      --font-display: 'Nunito', sans-serif;
-      --font: 'Figtree', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(248,250,255,0.88);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(226,232,240,0.7);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 900;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .nav-logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #2563EB, #60A5FA);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      box-shadow: 0 4px 12px rgba(37,99,235,0.3);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .lang-switcher {
-      display: flex;
-      align-items: center;
-      background: var(--blue-light);
-      border-radius: 100px;
-      padding: 3px;
-      gap: 2px;
-      border: 1px solid var(--border);
-    }
-
-    .lang-btn {
-      padding: 5px 12px;
-      border-radius: 100px;
-      border: none;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text-muted);
-      transition: all 0.2s;
-    }
-
-    .lang-btn.active {
-      background: var(--blue);
-      color: white;
-    }
-
-    .back-link {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .back-link:hover { color: var(--blue); }
-
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #2563EB 100%);
-      padding: 80px 24px 80px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(96,165,250,0.15) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 100px;
-      padding: 8px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 24px;
-      backdrop-filter: blur(8px);
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 900;
-      color: white;
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: rgba(255,255,255,0.7);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* SECTIONS */
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    section {
-      padding: 80px 0;
-    }
-
-    section + section {
-      border-top: 1px solid var(--border);
-    }
-
-    .section-tag {
-      display: inline-block;
-      background: var(--blue-light);
-      color: var(--blue);
-      border: 1px solid var(--blue-mid);
-      border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(24px, 3vw, 32px);
-      font-weight: 900;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-
-    .section-desc {
-      font-size: 16px;
-      color: var(--text-muted);
-      max-width: 640px;
-      line-height: 1.75;
-      margin-bottom: 40px;
-    }
-
-    /* ABOUT */
-    .about-text {
-      font-size: 17px;
-      color: var(--text);
-      line-height: 1.8;
-      max-width: 720px;
-    }
-
-    /* FACTS TABLE */
-    .facts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
-    .fact-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .fact-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--blue-light);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .fact-label {
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .fact-value {
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    /* MASCOT */
-    .mascot-card {
-      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #2563EB 100%);
-      border-radius: 24px;
-      padding: 48px;
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      color: white;
-    }
-
-    .mascot-emoji {
-      font-size: 100px;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .mascot-card h3 {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .mascot-card p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.8);
-      line-height: 1.75;
-    }
-
-    /* STATS */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .stat-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px 24px;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 36px;
-      font-weight: 900;
-      color: var(--blue);
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 14px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    /* SCREENSHOTS */
-    .screenshots-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .screenshot-phone {
-      background: #1a1a2e;
-      border-radius: 20px;
-      padding: 6px;
-      box-shadow: 0 12px 40px rgba(15,23,42,0.12);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .screenshot-phone:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 24px 56px rgba(15,23,42,0.18);
-    }
-
-    .screenshot-phone img {
-      width: 100%;
-      border-radius: 16px;
-      display: block;
-    }
-
-    .download-assets {
-      margin-top: 32px;
-      text-align: center;
-    }
-
-    .download-assets a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--blue);
-      color: white;
-      text-decoration: none;
-      padding: 12px 28px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 15px;
-      transition: background 0.2s;
-    }
-
-    .download-assets a:hover {
-      background: var(--blue-dark);
-    }
-
-    /* BRAND ASSETS */
-    .brand-row {
-      display: flex;
-      gap: 32px;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    .brand-block {
-      flex: 1;
-      min-width: 260px;
-    }
-
-    .brand-block h4 {
-      font-family: var(--font-display);
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    .app-icon-display {
-      width: 120px;
-      height: 120px;
-      background: linear-gradient(135deg, #2563EB, #60A5FA);
-      border-radius: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 56px;
-      box-shadow: 0 12px 32px rgba(37,99,235,0.3);
-      margin-bottom: 12px;
-    }
-
-    .color-palette {
-      display: flex;
-      gap: 12px;
-    }
-
-    .color-swatch {
-      text-align: center;
-    }
-
-    .color-swatch-circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 16px;
-      margin-bottom: 8px;
-      border: 2px solid rgba(0,0,0,0.06);
-    }
-
-    .color-swatch span {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      font-family: monospace;
-    }
-
-    .font-item {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 10px;
-    }
-
-    .font-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .font-sample-nunito {
-      font-family: 'Nunito', sans-serif;
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--text);
-    }
-
-    .font-sample-figtree {
-      font-family: 'Figtree', sans-serif;
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    /* CONTACT */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-    }
-
-    .contact-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .contact-card:hover {
-      border-color: var(--blue);
-      box-shadow: 0 4px 16px rgba(37,99,235,0.1);
-    }
-
-    .contact-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--blue-light);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-
-    .contact-label {
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .contact-value {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    /* PRESS RELEASE */
-    .press-release-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 40px;
-    }
-
-    .press-release-card h3 {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .press-release-date {
-      font-size: 14px;
-      color: var(--text-muted);
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-
-    .press-release-card p {
-      font-size: 16px;
-      color: var(--text);
-      line-height: 1.8;
-      margin-bottom: 16px;
-    }
-
-    .press-release-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 40px 24px;
-      border-top: 1px solid var(--border);
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    footer a {
-      color: var(--blue);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .screenshots-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .mascot-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 36px 24px;
-      }
-
-      .mascot-emoji {
-        font-size: 72px;
-      }
-
-      .brand-row {
-        flex-direction: column;
-      }
-
-      .hero {
-        padding: 60px 20px 60px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .screenshots-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-
-      .facts-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sifi Care — Basın Kiti</title>
+<meta name="description" content="Sifi Care basın kiti. Gazeteciler ve bloggerlar için marka varlıkları, uygulama bilgileri ve basın bülteni.">
+<meta name="theme-color" content="#0F172A">
+<link rel="icon" href="./icon.png" type="image/png">
+<link rel="apple-touch-icon" href="./icon.png">
+<meta property="og:title" content="Sifi Care — Basın Kiti">
+<meta property="og:description" content="Sifi Care basın kiti. Gazeteciler ve bloggerlar için marka varlıkları ve uygulama bilgileri.">
+<meta property="og:image" content="./icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-start: #E8FFF3;
+    --bg-mid: #FFF0F6;
+    --bg-end: #EFF6FF;
+    --card: rgba(255,255,255,0.72);
+    --card-solid: #FFFFFF;
+    --nav-bg: rgba(15, 23, 42, 0.88);
+    --text: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --border: rgba(148, 163, 184, 0.18);
+    --blue: #2563EB;
+    --pink: #EC4899;
+    --green: #059669;
+    --cyan: #06B6D4;
+    --blue-soft: #EFF6FF;
+    --pink-soft: #FDF2F8;
+    --green-soft: #ECFDF5;
+    --cyan-soft: #ECFEFF;
+    --radius: 20px;
+    --radius-sm: 14px;
+    --radius-xs: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,0.10);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(160deg, var(--bg-start) 0%, var(--bg-mid) 50%, var(--bg-end) 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Utility ── */
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .section { padding: 96px 0; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 900; line-height: 1.2;
+    margin-bottom: 16px; letter-spacing: -0.5px;
+  }
+  .section-desc {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text-secondary);
+    max-width: 560px; line-height: 1.7;
+  }
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .section-header .section-desc { margin: 0 auto; }
+
+  /* ── Language Toggle ── */
+  [data-lang="en"] { display: none; }
+  html[lang="en"] [data-lang="en"] { display: revert; }
+  html[lang="en"] [data-lang="tr"] { display: none; }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-brand img {
+    width: 34px; height: 34px; border-radius: 8px;
+  }
+  .nav-brand span {
+    font-size: 18px; font-weight: 900; color: #FFFFFF;
+    letter-spacing: -0.3px;
+  }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-links { display: flex; gap: 6px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 14px; font-weight: 600; padding: 8px 14px;
+    border-radius: var(--radius-xs); transition: all 0.2s;
+  }
+  .nav-links a:hover { color: #FFF; background: rgba(255,255,255,0.08); }
+  .nav-links a.active { color: #FFF; background: rgba(255,255,255,0.12); }
+  .nav-lang {
+    font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; padding: 6px 12px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-lang:hover { background: rgba(255,255,255,0.15); color: #FFF; }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--blue), #7C3AED);
+    color: white; padding: 8px 18px; border-radius: var(--radius-xs);
+    font-size: 13px; font-weight: 800; text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,99,235,0.35); }
+  .nav-menu-btn {
+    display: none; background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.8); padding: 8px;
+  }
+
+  /* ── Nav Dropdown ── */
+  .nav-dropdown {
+    position: relative;
+  }
+  .nav-dropdown > a::after {
+    content: ' ▾'; font-size: 10px;
+  }
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute; top: 100%; left: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-xs);
+    padding: 8px 0; min-width: 180px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    z-index: 1001;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+  .nav-dropdown-menu a {
+    display: block; padding: 8px 16px !important;
+    font-size: 13px !important; white-space: nowrap;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 140px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(167,243,208,0.3) 0%, rgba(251,207,232,0.2) 40%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+  .hero-icon {
+    width: 100px; height: 100px;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    margin-bottom: 28px;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 999px; padding: 8px 18px;
+    font-size: 13px; font-weight: 700; color: var(--text-secondary);
+    margin-bottom: 24px; box-shadow: var(--shadow);
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 900; line-height: 1.08;
+    letter-spacing: -1.5px; margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--blue) 0%, #7C3AED 50%, var(--pink) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle {
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 600; color: var(--text-secondary);
+    margin-bottom: 28px; letter-spacing: -0.3px;
+    max-width: 540px; margin-left: auto; margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* ── Cards ── */
+  .press-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s;
+  }
+  .press-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .press-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+  .press-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+
+  /* ── About ── */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 16px; color: var(--text-secondary);
+    line-height: 1.8; margin-bottom: 16px;
+  }
+  .about-tags {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
+  }
+  .about-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 999px; padding: 6px 14px;
+    font-size: 13px; font-weight: 700; color: var(--text-secondary);
+  }
+  .about-visual {
+    display: flex; justify-content: center; align-items: center;
+  }
+  .about-visual img {
+    width: 200px; height: 200px;
+    border-radius: 40px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.12);
+    animation: float 4s ease-in-out infinite;
+  }
+
+  /* ── Facts Grid ── */
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .fact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s;
+  }
+  .fact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .fact-label {
+    font-size: 12px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .fact-value {
+    font-size: 18px; font-weight: 800; color: var(--text);
+  }
+
+  /* ── Şifi Card ── */
+  .sifi-card {
+    background: linear-gradient(135deg, #1E293B, #0F172A);
+    border-radius: 28px;
+    padding: 60px 48px;
+    display: flex; align-items: center; gap: 48px;
+    color: white;
+    position: relative; overflow: hidden;
+  }
+  .sifi-card::after {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(37,99,235,0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .sifi-visual {
+    flex-shrink: 0; width: 180px; height: 180px;
+    border-radius: 40px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(167,243,208,0.2);
+  }
+  .sifi-visual img { width: 100%; height: 100%; object-fit: cover; border-radius: 40px; }
+  .sifi-info { position: relative; z-index: 1; }
+  .sifi-info .section-label { color: #A7F3D0; }
+  .sifi-info h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 900; margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .sifi-info p {
+    font-size: 16px; color: rgba(255,255,255,0.7);
+    line-height: 1.7; margin-bottom: 16px;
+    max-width: 420px;
+  }
+  .sifi-traits {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .sifi-trait {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-xs);
+    padding: 8px 16px;
+    font-size: 13px; font-weight: 700;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── Features Grid ── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feat-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 18px;
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-mid));
+  }
+
+  /* ── Stats ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 24px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s;
+  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .stat-number {
+    font-size: 36px; font-weight: 900;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 14px; font-weight: 700; color: var(--text-secondary);
+  }
+
+  /* ── Brand Assets ── */
+  .brand-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .brand-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    backdrop-filter: blur(12px);
+  }
+  .brand-card h3 {
+    font-size: 17px; font-weight: 800; margin-bottom: 20px;
+  }
+  .app-icon-preview {
+    display: flex; align-items: center; gap: 24px;
+  }
+  .app-icon-preview img {
+    width: 100px; height: 100px; border-radius: 22px;
+    box-shadow: var(--shadow-lg);
+  }
+  .app-icon-preview p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+  }
+  .color-swatches {
+    display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .swatch {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .swatch-circle {
+    width: 48px; height: 48px; border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .swatch-label {
+    font-size: 11px; font-weight: 700; color: var(--text-muted);
+  }
+  .swatch-hex {
+    font-size: 11px; font-weight: 600; color: var(--text-secondary);
+    font-family: monospace;
+  }
+  .font-preview {
+    margin-top: 16px;
+  }
+  .font-name {
+    font-size: 24px; font-weight: 900; margin-bottom: 4px;
+  }
+  .font-meta {
+    font-size: 13px; color: var(--text-muted);
+  }
+  .font-weights {
+    display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap;
+  }
+  .font-weight-sample {
+    font-size: 14px; color: var(--text-secondary);
+  }
+
+  /* ── Contact ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s;
+  }
+  .contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .contact-icon {
+    font-size: 32px; margin-bottom: 14px; display: block;
+  }
+  .contact-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .contact-card a {
+    font-size: 14px; color: var(--blue); text-decoration: none; font-weight: 600;
+  }
+  .contact-card a:hover { text-decoration: underline; }
+  .contact-card p { font-size: 14px; color: var(--text-secondary); }
+
+  /* ── Press Release ── */
+  .press-release {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 48px 40px;
+    backdrop-filter: blur(12px);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .press-release h3 {
+    font-size: 22px; font-weight: 900; margin-bottom: 8px;
+  }
+  .press-release .press-date {
+    font-size: 13px; font-weight: 700; color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .press-release p {
+    font-size: 15px; color: var(--text-secondary);
+    line-height: 1.8; margin-bottom: 16px;
+  }
+  .press-release p:last-child { margin-bottom: 0; }
+
+  /* Floating Şifi mascot — interaktif */
+  .floating-sifi {
+    position: fixed; z-index: 90;
+    width: 64px; height: 64px; border-radius: 20px;
+    overflow: visible; cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    transition: left 1.2s cubic-bezier(.34,1.56,.64,1), top 1.2s cubic-bezier(.34,1.56,.64,1), transform 0.15s;
+    user-select: none;
+  }
+  .floating-sifi img {
+    width: 100%; height: 100%; object-fit: cover; border-radius: 20px;
+    animation: sifi-float 3s ease-in-out infinite;
+  }
+  .floating-sifi:hover { transform: scale(1.15) rotate(-5deg); }
+  .floating-sifi.giggle { animation: sifi-giggle 0.5s ease-in-out; }
+  .sifi-bubble {
+    position: absolute; bottom: 72px; left: 50%; transform: translateX(-50%);
+    background: white; color: #0F172A; font-size: 13px; font-weight: 700;
+    padding: 8px 14px; border-radius: 12px; white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .sifi-bubble.show { opacity: 1; }
+  .sifi-bubble::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: white;
+  }
+  @keyframes sifi-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes sifi-giggle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    15% { transform: rotate(-12deg) scale(1.1); }
+    30% { transform: rotate(10deg) scale(1.15); }
+    45% { transform: rotate(-8deg) scale(1.1); }
+    60% { transform: rotate(6deg) scale(1.05); }
+    75% { transform: rotate(-3deg) scale(1.02); }
+  }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    padding: 48px 24px 32px;
+    color: rgba(255,255,255,0.6);
+  }
+  .footer-inner {
+    max-width: 1120px; margin: 0 auto;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  .footer-brand {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .footer-brand img { width: 28px; height: 28px; border-radius: 6px; }
+  .footer-brand span { font-size: 15px; font-weight: 800; color: white; }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-links a {
+    color: rgba(255,255,255,0.5); text-decoration: none;
+    font-size: 13px; font-weight: 600;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(255,255,255,0.9); }
+  .footer-copy {
+    width: 100%; text-align: center;
+    margin-top: 24px; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px; color: rgba(255,255,255,0.35);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .about-content { grid-template-columns: 1fr; }
+    .about-visual { order: -1; }
+    .facts-grid { grid-template-columns: repeat(2, 1fr); }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .brand-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .sifi-card { flex-direction: column; text-align: center; padding: 48px 32px; }
+    .sifi-info { display: flex; flex-direction: column; align-items: center; }
+    .sifi-info p { max-width: 100%; }
+    .sifi-traits { justify-content: center; }
+  }
+  @media (max-width: 640px) {
+    .facts-grid { grid-template-columns: 1fr 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .nav-menu-btn { display: block; }
+    .hero { padding: 120px 20px 60px; }
+    .hero-icon { width: 80px; height: 80px; border-radius: 20px; }
+    .section { padding: 64px 0; }
+    .sifi-card { padding: 36px 24px; }
+    .sifi-visual { width: 120px; height: 120px; border-radius: 28px; }
+    .sifi-visual img { border-radius: 28px; }
+    .press-release { padding: 32px 24px; }
+    .color-swatches { gap: 8px; }
+    .swatch-circle { width: 40px; height: 40px; border-radius: 12px; }
+  }
+
+  /* ── Mobile Nav Menu ── */
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    padding: 16px 24px;
+    z-index: 999;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .mobile-menu.show { display: flex; flex-direction: column; gap: 4px; }
+  .mobile-menu a {
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 15px; font-weight: 600;
+    padding: 12px 16px; border-radius: var(--radius-xs);
+    transition: all 0.2s;
+  }
+  .mobile-menu a:hover { background: rgba(255,255,255,0.08); color: white; }
+</style>
 </head>
 <body>
 
-<nav style="position:sticky;top:0;z-index:100;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(248,250,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(226,232,240,0.7);font-family:'Figtree',sans-serif;">
-  <a href="index.html" style="display:flex;align-items:center;gap:10px;font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;color:#0F172A;text-decoration:none;">
-    <div style="width:36px;height:36px;background:linear-gradient(135deg,#2563EB,#60A5FA);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">💊</div>
-    Şifa Asistanım
+<!-- ── Nav ── -->
+<nav>
+  <a href="./index.html" class="nav-brand">
+    <img src="./icon.png" alt="Sifi Care" width="34" height="34">
+    <span>Sifi Care</span>
   </a>
-  <div id="navLinks" style="display:flex;align-items:center;gap:20px;font-size:14px;font-weight:600;">
-    <a href="blog.html" style="color:#64748B;text-decoration:none;">Blog</a>
-    <a href="chat.html" style="color:#64748B;text-decoration:none;">Şifi'ye Sor</a>
-    <a href="guide.html" style="color:#64748B;text-decoration:none;">Rehber</a>
-    <a href="press.html" style="color:#64748B;text-decoration:none;">Basın</a>
-    <div style="position:relative;display:inline-block;" id="gamesDd">
-      <a href="#" onclick="event.preventDefault();var m=document.getElementById('gamesMenu');m.style.display=m.style.display==='block'?'none':'block';" style="color:#64748B;text-decoration:none;cursor:pointer;">🎮 Oyunlar ▾</a>
-      <div id="gamesMenu" style="display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:white;border-radius:16px;padding:8px;box-shadow:0 12px 40px rgba(15,23,42,0.12);border:1px solid #E2E8F0;min-width:200px;z-index:200;">
-        <a href="game-match.html" style="display:block;padding:12px 16px;color:#0F172A;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">🧩 İlaç Eşleştir</a>
-        <a href="game-memory.html" style="display:block;padding:12px 16px;color:#0F172A;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">🃏 Hafıza Oyunu</a>
-        <a href="game-flappy.html" style="display:block;padding:12px 16px;color:#0F172A;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">🐦 Flappy Şifi</a>
-        <a href="game.html" style="display:block;padding:12px 16px;color:#0F172A;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">💊 İlaç Yakala</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="./index.html" data-lang="tr">Ana Sayfa</a>
+      <a href="./index.html" data-lang="en">Home</a>
+      <a href="./index.html#categories" data-lang="tr">Kategoriler</a>
+      <a href="./index.html#categories" data-lang="en">Categories</a>
+      <a href="./index.html#features" data-lang="tr">Özellikler</a>
+      <a href="./index.html#features" data-lang="en">Features</a>
+      <div class="nav-dropdown">
+        <a href="./index.html#games" data-lang="tr">Oyunlar</a>
+        <a href="./index.html#games" data-lang="en">Games</a>
+        <div class="nav-dropdown-menu">
+          <a href="./index.html#games" data-lang="tr">Hafıza Oyunu</a>
+          <a href="./index.html#games" data-lang="en">Memory Game</a>
+          <a href="./index.html#games" data-lang="tr">İlaç Eşleştir</a>
+          <a href="./index.html#games" data-lang="en">Medicine Match</a>
+          <a href="./index.html#games" data-lang="tr">İlaç Yakala</a>
+          <a href="./index.html#games" data-lang="en">Catch Medicine</a>
+          <a href="./index.html#games" data-lang="tr">Flappy Şifi</a>
+          <a href="./index.html#games" data-lang="en">Flappy Şifi</a>
+        </div>
       </div>
+      <a href="./index.html#faq" data-lang="tr">SSS</a>
+      <a href="./index.html#faq" data-lang="en">FAQ</a>
+      <a href="./press.html" class="active" data-lang="tr">Basın</a>
+      <a href="./press.html" class="active" data-lang="en">Press</a>
     </div>
-    <a href="index.html" style="padding:8px 16px;border-radius:10px;background:#2563EB;color:white;text-decoration:none;font-weight:700;">Ana Sayfa</a>
+    <button class="nav-lang" onclick="toggleLang()" aria-label="Toggle language">TR / EN</button>
+    <a href="https://apps.apple.com/us/app/%C5%9Fifa-asistan%C4%B1m/id6759059248" class="nav-cta" data-lang="tr">İndir</a>
+    <a href="https://apps.apple.com/us/app/%C5%9Fifa-asistan%C4%B1m/id6759059248" class="nav-cta" data-lang="en">Download</a>
+    <button class="nav-menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </nav>
-<style>@media(max-width:768px){#navLinks>a:not(:last-child),#navLinks>#gamesDd{display:none!important;}}</style>
-<script>document.addEventListener('click',function(e){var m=document.getElementById('gamesMenu');if(m&&!e.target.closest('#gamesDd'))m.style.display='none';});</script>
-
-<!-- HERO -->
-<div class="hero">
-  <div style="margin-bottom: 16px;"><svg width="60" height="75" viewBox="0 0 300 380" fill="none"><ellipse cx="150" cy="355" rx="55" ry="10" fill="#94A3B8" opacity="0.15"/><rect x="120" y="295" width="18" height="32" rx="9" fill="#94A3B8"/><rect x="162" y="295" width="18" height="32" rx="9" fill="#94A3B8"/><line x1="78" y1="195" x2="42" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/><line x1="222" y1="195" x2="258" y2="190" stroke="#94A3B8" stroke-width="10" stroke-linecap="round"/><defs><clipPath id="pressHero"><rect x="78" y="85" width="144" height="220" rx="72"/></clipPath></defs><g clip-path="url(#pressHero)"><rect x="78" y="85" width="144" height="120" fill="#2563EB"/><rect x="78" y="205" width="144" height="100" fill="#F8FAFC"/><rect x="78" y="203" width="144" height="3" fill="#1D4ED8" opacity="0.15"/></g><rect x="78" y="85" width="144" height="220" rx="72" stroke="#1D4ED8" stroke-width="2" fill="none" opacity="0.15"/><circle cx="124" cy="170" r="22" fill="white"/><circle cx="128" cy="168" r="11" fill="#0F172A"/><circle cx="133" cy="163" r="5" fill="white"/><circle cx="176" cy="170" r="22" fill="white"/><circle cx="180" cy="168" r="11" fill="#0F172A"/><circle cx="185" cy="163" r="5" fill="white"/><path d="M132 225 Q150 245 168 225" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" fill="none"/><line x1="120" y1="95" x2="105" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><circle cx="105" cy="38" r="10" fill="#EF4444"/><line x1="180" y1="95" x2="195" y2="42" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/><circle cx="195" cy="38" r="10" fill="#EF4444"/></svg></div>
-  <div class="hero-tag" data-tr="📰 Basın Kiti" data-en="📰 Press Kit">📰 Basın Kiti</div>
-  <h1 data-tr="Şifa Asistanım<br>Basın Kiti" data-en="Şifa Assistant<br>Press Kit">Şifa Asistanım<br>Basın Kiti</h1>
-  <p data-tr="Gazeteciler, blog yazarları ve içerik üreticileri için hazırlanmış marka varlıkları, ekran görüntüleri ve bilgiler." data-en="Brand assets, screenshots, and information prepared for journalists, bloggers, and content creators.">Gazeteciler, blog yazarları ve içerik üreticileri için hazırlanmış marka varlıkları, ekran görüntüleri ve bilgiler.</p>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="./index.html" onclick="closeMenu()" data-lang="tr">Ana Sayfa</a>
+  <a href="./index.html" onclick="closeMenu()" data-lang="en">Home</a>
+  <a href="./index.html#categories" onclick="closeMenu()" data-lang="tr">Kategoriler</a>
+  <a href="./index.html#categories" onclick="closeMenu()" data-lang="en">Categories</a>
+  <a href="./index.html#features" onclick="closeMenu()" data-lang="tr">Özellikler</a>
+  <a href="./index.html#features" onclick="closeMenu()" data-lang="en">Features</a>
+  <a href="./index.html#games" onclick="closeMenu()" data-lang="tr">Oyunlar</a>
+  <a href="./index.html#games" onclick="closeMenu()" data-lang="en">Games</a>
+  <a href="./index.html#faq" onclick="closeMenu()" data-lang="tr">SSS</a>
+  <a href="./index.html#faq" onclick="closeMenu()" data-lang="en">FAQ</a>
+  <a href="./press.html" onclick="closeMenu()" style="color:white;" data-lang="tr">Basın</a>
+  <a href="./press.html" onclick="closeMenu()" style="color:white;" data-lang="en">Press</a>
 </div>
 
-<div class="container">
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-tag" data-tr="Hakkımızda" data-en="About">Hakkımızda</div>
-    <h2 class="section-title" data-tr="Şifa Asistanım Nedir?" data-en="What is Şifa Assistant?">Şifa Asistanım Nedir?</h2>
-    <div class="about-text">
-      <p data-tr="Şifa Asistanım, Türkiye'nin ilk tamamen Türkçe, oyunlaştırılmış ilaç takip uygulamasıdır. Sevimli maskotu Şifi eşliğinde kullanıcılar ilaçlarını zamanında almayı bir alışkanlığa dönüştürür. XP puanları, günlük seriler ve seviye sistemiyle ilaç takibi eğlenceli hale gelir. Aile üyeleriyle güvenli paylaşım, sağlık ölçümleri takibi ve akıllı hatırlatıcılar ile her yaştan kullanıcıya hitap eder. Reklamsız, gizlilik odaklı ve tamamen yerel veri depolama prensibiyle geliştirilmiştir." data-en="Şifa Assistant is Turkey's first fully Turkish, gamified medication tracking app. With the cute mascot Şifi, users turn taking their medications on time into a habit. XP points, daily streaks, and a leveling system make medication tracking fun. It serves users of all ages with secure family sharing, health measurement tracking, and smart reminders. Developed with a no-ads, privacy-focused, and fully local data storage approach.">Şifa Asistanım, Türkiye'nin ilk tamamen Türkçe, oyunlaştırılmış ilaç takip uygulamasıdır. Sevimli maskotu Şifi eşliğinde kullanıcılar ilaçlarını zamanında almayı bir alışkanlığa dönüştürür. XP puanları, günlük seriler ve seviye sistemiyle ilaç takibi eğlenceli hale gelir. Aile üyeleriyle güvenli paylaşım, sağlık ölçümleri takibi ve akıllı hatırlatıcılar ile her yaştan kullanıcıya hitap eder. Reklamsız, gizlilik odaklı ve tamamen yerel veri depolama prensibiyle geliştirilmiştir.</p>
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-content">
+    <img src="./icon.png" alt="Sifi Care icon" class="hero-icon" width="100" height="100">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      <span data-lang="tr">Basın Kiti</span>
+      <span data-lang="en">Press Kit</span>
     </div>
-  </section>
+    <h1 data-lang="tr">Sifi Care Basın Kiti</h1>
+    <h1 data-lang="en">Sifi Care Press Kit</h1>
+    <p class="hero-subtitle" data-lang="tr">
+      Gazeteciler, bloggerlar ve içerik üreticileri için marka varlıkları, uygulama bilgileri ve basın bülteni.
+    </p>
+    <p class="hero-subtitle" data-lang="en">
+      Brand assets, app information and press releases for journalists, bloggers and content creators.
+    </p>
+  </div>
+</section>
 
-  <!-- APP FACTS -->
-  <section id="facts">
-    <div class="section-tag" data-tr="Uygulama Bilgileri" data-en="App Facts">Uygulama Bilgileri</div>
-    <h2 class="section-title" data-tr="Temel Bilgiler" data-en="Key Information">Temel Bilgiler</h2>
+<!-- ── About ── -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">HAKKINDA</div>
+      <div class="section-label" data-lang="en">ABOUT</div>
+      <h2 class="section-title" data-lang="tr">Sifi Care nedir?</h2>
+      <h2 class="section-title" data-lang="en">What is Sifi Care?</h2>
+    </div>
+    <div class="about-content">
+      <div class="about-text">
+        <p data-lang="tr">
+          Sifi Care, sadece bir ilaç takip uygulaması değil — kapsamlı bir wellness platformu. 4 farklı kategoriyle kullanıcıların sağlık ve bakım rutinlerini tek bir yerden yönetmesini sağlar: <strong>İlaç Takibi</strong>, <strong>Bakım Rutini</strong>, <strong>Suplement &amp; Vitamin</strong> ve <strong>Sağlık Rutini</strong>.
+        </p>
+        <p data-lang="en">
+          Sifi Care is not just a medication tracker — it is a comprehensive wellness platform. With 4 distinct categories, it enables users to manage all their health and care routines from one place: <strong>Medication</strong>, <strong>Skincare Routine</strong>, <strong>Supplements &amp; Vitamins</strong>, and <strong>Health Routines</strong>.
+        </p>
+        <p data-lang="tr">
+          Uygulama, iki renkli kapsül robot maskotu <strong>Şifi</strong> ile kullanıcılara rehberlik eder. Gamification (XP, seviyeler, seriler), 4 mini beyin sağlığı oyunu ve akıllı stok takibi gibi özelliklerle sağlık yönetimini eğlenceli hale getirir. Türkçe öncelikli olarak geliştirilmiştir.
+        </p>
+        <p data-lang="en">
+          The app guides users with its two-toned capsule robot mascot <strong>Şifi</strong>. With gamification features (XP, levels, streaks), 4 mini brain health games, and smart stock tracking, it makes health management fun. Built Turkish-first.
+        </p>
+        <div class="about-tags">
+          <span class="about-tag" data-lang="tr">🇹🇷 Türkçe Öncelikli</span>
+          <span class="about-tag" data-lang="en">🇹🇷 Turkish-First</span>
+          <span class="about-tag" data-lang="tr">🎮 Gamification</span>
+          <span class="about-tag" data-lang="en">🎮 Gamification</span>
+          <span class="about-tag" data-lang="tr">🤖 Şifi Asistan</span>
+          <span class="about-tag" data-lang="en">🤖 Şifi Assistant</span>
+          <span class="about-tag" data-lang="tr">📱 iOS</span>
+          <span class="about-tag" data-lang="en">📱 iOS</span>
+          <span class="about-tag" data-lang="tr">🔒 Gizlilik Öncelikli</span>
+          <span class="about-tag" data-lang="en">🔒 Privacy First</span>
+        </div>
+      </div>
+      <div class="about-visual">
+        <img src="./icon.png" alt="Sifi Care">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── App Info ── -->
+<section class="section" id="app-info">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">UYGULAMA BİLGİLERİ</div>
+      <div class="section-label" data-lang="en">APP INFO</div>
+      <h2 class="section-title" data-lang="tr">Hızlı bakış</h2>
+      <h2 class="section-title" data-lang="en">Quick facts</h2>
+    </div>
     <div class="facts-grid">
       <div class="fact-card">
-        <div class="fact-icon">📅</div>
-        <div>
-          <div class="fact-label" data-tr="Lansman Tarihi" data-en="Launch Date">Lansman Tarihi</div>
-          <div class="fact-value" data-tr="2025, Türkiye" data-en="2025, Turkey">2025, Türkiye</div>
-        </div>
+        <div class="fact-label" data-lang="tr">Lansman</div>
+        <div class="fact-label" data-lang="en">Launch</div>
+        <div class="fact-value">2025</div>
       </div>
       <div class="fact-card">
-        <div class="fact-icon">📱</div>
-        <div>
-          <div class="fact-label" data-tr="Platformlar" data-en="Platforms">Platformlar</div>
-          <div class="fact-value">iOS & Android</div>
-        </div>
+        <div class="fact-label" data-lang="tr">Platform</div>
+        <div class="fact-label" data-lang="en">Platform</div>
+        <div class="fact-value" data-lang="tr">iOS (Android yakında)</div>
+        <div class="fact-value" data-lang="en">iOS (Android coming)</div>
       </div>
       <div class="fact-card">
-        <div class="fact-icon">🏷️</div>
-        <div>
-          <div class="fact-label" data-tr="Kategori" data-en="Category">Kategori</div>
-          <div class="fact-value" data-tr="Sağlık & Fitness" data-en="Health & Fitness">Sağlık & Fitness</div>
-        </div>
+        <div class="fact-label" data-lang="tr">Kategori</div>
+        <div class="fact-label" data-lang="en">Category</div>
+        <div class="fact-value" data-lang="tr">Sağlık &amp; Fitness</div>
+        <div class="fact-value" data-lang="en">Health &amp; Fitness</div>
       </div>
       <div class="fact-card">
-        <div class="fact-icon">💰</div>
-        <div>
-          <div class="fact-label" data-tr="Fiyat" data-en="Price">Fiyat</div>
-          <div class="fact-value" data-tr="Ücretsiz (Premium mevcut)" data-en="Free (Premium available)">Ücretsiz (Premium mevcut)</div>
-        </div>
+        <div class="fact-label" data-lang="tr">Fiyat</div>
+        <div class="fact-label" data-lang="en">Price</div>
+        <div class="fact-value" data-lang="tr">Ücretsiz (Pro mevcut)</div>
+        <div class="fact-value" data-lang="en">Free (Pro available)</div>
       </div>
       <div class="fact-card">
-        <div class="fact-icon">👨‍💻</div>
-        <div>
-          <div class="fact-label" data-tr="Geliştirici" data-en="Developer">Geliştirici</div>
-          <div class="fact-value">Şifa Asistanım</div>
-        </div>
+        <div class="fact-label" data-lang="tr">Geliştirici</div>
+        <div class="fact-label" data-lang="en">Developer</div>
+        <div class="fact-value">Sifi Care</div>
       </div>
       <div class="fact-card">
-        <div class="fact-icon">🌍</div>
-        <div>
-          <div class="fact-label" data-tr="Dil" data-en="Language">Dil</div>
-          <div class="fact-value" data-tr="Türkçe & İngilizce" data-en="Turkish & English">Türkçe & İngilizce</div>
+        <div class="fact-label" data-lang="tr">Dil</div>
+        <div class="fact-label" data-lang="en">Language</div>
+        <div class="fact-value" data-lang="tr">Türkçe</div>
+        <div class="fact-value" data-lang="en">Turkish</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Şifi Mascot ── -->
+<section class="section" id="sifi">
+  <div class="container">
+    <div class="sifi-card">
+      <div class="sifi-visual"><img src="./icon.png" alt="Şifi"></div>
+      <div class="sifi-info">
+        <div class="section-label" data-lang="tr">MASKOT</div>
+        <div class="section-label" data-lang="en">MASCOT</div>
+        <h2 data-lang="tr">Şifi ile tanışın</h2>
+        <h2 data-lang="en">Meet Şifi</h2>
+        <p data-lang="tr">
+          Şifi, Sifi Care'in iki renkli kapsül şeklindeki robot maskotu. Uygulama içinde kullanıcıları adım adım yönlendirir, 10 adımlık sihirbazıyla kayıt eklemeyi kolaylaştırır ve mini oyunlarda eşlik eder. Görünümü özelleştirilebilir.
+        </p>
+        <p data-lang="en">
+          Şifi is Sifi Care's two-toned capsule-shaped robot mascot. It guides users step by step through the app, simplifies adding entries with its 10-step wizard, and accompanies them in mini games. Its appearance is customizable.
+        </p>
+        <div class="sifi-traits">
+          <span class="sifi-trait" data-lang="tr">İki Renkli Kapsül</span>
+          <span class="sifi-trait" data-lang="en">Two-Toned Capsule</span>
+          <span class="sifi-trait" data-lang="tr">10 Adım Sihirbaz</span>
+          <span class="sifi-trait" data-lang="en">10-Step Wizard</span>
+          <span class="sifi-trait" data-lang="tr">Özelleştirilebilir</span>
+          <span class="sifi-trait" data-lang="en">Customizable</span>
+          <span class="sifi-trait" data-lang="tr">Oyun Arkadaşı</span>
+          <span class="sifi-trait" data-lang="en">Game Companion</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- MASCOT -->
-  <section id="mascot">
-    <div class="section-tag" data-tr="Maskot" data-en="Mascot">Maskot</div>
-    <h2 class="section-title" data-tr="Şifi ile Tanışın" data-en="Meet Şifi">Şifi ile Tanışın</h2>
-    <div class="section-desc" data-tr="Uygulamanın kalbi ve ruhu: sevimli sağlık asistanı Şifi." data-en="The heart and soul of the app: the cute health assistant Şifi.">Uygulamanın kalbi ve ruhu: sevimli sağlık asistanı Şifi.</div>
-    <div class="mascot-card">
-      <div class="mascot-emoji">💊</div>
-      <div>
-        <h3 data-tr="Şifi — Sevimli Sağlık Asistanı" data-en="Şifi — Cute Health Assistant">Şifi — Sevimli Sağlık Asistanı</h3>
-        <p data-tr="Şifi, kullanıcılara ilaç takibinde eşlik eden sevimli ve motive edici bir maskot karakterdir. Farklı ruh halleri ve animasyonlarıyla kullanıcıyla duygusal bir bağ kurar. İlaç alındığında mutlu olur, ilaç kaçırıldığında üzülür, seri devam ettikçe heyecanlanır. Şifi sayesinde ilaç takibi bir yük olmaktan çıkıp keyifli bir deneyime dönüşür. Oyunlaştırma sisteminin merkezi figürüdür ve kullanıcıları düzenli ilaç almaya teşvik eder." data-en="Şifi is a cute and motivating mascot character that accompanies users in medication tracking. With different moods and animations, it creates an emotional bond with the user. Şifi gets happy when meds are taken, sad when missed, and excited as streaks continue. Thanks to Şifi, medication tracking transforms from a burden to an enjoyable experience. It is the central figure of the gamification system and encourages users to take their medications regularly.">Şifi, kullanıcılara ilaç takibinde eşlik eden sevimli ve motive edici bir maskot karakterdir. Farklı ruh halleri ve animasyonlarıyla kullanıcıyla duygusal bir bağ kurar. İlaç alındığında mutlu olur, ilaç kaçırıldığında üzülür, seri devam ettikçe heyecanlanır. Şifi sayesinde ilaç takibi bir yük olmaktan çıkıp keyifli bir deneyime dönüşür. Oyunlaştırma sisteminin merkezi figürüdür ve kullanıcıları düzenli ilaç almaya teşvik eder.</p>
+<!-- ── Key Features ── -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">ÖNE ÇIKAN ÖZELLİKLER</div>
+      <div class="section-label" data-lang="en">KEY FEATURES</div>
+      <h2 class="section-title" data-lang="tr">Sifi Care'i farklı kılan ne?</h2>
+      <h2 class="section-title" data-lang="en">What makes Sifi Care different?</h2>
+    </div>
+    <div class="features-grid">
+      <div class="press-card">
+        <div class="feat-icon">📋</div>
+        <h3 data-lang="tr">4 Kategori</h3>
+        <h3 data-lang="en">4 Categories</h3>
+        <p data-lang="tr">İlaç, Bakım Rutini, Suplement ve Sağlık Rutini — tek uygulamada kapsamlı takip.</p>
+        <p data-lang="en">Medication, Skincare, Supplements, and Health Routines — comprehensive tracking in one app.</p>
+      </div>
+      <div class="press-card">
+        <div class="feat-icon">🤖</div>
+        <h3 data-lang="tr">Şifi Sihirbazı</h3>
+        <h3 data-lang="en">Şifi Wizard</h3>
+        <p data-lang="tr">10 adımlık akıllı asistan ile kayıt ekleme çocuk oyuncağı. Kategori, isim, doz, sıklık ve dahası.</p>
+        <p data-lang="en">Adding entries is a breeze with the 10-step smart wizard. Category, name, dose, frequency and more.</p>
+      </div>
+      <div class="press-card">
+        <div class="feat-icon">👨‍👩‍👧</div>
+        <h3 data-lang="tr">Aile Paylaşımı (Pro)</h3>
+        <h3 data-lang="en">Family Sharing (Pro)</h3>
+        <p data-lang="tr">Sevdiklerinizin ilaçlarını uzaktan takip edin. 5 kişiye kadar izleme, anlık bildirimler.</p>
+        <p data-lang="en">Monitor loved ones' medications remotely. Track up to 5 people, instant notifications.</p>
+      </div>
+      <div class="press-card">
+        <div class="feat-icon">🧠</div>
+        <h3 data-lang="tr">Beyin Sağlığı Oyunları</h3>
+        <h3 data-lang="en">Brain Health Games</h3>
+        <p data-lang="tr">4 mini oyun: Hafıza Oyunu, İlaç Eşleştir, İlaç Yakala, Flappy Şifi. XP kazan, seviye atla.</p>
+        <p data-lang="en">4 mini games: Memory Game, Medicine Match, Catch Medicine, Flappy Şifi. Earn XP, level up.</p>
+      </div>
+      <div class="press-card">
+        <div class="feat-icon">🏆</div>
+        <h3 data-lang="tr">XP &amp; Seviye Sistemi</h3>
+        <h3 data-lang="en">XP &amp; Level System</h3>
+        <p data-lang="tr">Her kullanımda XP kazanın, seviye atlayın, seri rekorları kırın. Sağlık yönetimi eğlenceli!</p>
+        <p data-lang="en">Earn XP with every use, level up, break streak records. Health management is fun!</p>
+      </div>
+      <div class="press-card">
+        <div class="feat-icon">📦</div>
+        <h3 data-lang="tr">Akıllı Stok Takibi</h3>
+        <h3 data-lang="en">Smart Stock Tracking</h3>
+        <p data-lang="tr">İlaç ve ürün stokunuzu otomatik takip edin. Azaldığında uyarı alın, asla eksik kalmayın.</p>
+        <p data-lang="en">Automatically track your stock. Get alerts when running low, never run out.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- STATS -->
-  <section id="stats">
-    <div class="section-tag" data-tr="İstatistikler" data-en="Key Stats">İstatistikler</div>
-    <h2 class="section-title" data-tr="Rakamlarla Şifa Asistanım" data-en="Şifa Assistant in Numbers">Rakamlarla Şifa Asistanım</h2>
-    <div class="section-desc" data-tr="Güncel istatistiklerimiz." data-en="Our current statistics.">Güncel istatistiklerimiz.</div>
+<!-- ── Stats ── -->
+<section class="section" id="stats">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">RAKAMLAR</div>
+      <div class="section-label" data-lang="en">NUMBERS</div>
+      <h2 class="section-title" data-lang="tr">Sifi Care rakamlarla</h2>
+      <h2 class="section-title" data-lang="en">Sifi Care in numbers</h2>
+    </div>
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-number">10K+</div>
-        <div class="stat-label" data-tr="İndirme" data-en="Downloads">İndirme</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">5K+</div>
-        <div class="stat-label" data-tr="Aktif Kullanıcı" data-en="Active Users">Aktif Kullanıcı</div>
+        <div class="stat-label" data-lang="tr">İndirme</div>
+        <div class="stat-label" data-lang="en">Downloads</div>
       </div>
       <div class="stat-card">
         <div class="stat-number">4.8</div>
-        <div class="stat-label" data-tr="Mağaza Puanı" data-en="Store Rating">Mağaza Puanı</div>
+        <div class="stat-label" data-lang="tr">App Store Puanı</div>
+        <div class="stat-label" data-lang="en">App Store Rating</div>
       </div>
       <div class="stat-card">
         <div class="stat-number">50K+</div>
-        <div class="stat-label" data-tr="Takip Edilen İlaç" data-en="Tracked Medications">Takip Edilen İlaç</div>
+        <div class="stat-label" data-lang="tr">Takip Edilen Öğe</div>
+        <div class="stat-label" data-lang="en">Tracked Items</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4</div>
+        <div class="stat-label" data-lang="tr">Kategori</div>
+        <div class="stat-label" data-lang="en">Categories</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SCREENSHOTS -->
-  <section id="screenshots">
-    <div class="section-tag" data-tr="Ekran Görüntüleri" data-en="Screenshots">Ekran Görüntüleri</div>
-    <h2 class="section-title" data-tr="Uygulama Ekranları" data-en="App Screenshots">Uygulama Ekranları</h2>
-    <div class="section-desc" data-tr="Yüksek çözünürlüklü ekran görüntüleri. Basın ve tanıtım amaçlı kullanılabilir." data-en="High-resolution screenshots. Available for press and promotional use.">Yüksek çözünürlüklü ekran görüntüleri. Basın ve tanıtım amaçlı kullanılabilir.</div>
-    <div class="screenshots-grid">
-      <div class="screenshot-phone"><img src="1.jpg" alt="Screenshot 1" loading="lazy"></div>
-      <div class="screenshot-phone"><img src="2.jpg" alt="Screenshot 2" loading="lazy"></div>
-      <div class="screenshot-phone"><img src="3.jpg" alt="Screenshot 3" loading="lazy"></div>
-      <div class="screenshot-phone"><img src="4.jpg" alt="Screenshot 4" loading="lazy"></div>
-      <div class="screenshot-phone"><img src="5.jpg" alt="Screenshot 5" loading="lazy"></div>
-      <div class="screenshot-phone"><img src="6.jpg" alt="Screenshot 6" loading="lazy"></div>
-      <div class="screenshot-phone"><img src="7.jpg" alt="Screenshot 7" loading="lazy"></div>
-      <div class="screenshot-phone"><img src="8.jpg" alt="Screenshot 8" loading="lazy"></div>
+<!-- ── Brand Assets ── -->
+<section class="section" id="brand">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">MARKA VARLIKLARI</div>
+      <div class="section-label" data-lang="en">BRAND ASSETS</div>
+      <h2 class="section-title" data-lang="tr">Logo, renkler ve yazı tipi</h2>
+      <h2 class="section-title" data-lang="en">Logo, colors and typography</h2>
     </div>
-    <div class="download-assets">
-      <a href="1.jpg" download data-tr="📥 Ekran Görüntülerini İndir" data-en="📥 Download Screenshots">📥 Ekran Görüntülerini İndir</a>
-    </div>
-  </section>
-
-  <!-- BRAND ASSETS -->
-  <section id="brand">
-    <div class="section-tag" data-tr="Logo & Marka Varlıkları" data-en="Logo & Brand Assets">Logo & Marka Varlıkları</div>
-    <h2 class="section-title" data-tr="Marka Rehberi" data-en="Brand Guide">Marka Rehberi</h2>
-    <div class="section-desc" data-tr="Uygulama ikonu, renk paleti ve yazı tipleri." data-en="App icon, color palette, and typography.">Uygulama ikonu, renk paleti ve yazı tipleri.</div>
-
-    <div class="brand-row">
-      <!-- App Icon -->
-      <div class="brand-block">
-        <h4 data-tr="Uygulama İkonu" data-en="App Icon">Uygulama İkonu</h4>
-        <div class="app-icon-display">💊</div>
-        <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;" data-tr="Köşe yuvarlaklığı: 28px • Gradyan arka plan" data-en="Corner radius: 28px • Gradient background">Köşe yuvarlaklığı: 28px • Gradyan arka plan</p>
+    <div class="brand-grid">
+      <div class="brand-card">
+        <h3 data-lang="tr">Uygulama İkonu</h3>
+        <h3 data-lang="en">App Icon</h3>
+        <div class="app-icon-preview">
+          <img src="./icon.png" alt="Sifi Care App Icon">
+          <div>
+            <p data-lang="tr">Şifi maskotunu içeren resmi uygulama ikonu. Köşe yarıçapı: 22%. Minimum boyut: 64x64px.</p>
+            <p data-lang="en">Official app icon featuring the Şifi mascot. Corner radius: 22%. Minimum size: 64x64px.</p>
+          </div>
+        </div>
       </div>
-
-      <!-- Color Palette -->
-      <div class="brand-block">
-        <h4 data-tr="Renk Paleti" data-en="Color Palette">Renk Paleti</h4>
-        <div class="color-palette">
-          <div class="color-swatch">
-            <div class="color-swatch-circle" style="background: #2563EB;"></div>
-            <span>#2563EB</span>
+      <div class="brand-card">
+        <h3 data-lang="tr">Yazı Tipi</h3>
+        <h3 data-lang="en">Typography</h3>
+        <div class="font-preview">
+          <div class="font-name">Plus Jakarta Sans</div>
+          <div class="font-meta">Google Fonts — Open Source</div>
+          <div class="font-weights">
+            <span class="font-weight-sample" style="font-weight:400;">Regular 400</span>
+            <span class="font-weight-sample" style="font-weight:600;">Semi 600</span>
+            <span class="font-weight-sample" style="font-weight:700;">Bold 700</span>
+            <span class="font-weight-sample" style="font-weight:800;">Extra 800</span>
+            <span class="font-weight-sample" style="font-weight:900;">Black 900</span>
           </div>
-          <div class="color-swatch">
-            <div class="color-swatch-circle" style="background: #1D4ED8;"></div>
-            <span>#1D4ED8</span>
+        </div>
+      </div>
+      <div class="brand-card" style="grid-column: 1 / -1;">
+        <h3 data-lang="tr">Renk Paleti</h3>
+        <h3 data-lang="en">Color Palette</h3>
+        <div class="color-swatches">
+          <div class="swatch">
+            <div class="swatch-circle" style="background: #2563EB;"></div>
+            <span class="swatch-label">Blue</span>
+            <span class="swatch-hex">#2563EB</span>
           </div>
-          <div class="color-swatch">
-            <div class="color-swatch-circle" style="background: #0F172A;"></div>
-            <span>#0F172A</span>
+          <div class="swatch">
+            <div class="swatch-circle" style="background: #EC4899;"></div>
+            <span class="swatch-label">Pink</span>
+            <span class="swatch-hex">#EC4899</span>
           </div>
-          <div class="color-swatch">
-            <div class="color-swatch-circle" style="background: #EFF6FF;"></div>
-            <span>#EFF6FF</span>
+          <div class="swatch">
+            <div class="swatch-circle" style="background: #059669;"></div>
+            <span class="swatch-label">Green</span>
+            <span class="swatch-hex">#059669</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background: #06B6D4;"></div>
+            <span class="swatch-label">Cyan</span>
+            <span class="swatch-hex">#06B6D4</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background: #0F172A;"></div>
+            <span class="swatch-label">Dark</span>
+            <span class="swatch-hex">#0F172A</span>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="brand-row">
-      <!-- Typography -->
-      <div class="brand-block">
-        <h4 data-tr="Yazı Tipleri" data-en="Typography">Yazı Tipleri</h4>
-        <div class="font-item">
-          <div class="font-name">Nunito — Display / Headings</div>
-          <div class="font-sample-nunito">Şifa Asistanım</div>
-        </div>
-        <div class="font-item">
-          <div class="font-name">Figtree — Body / UI</div>
-          <div class="font-sample-figtree">The quick brown fox jumps over the lazy dog</div>
-        </div>
-      </div>
+<!-- ── Contact ── -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">İLETİŞİM</div>
+      <div class="section-label" data-lang="en">CONTACT</div>
+      <h2 class="section-title" data-lang="tr">Basın iletişim</h2>
+      <h2 class="section-title" data-lang="en">Press contact</h2>
     </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-tag" data-tr="İletişim" data-en="Contact">İletişim</div>
-    <h2 class="section-title" data-tr="Bizimle İletişime Geçin" data-en="Get in Touch">Bizimle İletişime Geçin</h2>
-    <div class="section-desc" data-tr="Basın soruları, röportaj talepleri ve iş birlikleri için:" data-en="For press inquiries, interview requests, and collaborations:">Basın soruları, röportaj talepleri ve iş birlikleri için:</div>
     <div class="contact-grid">
-      <a href="mailto:press@sifaasistanim.com" class="contact-card">
-        <div class="contact-icon">✉️</div>
-        <div>
-          <div class="contact-label">Email</div>
-          <div class="contact-value">press@sifaasistanim.com</div>
-        </div>
-      </a>
-      <a href="https://sifaasistanim.com" class="contact-card" target="_blank">
-        <div class="contact-icon">🌐</div>
-        <div>
-          <div class="contact-label" data-tr="Web Sitesi" data-en="Website">Web Sitesi</div>
-          <div class="contact-value">sifaasistanim.com</div>
-        </div>
-      </a>
-      <a href="https://instagram.com/sifaasistanim" class="contact-card" target="_blank">
-        <div class="contact-icon">📸</div>
-        <div>
-          <div class="contact-label">Instagram</div>
-          <div class="contact-value">@sifaasistanim</div>
-        </div>
-      </a>
-      <a href="https://twitter.com/sifaasistanim" class="contact-card" target="_blank">
-        <div class="contact-icon">🐦</div>
-        <div>
-          <div class="contact-label">X (Twitter)</div>
-          <div class="contact-value">@sifaasistanim</div>
-        </div>
-      </a>
+      <div class="contact-card">
+        <span class="contact-icon">📧</span>
+        <h3>E-posta</h3>
+        <a href="mailto:zaydeayvaz@icloud.com">zaydeayvaz@icloud.com</a>
+      </div>
+      <div class="contact-card">
+        <span class="contact-icon">🌐</span>
+        <h3 data-lang="tr">Web Sitesi</h3>
+        <h3 data-lang="en">Website</h3>
+        <a href="https://sifaasistanim.com" target="_blank">sifaasistanim.com</a>
+      </div>
+      <div class="contact-card">
+        <span class="contact-icon">📱</span>
+        <h3>App Store</h3>
+        <a href="https://apps.apple.com/us/app/%C5%9Fifa-asistan%C4%B1m/id6759059248" target="_blank" data-lang="tr">App Store'da Görüntüle</a>
+        <a href="https://apps.apple.com/us/app/%C5%9Fifa-asistan%C4%B1m/id6759059248" target="_blank" data-lang="en">View on App Store</a>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PRESS RELEASE -->
-  <section id="press-release">
-    <div class="section-tag" data-tr="Basın Bülteni" data-en="Press Release">Basın Bülteni</div>
-    <h2 class="section-title" data-tr="Basın Bülteni" data-en="Press Release">Basın Bülteni</h2>
-    <div class="press-release-card">
-      <h3 data-tr="Türkiye'nin İlk Oyunlaştırılmış İlaç Takip Uygulaması Yayında" data-en="Turkey's First Gamified Medication Tracking App is Live">Türkiye'nin İlk Oyunlaştırılmış İlaç Takip Uygulaması Yayında</h3>
-      <div class="press-release-date" data-tr="2025 — Türkiye" data-en="2025 — Turkey">2025 — Türkiye</div>
-      <p data-tr="Şifa Asistanım, ilaç takibini tamamen farklı bir deneyime dönüştüren yenilikçi bir mobil uygulama olarak Türkiye'de kullanıma sunuldu. Tamamen Türkçe arayüzü, sevimli maskotu Şifi ve oyunlaştırma mekanikleriyle ilaç takibini bir alışkanlığa dönüştürmeyi hedefliyor." data-en="Şifa Assistant has launched in Turkey as an innovative mobile app that transforms medication tracking into a completely different experience. With its fully Turkish interface, cute mascot Şifi, and gamification mechanics, it aims to turn medication tracking into a habit.">Şifa Asistanım, ilaç takibini tamamen farklı bir deneyime dönüştüren yenilikçi bir mobil uygulama olarak Türkiye'de kullanıma sunuldu. Tamamen Türkçe arayüzü, sevimli maskotu Şifi ve oyunlaştırma mekanikleriyle ilaç takibini bir alışkanlığa dönüştürmeyi hedefliyor.</p>
-      <p data-tr="Uygulama; XP puanları, günlük seriler, seviye atlama ve başarım rozetleri gibi oyunlaştırma öğeleriyle kullanıcıları motive ediyor. Aile paylaşımı özelliği sayesinde yaşlı ebeveynlerin veya çocukların ilaç takibi güvenle yapılabiliyor. Tüm veriler cihazda saklanarak kullanıcı gizliliği ön planda tutuluyor." data-en="The app motivates users with gamification elements such as XP points, daily streaks, leveling up, and achievement badges. The family sharing feature allows safe medication tracking for elderly parents or children. All data is stored on the device, prioritizing user privacy.">Uygulama; XP puanları, günlük seriler, seviye atlama ve başarım rozetleri gibi oyunlaştırma öğeleriyle kullanıcıları motive ediyor. Aile paylaşımı özelliği sayesinde yaşlı ebeveynlerin veya çocukların ilaç takibi güvenle yapılabiliyor. Tüm veriler cihazda saklanarak kullanıcı gizliliği ön planda tutuluyor.</p>
-      <p data-tr="Şifa Asistanım, iOS ve Android platformlarında ücretsiz olarak indirilebilir. Premium abonelik ile gelişmiş özellikler sunulmaktadır. Uygulama, Türkiye'deki sağlık teknolojisi ekosisteminde önemli bir boşluğu doldurmayı amaçlamaktadır." data-en="Şifa Assistant is available for free download on iOS and Android platforms. Advanced features are offered through a premium subscription. The app aims to fill an important gap in Turkey's health technology ecosystem.">Şifa Asistanım, iOS ve Android platformlarında ücretsiz olarak indirilebilir. Premium abonelik ile gelişmiş özellikler sunulmaktadır. Uygulama, Türkiye'deki sağlık teknolojisi ekosisteminde önemli bir boşluğu doldurmayı amaçlamaktadır.</p>
+<!-- ── Press Release ── -->
+<section class="section" id="press-release">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label" data-lang="tr">BASIN BÜLTENİ</div>
+      <div class="section-label" data-lang="en">PRESS RELEASE</div>
+      <h2 class="section-title" data-lang="tr">Son basın bülteni</h2>
+      <h2 class="section-title" data-lang="en">Latest press release</h2>
     </div>
-  </section>
+    <div class="press-release">
+      <h3 data-lang="tr">Sifi Care: İlaç Takibinden Kapsamlı Wellness Platformuna</h3>
+      <h3 data-lang="en">Sifi Care: From Medication Tracking to Comprehensive Wellness Platform</h3>
+      <div class="press-date" data-lang="tr">Nisan 2026 — Basın Bülteni</div>
+      <div class="press-date" data-lang="en">April 2026 — Press Release</div>
 
+      <p data-lang="tr">
+        Sifi Care, 2025 yılında "Şifa Asistanım" adıyla bir ilaç takip uygulaması olarak hayata başladı. Bugün ise 4 farklı kategoriyle (İlaç, Bakım Rutini, Suplement ve Sağlık Rutini) kullanıcılarının tüm sağlık ve wellness ihtiyaçlarını karşılayan kapsamlı bir platforma dönüştü.
+      </p>
+      <p data-lang="en">
+        Sifi Care started its journey in 2025 as a medication tracking app called "Şifa Asistanım" (My Health Assistant). Today, it has evolved into a comprehensive platform serving all health and wellness needs with 4 categories: Medication, Skincare Routine, Supplements, and Health Routines.
+      </p>
+
+      <p data-lang="tr">
+        Yeni marka kimliği "Sifi Care" ile uygulama, iki renkli kapsül robot maskotu Şifi'nin rehberliğinde kullanıcılarına eğlenceli ve kolay bir deneyim sunuyor. 10 adımlık akıllı sihirbaz, gamification sistemi (XP, seviyeler, seriler), 4 beyin sağlığı mini oyunu ve akıllı stok takibi gibi özellikler uygulamayı rakiplerinden ayırıyor.
+      </p>
+      <p data-lang="en">
+        With its new brand identity "Sifi Care," the app offers users a fun and easy experience guided by Şifi, the two-toned capsule robot mascot. Features like the 10-step smart wizard, gamification system (XP, levels, streaks), 4 brain health mini games, and smart stock tracking set the app apart from competitors.
+      </p>
+
+      <p data-lang="tr">
+        Türkçe öncelikli olarak geliştirilen Sifi Care, gizlilik odaklı yaklaşımıyla da öne çıkıyor: tüm veriler varsayılan olarak cihazda saklanır, bulut senkronizasyonu tamamen isteğe bağlıdır. Premium abonelik ile aile paylaşımı, 5 kişiye kadar uzaktan izleme ve bulut yedekleme özellikleri açılır.
+      </p>
+      <p data-lang="en">
+        Built Turkish-first, Sifi Care also stands out with its privacy-focused approach: all data is stored on-device by default, with cloud sync being entirely optional. Premium subscription unlocks family sharing, remote monitoring for up to 5 people, and cloud backup.
+      </p>
+
+      <p data-lang="tr">
+        Şu anda iOS'ta App Store'da yayında olan uygulama, Android sürümü ve çoklu dil desteği ile büyümeye devam etmeyi hedefliyor.
+      </p>
+      <p data-lang="en">
+        Currently live on the iOS App Store, the app aims to continue growing with an Android version and multi-language support on the horizon.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Floating Şifi ── -->
+<div class="floating-sifi" id="floatingSifi" title="Şifi'ye dokun!" style="bottom:24px;right:24px;">
+  <img src="./icon.png" alt="Şifi">
+  <div class="sifi-bubble" id="sifiBubble"></div>
 </div>
 
-<!-- FOOTER -->
+<!-- ── Footer ── -->
 <footer>
-  <p data-tr="© 2025 Şifa Asistanım. Tüm hakları saklıdır. • <a href='index.html'>Ana Sayfa</a> • <a href='privacy.html'>Gizlilik</a> • <a href='terms.html'>Koşullar</a>" data-en="© 2025 Şifa Assistant. All rights reserved. • <a href='index.html'>Home</a> • <a href='privacy.html'>Privacy</a> • <a href='terms.html'>Terms</a>">© 2025 Şifa Asistanım. Tüm hakları saklıdır. • <a href="index.html">Ana Sayfa</a> • <a href="privacy.html">Gizlilik</a> • <a href="terms.html">Koşullar</a></p>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="./icon.png" alt="Sifi Care" width="28" height="28">
+      <span>Sifi Care</span>
+    </div>
+    <div class="footer-links">
+      <a href="./privacy.html" data-lang="tr">Gizlilik Politikası</a>
+      <a href="./privacy.html" data-lang="en">Privacy Policy</a>
+      <a href="./terms.html" data-lang="tr">Kullanım Koşulları</a>
+      <a href="./terms.html" data-lang="en">Terms of Use</a>
+      <a href="mailto:sificare@gmail.com" data-lang="tr">İletişim</a>
+      <a href="mailto:sificare@gmail.com" data-lang="en">Contact</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2025 Sifi Care. <span data-lang="tr">Tüm hakları saklıdır.</span><span data-lang="en">All rights reserved.</span>
+    </div>
+  </div>
 </footer>
 
 <script>
-  // LANGUAGE SWITCHER
-  let currentLang = localStorage.getItem('sifa-lang') || 'tr';
+  // Language toggle
+  function toggleLang() {
+    const html = document.documentElement;
+    html.lang = html.lang === 'tr' ? 'en' : 'tr';
+  }
 
-  function setLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('sifa-lang', lang);
-    document.documentElement.lang = lang;
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('show');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('show');
+  }
 
-    document.querySelectorAll('[data-' + lang + ']').forEach(el => {
-      const text = el.getAttribute('data-' + lang);
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.placeholder = text;
-      } else {
-        el.innerHTML = text;
+  // Close mobile menu on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 640) closeMenu();
+  });
+
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
       }
     });
+  }, { threshold: 0.1 });
 
-    document.title = lang === 'tr'
-      ? 'Şifa Asistanım — Basın Kiti'
-      : 'Şifa Assistant — Press Kit';
-
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.press-card, .fact-card, .stat-card, .brand-card, .contact-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
     });
-  }
+  });
 
-  if (currentLang !== 'tr') {
-    setLang(currentLang);
-  }
+  // ── Floating Şifi: kıkırdama + rastgele zıplama ──
+  (function() {
+    const sifi = document.getElementById('floatingSifi');
+    const bubble = document.getElementById('sifiBubble');
+    if (!sifi) return;
+    const giggles = ['Kıkır kıkır! 😄', 'Hihihi! 🤭', 'Buradayım! 💊', 'Beni buldun! ✨', 'Şifi seninle! 💪', 'Basın kiti mi? 📰', 'Sağlıklı kal! 🩺', 'Hop hop! 🐰'];
+    function randomPos() {
+      const pad = 80;
+      return { x: pad + Math.random() * (window.innerWidth - pad * 2 - 64), y: pad + Math.random() * (window.innerHeight - pad * 2 - 64) };
+    }
+    function jumpToRandom() {
+      const pos = randomPos();
+      sifi.style.left = pos.x + 'px'; sifi.style.top = pos.y + 'px';
+      sifi.style.right = 'auto'; sifi.style.bottom = 'auto';
+    }
+    function showBubble(text) {
+      bubble.textContent = text; bubble.classList.add('show');
+      setTimeout(() => bubble.classList.remove('show'), 2000);
+    }
+    sifi.style.bottom = '24px'; sifi.style.right = '24px';
+    sifi.addEventListener('click', function(e) {
+      e.preventDefault();
+      sifi.classList.remove('giggle'); void sifi.offsetWidth;
+      sifi.classList.add('giggle');
+      showBubble(giggles[Math.floor(Math.random() * giggles.length)]);
+      setTimeout(() => { jumpToRandom(); sifi.classList.remove('giggle'); }, 500);
+    });
+    function scheduleJump() {
+      setTimeout(() => { jumpToRandom(); scheduleJump(); }, 8000 + Math.random() * 7000);
+    }
+    scheduleJump();
+    setTimeout(jumpToRandom, 5000);
+  })();
 </script>
-
-<script>document.addEventListener("click",function(e){document.querySelectorAll(".dd").forEach(function(d){if(!d.parentElement.contains(e.target))d.style.display="none";});});</script>
 </body>
 </html>
