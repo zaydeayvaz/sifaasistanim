@@ -286,11 +286,27 @@
   }
   .sifi-visual {
     flex-shrink: 0; width: 180px; height: 180px;
-    background: linear-gradient(135deg, #A7F3D0, #FBCFE8);
     border-radius: 40px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 72px;
+    overflow: hidden;
     box-shadow: 0 8px 40px rgba(167,243,208,0.2);
+  }
+  .sifi-visual img { width: 100%; height: 100%; object-fit: cover; border-radius: 40px; }
+
+  /* Floating Şifi mascot */
+  .floating-sifi {
+    position: fixed; z-index: 90; bottom: 24px; right: 24px;
+    width: 64px; height: 64px; border-radius: 20px;
+    overflow: hidden; cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    animation: sifi-bounce 3s ease-in-out infinite;
+    transition: transform 0.2s;
+  }
+  .floating-sifi:hover { transform: scale(1.1); }
+  .floating-sifi img { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes sifi-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
   }
   .sifi-info { position: relative; z-index: 1; }
   .sifi-info .section-label { color: #A7F3D0; }
@@ -555,7 +571,8 @@
     .hero-stat strong { font-size: 24px; }
     .section { padding: 64px 0; }
     .sifi-card { padding: 36px 24px; }
-    .sifi-visual { width: 120px; height: 120px; border-radius: 28px; font-size: 48px; }
+    .sifi-visual { width: 120px; height: 120px; border-radius: 28px; }
+    .sifi-visual img { border-radius: 28px; }
     .premium-card { padding: 36px 24px; }
     .premium-visual { width: 140px; height: 140px; font-size: 48px; border-radius: 28px; }
     .games-section { padding: 36px 20px; border-radius: 20px; }
@@ -724,7 +741,7 @@
 <section class="section sifi-section" id="sifi">
   <div class="container">
     <div class="sifi-card">
-      <div class="sifi-visual">🤖</div>
+      <div class="sifi-visual"><img src="./icon.png" alt="Şifi"></div>
       <div class="sifi-info">
         <div class="section-label" data-lang="tr">AKILLI ASİSTAN</div>
         <div class="section-label" data-lang="en">SMART ASSISTANT</div>
@@ -1043,6 +1060,11 @@
     <span data-lang="en">Download Free</span>
   </a>
 </section>
+
+<!-- ── Floating Şifi ── -->
+<a href="#sifi" class="floating-sifi" title="Şifi ile tanış!">
+  <img src="./icon.png" alt="Şifi">
+</a>
 
 <!-- ── Footer ── -->
 <footer>
