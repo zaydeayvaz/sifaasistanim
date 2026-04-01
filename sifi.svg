@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="120" height="160">
+  <!-- Shadow -->
+  <ellipse cx="60" cy="152" rx="28" ry="6" fill="rgba(0,0,0,0.08)"/>
+
+  <!-- Left arm -->
+  <g transform="rotate(-10, 28, 90)">
+    <rect x="14" y="82" width="14" height="6" rx="3" fill="#2563EB"/>
+  </g>
+
+  <!-- Right arm -->
+  <g transform="rotate(10, 92, 90)">
+    <rect x="92" y="82" width="14" height="6" rx="3" fill="#2563EB"/>
+  </g>
+
+  <!-- Capsule body -->
+  <!-- Top half (blue) -->
+  <path d="M28,68 L28,38 C28,20.3 42.3,6 60,6 C77.7,6 92,20.3 92,38 L92,68 Z" fill="#2563EB"/>
+
+  <!-- Bottom half (white) -->
+  <path d="M28,68 L28,98 C28,115.7 42.3,130 60,130 C77.7,130 92,115.7 92,98 L92,68 Z" fill="#F8FAFC"/>
+
+  <!-- Divider line -->
+  <line x1="28" y1="68" x2="92" y2="68" stroke="#1D4ED8" stroke-width="2"/>
+
+  <!-- Capsule outline -->
+  <rect x="28" y="6" width="64" height="124" rx="32" fill="none" stroke="#1D4ED8" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Left eye white -->
+  <ellipse cx="47" cy="52" rx="10" ry="11" fill="white"/>
+  <!-- Left pupil -->
+  <circle cx="47" cy="53" r="5.5" fill="#0F172A"/>
+  <!-- Left eye shine -->
+  <circle cx="44" cy="50" r="2" fill="white"/>
+
+  <!-- Right eye white -->
+  <ellipse cx="73" cy="52" rx="10" ry="11" fill="white"/>
+  <!-- Right pupil -->
+  <circle cx="73" cy="53" r="5.5" fill="#0F172A"/>
+  <!-- Right eye shine -->
+  <circle cx="70" cy="50" r="2" fill="white"/>
+
+  <!-- Smile -->
+  <path d="M50,78 Q60,90 70,78" fill="none" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Cheek blush left -->
+  <ellipse cx="38" cy="75" rx="6" ry="3.5" fill="#FBCFE8" opacity="0.6"/>
+  <!-- Cheek blush right -->
+  <ellipse cx="82" cy="75" rx="6" ry="3.5" fill="#FBCFE8" opacity="0.6"/>
+
+  <!-- Sparkle top-right -->
+  <g transform="translate(95,20)">
+    <line x1="0" y1="-6" x2="0" y2="6" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="-6" y1="0" x2="6" y2="0" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="-4" y1="-4" x2="4" y2="4" stroke="#60A5FA" stroke-width="1" stroke-linecap="round"/>
+    <line x1="4" y1="-4" x2="-4" y2="4" stroke="#60A5FA" stroke-width="1" stroke-linecap="round"/>
+  </g>
+
+  <!-- Sparkle top-left -->
+  <g transform="translate(18,15) scale(0.6)">
+    <line x1="0" y1="-6" x2="0" y2="6" stroke="#A7F3D0" stroke-width="2" stroke-linecap="round"/>
+    <line x1="-6" y1="0" x2="6" y2="0" stroke="#A7F3D0" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Left foot -->
+  <ellipse cx="47" cy="134" rx="8" ry="4" fill="#2563EB"/>
+  <!-- Right foot -->
+  <ellipse cx="73" cy="134" rx="8" ry="4" fill="#2563EB"/>
+</svg>

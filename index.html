@@ -296,14 +296,14 @@
   /* Floating Şifi mascot — zıplayan interaktif */
   .floating-sifi {
     position: fixed; z-index: 90;
-    width: 64px; height: 64px; border-radius: 20px;
+    width: 56px; height: 72px;
     overflow: visible; cursor: pointer;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.15));
     transition: left 1.2s cubic-bezier(.34,1.56,.64,1), top 1.2s cubic-bezier(.34,1.56,.64,1), transform 0.15s;
     user-select: none; -webkit-user-select: none;
   }
   .floating-sifi img {
-    width: 100%; height: 100%; object-fit: cover; border-radius: 20px;
+    width: 100%; height: 100%; object-fit: contain;
     animation: sifi-float 3s ease-in-out infinite;
   }
   .floating-sifi:hover { transform: scale(1.15) rotate(-5deg); }
@@ -765,7 +765,7 @@
 <section class="section sifi-section" id="sifi">
   <div class="container">
     <div class="sifi-card">
-      <div class="sifi-visual"><img src="./icon.png" alt="Şifi"></div>
+      <div class="sifi-visual"><img src="./sifi.svg" alt="Şifi"></div>
       <div class="sifi-info">
         <div class="section-label" data-lang="tr">AKILLI ASİSTAN</div>
         <div class="section-label" data-lang="en">SMART ASSISTANT</div>
@@ -1087,7 +1087,7 @@
 
 <!-- ── Floating Şifi ── -->
 <div class="floating-sifi" id="floatingSifi" title="Şifi'ye dokun!" style="bottom:24px;right:24px;">
-  <img src="./icon.png" alt="Şifi">
+  <img src="./sifi.svg" alt="Şifi">
   <div class="sifi-bubble" id="sifiBubble"></div>
 </div>
 
